@@ -7,6 +7,7 @@
 package com.apmanager.domain.base.test;
 
 import com.apmanager.domain.base.SearchFilter;
+import java.util.Map;
 
 /**
  *
@@ -25,8 +26,20 @@ public class BasicDAOFilter implements SearchFilter<Entity>{
     }
 
     @Override
-    public String getOrder() {
+    public String[] getOrder() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Map<String, Object> getParams() {
+        return null;
+    }
+
+    @Override
+    public Boolean getActive() {
+        return true;
+    }
+    
+    
     
 }

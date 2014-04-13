@@ -25,7 +25,14 @@ public interface BasicDAO<E extends BasicEntity, S extends SearchFilter<E>> {
     void delete(List<E> objs);
 
     List<E> search(S filter);
+    
+    <T extends BasicEntity> List<T> find(Class<T> clazz, SearchFilter<? extends T> filter  );
 
     List<E> getAll();
 
+    List<E> getAll(Class clazz);
+    
+    void beginTransaction();
+    void commitTransaction();
+    void rollbackTransaction();
 }

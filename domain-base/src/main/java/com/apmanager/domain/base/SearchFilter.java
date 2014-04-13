@@ -6,6 +6,8 @@
 
 package com.apmanager.domain.base;
 
+import java.util.Map;
+
 /**
  *
  * @author luis
@@ -14,5 +16,7 @@ package com.apmanager.domain.base;
 public interface SearchFilter <E extends BasicEntity> {
     Integer getFirstResult();
     Integer getMaxResults();
-    String getOrder();
+    String[] getOrder();
+    Map<String, Object> getParams();
+    Boolean getActive();
 }

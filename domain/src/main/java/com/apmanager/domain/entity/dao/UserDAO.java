@@ -3,7 +3,6 @@ package com.apmanager.domain.entity.dao;
 import com.apmanager.domain.base.BasicDAOImpl;
 import com.apmanager.domain.entity.User;
 import com.apmanager.domain.entity.dao.filter.UserFilter;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,11 +13,24 @@ public class UserDAO extends BasicDAOImpl<User, UserFilter>{
 
     @Override
     public List<User> search(UserFilter filter) {
-        return null;
+        
+        if(filter.getId() != null ){
+            filter.getParams().put("id", filter.getId());
+        }
+        
+        if(filter.getName() != null ){
+            filter.getParams().put("name", filter.getName());
+        }
+        
+        return super.find(User.class, filter);
     }
     
     @Override
     public List<User> getAll() {
-        return Collections.emptyList();
+        UserFilter filter = new UserFilter();
+        
+        filter.setOrder(new String[]{"name"});
+        
+        return search(filter);
     }
 }
