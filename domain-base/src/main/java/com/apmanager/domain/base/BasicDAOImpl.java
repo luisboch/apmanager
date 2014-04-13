@@ -3,7 +3,7 @@ package com.apmanager.domain.base;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-public class BasicDAOImpl<E extends BasicEntity> implements BasicDAO<E> {
+public abstract class BasicDAOImpl<E extends BasicEntity, S extends SearchFilter<E>> implements BasicDAO<E,S> {
 
     private EntityManager em;
 
@@ -72,10 +72,5 @@ public class BasicDAOImpl<E extends BasicEntity> implements BasicDAO<E> {
         } else {
             throw new RuntimeException("Entity manager not found");
         }
-    }
-
-    @Override
-    public <F extends SearchFilter<E>> List<E> search(F filter) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

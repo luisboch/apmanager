@@ -6,19 +6,26 @@ import javax.persistence.EntityManager;
 /**
  * @author luis
  * @param <E>
+ * @param <S>
  */
-public interface BasicDAO<E extends BasicEntity>{
-    
+public interface BasicDAO<E extends BasicEntity, S extends SearchFilter<E>> {
+
     void setEntityManager(EntityManager em);
-    
+
     void save(E obj);
+
     void update(E obj);
+
     void delete(E obj);
-    
+
     void save(List<E> objs);
+
     void update(List<E> objs);
+
     void delete(List<E> objs);
-    
-    <F extends SearchFilter<E>> List<E> search(F filter);
-    
+
+    List<E> search(S filter);
+
+    List<E> getAll();
+
 }

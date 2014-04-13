@@ -5,8 +5,8 @@ import javax.persistence.EntityManagerFactory;
 /**
  * @author luis
  */
-public interface EntityManagerProvider
-        extends Comparable<EntityManagerProvider> {
+public interface EntityManagerFactoryProvider
+        extends Comparable<EntityManagerFactoryProvider> {
 
     EntityManagerFactory getFactory();
 
@@ -15,7 +15,7 @@ public interface EntityManagerProvider
     int getPriority();
 
     @Override
-    public default int compareTo(EntityManagerProvider o) {
+    public default int compareTo(EntityManagerFactoryProvider o) {
         return Integer.valueOf(getPriority()).compareTo(o.getPriority());
     }
 
