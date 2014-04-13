@@ -64,7 +64,9 @@ public class BaseTest {
 
         Collections.sort(providers);
 
-        providers.stream().filter((entityManagerProvider) -> (entityManagerProvider.isActive())).forEach((entityManagerProvider) -> {
+        providers.stream().filter((entityManagerProvider) -> {
+            return entityManagerProvider.isActive();
+        }).forEach((entityManagerProvider) -> {
             managers.add(entityManagerProvider.getFactory().createEntityManager());
         });
 

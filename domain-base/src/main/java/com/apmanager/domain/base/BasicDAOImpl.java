@@ -3,7 +3,7 @@ package com.apmanager.domain.base;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-public abstract class BasicDAOImpl<E extends BasicEntity, S extends SearchFilter<E>> implements BasicDAO<E,S> {
+public abstract class BasicDAOImpl<E extends BasicEntity , S extends SearchFilter<E> > implements BasicDAO<E,S> {
 
     private EntityManager em;
 

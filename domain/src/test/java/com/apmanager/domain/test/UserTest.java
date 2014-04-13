@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.apmanager.domain.test;
 
 import com.apmanager.domain.base.test.BasicEntityTest;
@@ -17,10 +16,10 @@ import org.junit.Test;
  * @author luis
  */
 public class UserTest extends BasicEntityTest<User, UserDAO> {
-    
-    private static final Logger log = Logger.getLogger(UserTest.class.getName());
 
-    
+    private static final Logger log
+            = Logger.getLogger(UserTest.class.getName());
+
     public UserTest() {
         super(UserDAO.class);
     }
@@ -29,9 +28,9 @@ public class UserTest extends BasicEntityTest<User, UserDAO> {
     public User createNew() {
         return null;
     }
-    
+
     @Test
-    public void test(){
+    public void test() {
         log.info("Starting test");
     }
 }
