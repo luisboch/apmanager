@@ -2,15 +2,33 @@ package com.apmanager.domain.entity;
 
 import com.apmanager.domain.base.BasicEntity;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
  * @author luis
  */
+@Entity
+@Table(name = "users")
 public class User implements BasicEntity<Integer>{
     
+    @SequenceGenerator(name = "user-seq", sequenceName = "user_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "user-seq")
+    @Id
     private Integer id;
+    
+    @Column(nullable = false)
     private String name;
+    
+    @Column(nullable = false)
+    private String username;
+    
+    @Column(nullable = false)
     private String passwd;
 
     @Override
@@ -23,6 +41,14 @@ public class User implements BasicEntity<Integer>{
         this.id = id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
     public String getName() {
         return name;
     }

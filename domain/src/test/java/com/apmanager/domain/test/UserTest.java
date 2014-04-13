@@ -26,11 +26,21 @@ public class UserTest extends BasicEntityTest<User, UserDAO> {
 
     @Override
     public User createNew() {
-        return null;
+        instance = new User();
+        instance.setName("Test #");
+        instance.setPasswd("teste-1");
+        instance.setUsername("teste-1");
+        
+        dao.beginTransaction();
+        dao.save(instance);
+        dao.commitTransaction();
+        
+        return instance;
     }
 
     @Test
     public void test() {
-        log.info("Starting test");
+        log.info("Starting  UserTest");
+        createNew();
     }
 }

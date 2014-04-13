@@ -5,8 +5,8 @@ import com.apmanager.domain.base.BasicEntity;
 
 public abstract class BasicEntityTest<E extends BasicEntity, D extends BasicDAO> extends BaseTest {
 
-    private final D dao;
-    private E instance;
+    protected final D dao;
+    protected E instance;
 
     public BasicEntityTest(Class<D> daoClass) {
         dao = getDAO(daoClass);
@@ -25,15 +25,15 @@ public abstract class BasicEntityTest<E extends BasicEntity, D extends BasicDAO>
     }
 
     public final boolean find() {
-        
+
         java.util.List<E> dbObjects = dao.getAll();
-        
-        if(dbObjects.isEmpty()){
+
+        if (dbObjects.isEmpty()) {
             return false;
         }
-        
+
         instance = dbObjects.get(0);
-        
+
         return true;
     }
 
