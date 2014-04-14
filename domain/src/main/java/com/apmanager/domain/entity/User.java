@@ -17,8 +17,8 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User implements BasicEntity<Integer>{
     
-    @SequenceGenerator(name = "user-seq", sequenceName = "user_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "user-seq")
+    @SequenceGenerator(name = "users-seq", sequenceName = "users_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "users-seq")
     @Id
     private Integer id;
     

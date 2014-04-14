@@ -6,14 +6,14 @@
 
 package com.apmanager.service.base.test;
 
-import com.apmanager.domain.base.BasicDAO;
+import com.apmanager.domain.base.BasicManagerDAO;
 
 /**
  *
  * @author luis
  * @param <D>
  */
-public class BasicServiceTest <D extends BasicDAO>{
+public class BasicServiceTest <D extends BasicManagerDAO>{
     protected D dao;
     public BasicServiceTest() {
     }

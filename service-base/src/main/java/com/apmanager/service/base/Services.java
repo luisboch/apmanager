@@ -35,7 +35,7 @@ public class Services {
 
     private static final EntityManagerProvider provider = new EntityManagerProvider();
 
-    Map<Class, Method> actions = new HashMap<>();
+    private static Map<Class, Method> actions = new HashMap<>();
 
     static {
 
@@ -81,7 +81,7 @@ public class Services {
         return managers;
     }
 
-    <E extends BasicEntityServiceImpl> E getService(Class<E> clazz) {
+    public static <E extends BasicEntityServiceImpl> E getService(Class<E> clazz) {
 
         if (clazz == null) {
             return null;
@@ -100,7 +100,7 @@ public class Services {
 
     }
 
-    private void checkPostConstruction(Class clazz, BasicEntityServiceImpl instance) {
+    private static void checkPostConstruction(Class clazz, BasicEntityServiceImpl instance) {
 
         Method postConstruct = null;
 

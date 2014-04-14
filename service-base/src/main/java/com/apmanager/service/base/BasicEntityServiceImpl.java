@@ -5,37 +5,22 @@
  */
 package com.apmanager.service.base;
 
-import com.apmanager.domain.base.BasicDAO;
-import com.apmanager.domain.base.BasicDAOImpl;
+import com.apmanager.domain.base.BasicManagerDAO;
+import com.apmanager.domain.base.BasicManagerDAOImpl;
 import com.apmanager.domain.base.BasicEntity;
-import com.apmanager.domain.base.SearchFilter;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
  * @author luis
- * @param <E>
- * @param <S>
  */
-public class BasicEntityServiceImpl<E extends BasicEntity, S extends SearchFilter<E>>
-        extends BasicServiceImpl<E, S>
-        implements EntityService<E, S> {
+public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> implements BasicEntityService {
+
+    private BasicManagerDAO dao = new BasicManagerDAOImpl();
 
     private static final Logger log = Logger.getLogger(BasicEntityServiceImpl.class.getName());
-
-    public BasicEntityServiceImpl() {
-        super(BasicDAOImpl.class);
-    }
-
-    /**
-     * @param provider
-     */
-    void setProvider(EntityManagerProvider provider) {
-        this.provider = provider;
-    }
 
     @Override
     public String toString() {
@@ -43,12 +28,11 @@ public class BasicEntityServiceImpl<E extends BasicEntity, S extends SearchFilte
     }
 
     @Override
-    public void save(E entity) {
+    public <E extends BasicEntity> void save(E entity) {
 
-        checkInitialization();
         validate(entity, ActionType.SAVE);
 
-        BasicDAO localDAO = getDao();
+        BasicManagerDAO localDAO = getDAO();
 
         try {
             localDAO.beginTransaction();
@@ -62,13 +46,11 @@ public class BasicEntityServiceImpl<E extends BasicEntity, S extends SearchFilte
     }
 
     @Override
-    public void update(E entity) {
-
-        checkInitialization();
+    public <E extends BasicEntity> void update(E entity) {
 
         validate(entity, ActionType.UPDATE);
-        
-        BasicDAO localDAO = getDao();
+
+        BasicManagerDAO localDAO = getDAO();
 
         try {
             localDAO.beginTransaction();
@@ -82,13 +64,11 @@ public class BasicEntityServiceImpl<E extends BasicEntity, S extends SearchFilte
     }
 
     @Override
-    public void delete(E entity) {
-
-        checkInitialization();
+    public <E extends BasicEntity> void delete(E entity) {
 
         validate(entity, ActionType.DELETE);
-        
-        BasicDAO localDAO = getDao();
+
+        BasicManagerDAO localDAO = getDAO();
 
         try {
             localDAO.beginTransaction();
@@ -102,15 +82,13 @@ public class BasicEntityServiceImpl<E extends BasicEntity, S extends SearchFilte
     }
 
     @Override
-    public void save(List<E> entities) {
+    public <E extends BasicEntity> void save(List<E> entities) {
 
-        checkInitialization();
-        
         entities.stream().forEach((E e) -> {
             validate(e, ActionType.SAVE);
         });
-        
-        BasicDAO localDAO = getDao();
+
+        BasicManagerDAO localDAO = getDAO();
 
         try {
             localDAO.beginTransaction();
@@ -124,15 +102,13 @@ public class BasicEntityServiceImpl<E extends BasicEntity, S extends SearchFilte
     }
 
     @Override
-    public void update(List<E> entities) {
-
-        checkInitialization();
+    public <E extends BasicEntity> void update(List<E> entities) {
 
         entities.stream().forEach((E e) -> {
             validate(e, ActionType.UPDATE);
         });
-        
-        BasicDAO localDAO = getDao();
+
+        BasicManagerDAO localDAO = getDAO();
 
         try {
             localDAO.beginTransaction();
@@ -146,15 +122,13 @@ public class BasicEntityServiceImpl<E extends BasicEntity, S extends SearchFilte
     }
 
     @Override
-    public void delete(List<E> entities) {
+    public <E extends BasicEntity> void delete(List<E> entities) {
 
-        checkInitialization();
-        
         entities.stream().forEach((E e) -> {
             validate(e, ActionType.DELETE);
         });
-        
-        BasicDAO localDAO = getDao();
+
+        BasicManagerDAO localDAO = getDAO();
 
         try {
             localDAO.beginTransaction();
@@ -167,14 +141,29 @@ public class BasicEntityServiceImpl<E extends BasicEntity, S extends SearchFilte
         }
     }
 
-    private void validate(E entity, ActionType type) {
+    private <E extends BasicEntity> void validate(E entity, ActionType type) {
+
+        checkInitialization();
 
         final EntityValidator<E> validator
                 = Validators.getValidator(entity.getClass());
 
-        final E oldEntity
-                = (E) provider.getEntityManager().find(entity.getClass(), entity);
+        if (type.equals(ActionType.SAVE)) {
+            validator.validate(entity, null, type);
+        } else {
+            final E oldEntity
+                    = (E) provider.getEntityManager().find(entity.getClass(), entity);
+            validator.validate(entity, oldEntity, type);
+        }
+    }
 
-        validator.validate(entity, oldEntity, type);
+    @Override
+    public BasicManagerDAO getDAO() {
+
+        checkInitialization();
+
+        dao.setEntityManager(provider.getEntityManager());
+
+        return dao;
     }
 }

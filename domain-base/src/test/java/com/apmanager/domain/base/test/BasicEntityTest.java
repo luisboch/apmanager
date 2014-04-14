@@ -1,15 +1,25 @@
 package com.apmanager.domain.base.test;
 
-import com.apmanager.domain.base.BasicDAO;
 import com.apmanager.domain.base.BasicEntity;
+import com.apmanager.domain.base.BasicManagerDAO;
+import com.apmanager.domain.base.BasicManagerDAOImpl;
+import com.apmanager.domain.base.BasicSearchDAO;
+import com.apmanager.domain.base.BasicSearchDAOImpl;
+import java.util.List;
 
-public abstract class BasicEntityTest<E extends BasicEntity, D extends BasicDAO> extends BaseTest {
+public abstract class BasicEntityTest<E extends BasicEntity> extends BaseTest {
 
-    protected final D dao;
+    protected final BasicSearchDAO searchDAO;
+
+    protected final Class<E> targetClass;
+    protected final BasicManagerDAO managerDAO;
+
     protected E instance;
 
-    public BasicEntityTest(Class<D> daoClass) {
-        dao = getDAO(daoClass);
+    public BasicEntityTest(Class<E> targetEntityClass) {
+        targetClass = targetEntityClass;
+        searchDAO = getDAO(BasicSearchDAOImpl.class);
+        managerDAO = getDAO(BasicManagerDAOImpl.class);
     }
 
     public E getEntity() {
@@ -26,7 +36,7 @@ public abstract class BasicEntityTest<E extends BasicEntity, D extends BasicDAO>
 
     public final boolean find() {
 
-        java.util.List<E> dbObjects = dao.getAll();
+        List<E> dbObjects = searchDAO.getAll(targetClass);
 
         if (dbObjects.isEmpty()) {
             return false;

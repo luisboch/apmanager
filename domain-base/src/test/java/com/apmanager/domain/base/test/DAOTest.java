@@ -6,7 +6,8 @@
 
 package com.apmanager.domain.base.test;
 
-import com.apmanager.domain.base.BasicDAO;
+import com.apmanager.domain.base.BasicManagerDAO;
+import com.apmanager.domain.base.BasicManagerDAOImpl;
 import org.junit.Test;
 
 /**
@@ -18,7 +19,8 @@ public class DAOTest extends BaseTest{
     
     @Test
     public void test(){
-        BasicDAO dao = getDAO(BasicDAOImplTest.class);
+        
+        BasicManagerDAO dao = getDAO(BasicManagerDAOImpl.class);
         
         dao.save(new Entity());
         dao.update(new Entity());

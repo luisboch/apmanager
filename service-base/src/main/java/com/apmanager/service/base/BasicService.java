@@ -7,20 +7,17 @@
 package com.apmanager.service.base;
 
 import com.apmanager.domain.base.BasicDAO;
-import com.apmanager.domain.base.BasicEntity;
-import com.apmanager.domain.base.SearchFilter;
-import java.util.List;
 
 /**
  *
  * @author luis
- * @param <E>
- * @param <S>
  */
-public interface BasicService<E extends BasicEntity, S extends SearchFilter<E>> {
-
-    List<E> getAll();
-
-    List<E> search(S filter);
+interface BasicService<E extends BasicDAO>{
     
+    E getDAO();
+    
+    /**
+     * @param provider
+     */
+    void setProvider(EntityManagerProvider provider);
 }

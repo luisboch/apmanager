@@ -12,8 +12,7 @@ import javax.persistence.EntityManager;
  *
  * @author luis
  */
-class EntityManagerProvider {
-    
+public class EntityManagerProvider {
     public EntityManager getEntityManager(){
         return Services.getEntityManager();
     }

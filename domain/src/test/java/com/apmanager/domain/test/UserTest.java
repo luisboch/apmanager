@@ -15,13 +15,13 @@ import org.junit.Test;
  *
  * @author luis
  */
-public class UserTest extends BasicEntityTest<User, UserDAO> {
+public class UserTest extends BasicEntityTest<User> {
 
     private static final Logger log
             = Logger.getLogger(UserTest.class.getName());
 
     public UserTest() {
-        super(UserDAO.class);
+        super(User.class);
     }
 
     @Override
@@ -31,9 +31,9 @@ public class UserTest extends BasicEntityTest<User, UserDAO> {
         instance.setPasswd("teste-1");
         instance.setUsername("teste-1");
         
-        dao.beginTransaction();
-        dao.save(instance);
-        dao.commitTransaction();
+        managerDAO.beginTransaction();
+        managerDAO.save(instance);
+        managerDAO.commitTransaction();
         
         return instance;
     }
