@@ -18,7 +18,7 @@ public class UserFilter implements SearchFilter<User>{
     
     private Boolean active;
     
-    private Map<String, Object> params = new HashMap<String, Object>();
+    private final Map<String, Object> params = new HashMap<>();
 
 
     public UserFilter() {
