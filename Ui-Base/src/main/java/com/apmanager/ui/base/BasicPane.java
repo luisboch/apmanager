@@ -1,5 +1,6 @@
 package com.apmanager.ui.base;
 
+import com.apmanager.ui.base.annotation.Window;
 import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -8,8 +9,9 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author luis
  */
+@Window(menu = {"admin.menu", "advanced.menu", "blahhh"})
 public class BasicPane extends AnchorPane {
-
+    
     public BasicPane() {
         
         URL resource = getClass().getResource("/fxml/BasicPane.fxml");

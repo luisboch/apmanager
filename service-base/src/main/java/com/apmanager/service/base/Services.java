@@ -7,7 +7,6 @@ package com.apmanager.service.base;
 
 import com.apmanager.domain.base.EntityManagerFactoryProvider;
 import com.apmanager.service.annotations.PostConstruct;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;

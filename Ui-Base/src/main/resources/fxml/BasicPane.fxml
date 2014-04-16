@@ -9,21 +9,27 @@
     <stylesheets>
         <URL value="@/styles/basicpane.css" />
     </stylesheets>
-<children><TabPane layoutY="200.0" prefHeight="200.0" prefWidth="476.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-  <tabs>
-    <Tab text="Untitled Tab 1">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #000;">
-<children><Button layoutX="337.0" layoutY="191.0" mnemonicParsing="false" text="Button" /><Button layoutX="122.2275390625" layoutY="78.5" mnemonicParsing="false" text="Button" /><Button layoutX="114.2275390625" layoutY="129.5" mnemonicParsing="false" text="Button" />
-</children></AnchorPane>
-      </content>
-    </Tab>
-    <Tab text="Untitled Tab 2">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
-  </tabs>
-</TabPane>
-</children>
+    <children>
+        <TabPane layoutY="200.0" prefHeight="200.0" prefWidth="476.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <tabs>
+                <Tab text="Untitled Tab 1">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #000;">
+                            <children>
+                                <Button layoutX="337.0" layoutY="191.0" mnemonicParsing="false" text="Button" />
+                                <Button layoutX="122.2275390625" layoutY="78.5" mnemonicParsing="false" text="Button" />
+                                <Button layoutX="114.2275390625" layoutY="129.5" mnemonicParsing="false" text="Button" />
+                                <TextField layoutX="128.8759765625" layoutY="42.5" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Untitled Tab 2">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
 </fx:root>
