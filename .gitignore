@@ -1,1 +1,9 @@
 /domain-base/target/
+/domain/target/
+/service-base/nbproject/private/
+/service-base/build/
+/service-base/dist/
+/service-base/target/
+/service/target/
+/Ui-Base/target/
+/JavaApplication2/nbproject/private/

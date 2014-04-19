@@ -7,6 +7,7 @@
 package com.apmanager.domain.base.test;
 
 import com.apmanager.domain.base.BasicEntity;
+import java.util.Date;
 
 /**
  *
@@ -23,4 +24,16 @@ public class Entity implements BasicEntity<Integer>{
     public void setId(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void setCreationDate(Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setLastUpdate(Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

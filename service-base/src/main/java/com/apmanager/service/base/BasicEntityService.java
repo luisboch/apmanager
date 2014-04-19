@@ -7,7 +7,6 @@ package com.apmanager.service.base;
 
 import com.apmanager.domain.base.BasicManagerDAO;
 import com.apmanager.domain.base.BasicEntity;
-import com.apmanager.domain.base.SearchFilter;
 import java.util.List;
 
 /**
@@ -29,5 +28,17 @@ public interface BasicEntityService extends BasicService<BasicManagerDAO> {
     <E extends BasicEntity> void update(List<E> entity);
 
     <E extends BasicEntity> void delete(List<E> entity);
+
+    <E extends BasicEntity> void save(E entity, String context);
+
+    <E extends BasicEntity> void update(E entity, String context);
+
+    <E extends BasicEntity> void delete(E entity, String context);
+
+    <E extends BasicEntity> void save(List<E> entity, String context);
+
+    <E extends BasicEntity> void update(List<E> entity, String context);
+
+    <E extends BasicEntity> void delete(List<E> entity, String context);
     
 }

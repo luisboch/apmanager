@@ -5,6 +5,8 @@
  */
 package com.apmanager.domain.base;
 
+import java.util.Date;
+
 /**
  *
  * @author luis
@@ -13,4 +15,7 @@ package com.apmanager.domain.base;
 public interface BasicEntity<E extends Number> {
     E getId();
     void setId(E id);
+    
+    void setLastUpdate(Date date);
+    void setCreationDate(Date date);
 }

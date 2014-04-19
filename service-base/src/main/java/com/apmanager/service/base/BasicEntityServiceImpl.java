@@ -5,9 +5,9 @@
  */
 package com.apmanager.service.base;
 
+import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.domain.base.BasicManagerDAO;
 import com.apmanager.domain.base.BasicManagerDAOImpl;
-import com.apmanager.domain.base.BasicEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,8 +29,13 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
 
     @Override
     public <E extends BasicEntity> void save(E entity) {
+        save(entity, "ALL");
+    }
 
-        validate(entity, ActionType.SAVE);
+    @Override
+    public <E extends BasicEntity> void save(E entity, String context) {
+
+        validate(entity, ActionType.SAVE, context);
 
         BasicManagerDAO localDAO = getDAO();
 
@@ -141,12 +146,12 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
         }
     }
 
-    private <E extends BasicEntity> void validate(E entity, ActionType type) {
+    private <E extends BasicEntity> void validate(E entity, ActionType type, String context) {
 
         checkInitialization();
 
         final EntityValidator<E> validator
-                = Validators.getValidator(entity.getClass());
+                = Validators.getValidator(entity.getClass(), context);
 
         if (type.equals(ActionType.SAVE)) {
             validator.validate(entity, null, type);

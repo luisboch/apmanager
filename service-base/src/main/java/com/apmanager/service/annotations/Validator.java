@@ -6,6 +6,7 @@
 
 package com.apmanager.service.annotations;
 
+import com.apmanager.domain.base.BasicEntity;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,5 +19,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Validator {
-    Class target();
+    Class<? extends BasicEntity> target();
+    String[] context() default "ALL"; 
+    String[] extendContext() default "ALL";
 }
