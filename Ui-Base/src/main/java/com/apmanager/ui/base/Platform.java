@@ -1,7 +1,13 @@
 package com.apmanager.ui.base;
 
+import com.apmanager.ui.base.annotation.Close;
+import com.apmanager.ui.base.annotation.Open;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -20,18 +26,23 @@ public class Platform implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        AppManager.loadMenu();
         AppManager.setMenu(menuBar);
         AppManager.setPlatform(this);
 
     }
 
+    public void setTitle(String title) {
+        if (MainApp.stage != null) {
+            MainApp.stage.setTitle("APManager - " + title);
+        }
+    }
+
     public synchronized void set(AnchorPane pane, Class<AnchorPane> clazz) {
 
         if (currentClass == null || clazz == null || !clazz.equals(currentClass)) {
-            
+
             currentClass = clazz;
-            
+
             if (!actionPane.getChildren().isEmpty()) {
 
                 for (Node n : actionPane.getChildren()) {
@@ -42,6 +53,7 @@ public class Platform implements Initializable {
             }
 
             if (pane != null) {
+
                 open(pane);
 
                 AnchorPane.setTopAnchor(pane, 0d);
@@ -57,9 +69,35 @@ public class Platform implements Initializable {
     }
 
     private void close(Node n) {
+        if (n != null) {
+            final Class<? extends Node> nodeClass = n.getClass();
+            final Method[] methods = nodeClass.getMethods();
+            for (Method m : methods) {
+                if (m.isAnnotationPresent(Close.class)) {
+                    try {
+                        m.invoke(n);
+                    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                        Logger.getLogger(Platform.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
     }
 
-    private void open(AnchorPane pane) {
+    private void open(Node n) {
+        if (n != null) {
+            final Class<? extends Node> nodeClass = n.getClass();
+            final Method[] methods = nodeClass.getMethods();
+            for (Method m : methods) {
+                if (m.isAnnotationPresent(Open.class)) {
+                    try {
+                        m.invoke(n);
+                    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                        Logger.getLogger(Platform.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
     }
 
 }

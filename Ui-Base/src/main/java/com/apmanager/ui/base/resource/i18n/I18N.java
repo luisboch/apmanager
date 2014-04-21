@@ -6,6 +6,7 @@
 package com.apmanager.ui.base.resource.i18n;
 
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -18,10 +19,23 @@ public class I18N {
 
     public static class Menu {
 
-        private static final ResourceBundle menus
-                = ResourceBundle.getBundle("i18n/menu");
+        private static ResourceBundle menus;
+
+        static {
+            try {
+                menus = ResourceBundle.getBundle("i18n/menu");
+            } catch (Exception ex) {
+                log.log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
 
         public static String get(String key) {
+            
+            if(menus == null){
+                log.log(Level.SEVERE, "Can't find menus.properties in i18n path");
+                return "";
+            }
+            
             if (key == null || key.isEmpty()) {
                 return "";
             }

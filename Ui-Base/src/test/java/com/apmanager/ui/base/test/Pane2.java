@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.apmanager.ui.base;
+package com.apmanager.ui.base.test;
 
 import com.apmanager.ui.base.annotation.Window;
 import javafx.scene.layout.AnchorPane;

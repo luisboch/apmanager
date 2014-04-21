@@ -44,7 +44,7 @@ public class Validators {
         return entityValidators;
     }
 
-    private static synchronized void initialize() {
+    public static synchronized void initialize() {
 
         if (!initialized) {
 

@@ -36,28 +36,32 @@ public class Services {
 
     private static Map<Class, Method> actions = new HashMap<>();
 
-    static {
+    private static boolean _initialized = false;
 
-        Reflections reflections = new Reflections(
-                new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forJavaClassPath())
-        );
+    public synchronized static void initialize() {
+        if (!_initialized) {
+            Reflections reflections = new Reflections(
+                    new ConfigurationBuilder()
+                    .setUrls(ClasspathHelper.forJavaClassPath())
+            );
 
-        Set<Class<? extends EntityManagerFactoryProvider>> types
-                = reflections.getSubTypesOf(EntityManagerFactoryProvider.class);
+            Set<Class<? extends EntityManagerFactoryProvider>> types
+                    = reflections.getSubTypesOf(EntityManagerFactoryProvider.class);
 
-        try {
-            for (Class<? extends EntityManagerFactoryProvider> clazz : types) {
-                providers.add(clazz.newInstance());
+            try {
+                for (Class<? extends EntityManagerFactoryProvider> clazz : types) {
+                    providers.add(clazz.newInstance());
+                }
+            } catch (Exception ex) {
+                log.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new RuntimeException(ex);
             }
-        } catch (Exception ex) {
-            log.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new RuntimeException(ex);
+            _initialized = true;
         }
     }
 
     protected static EntityManager getEntityManager() {
-
+        
         List<EntityManager> ems = getEntityManagers();
 
         if (ems.isEmpty()) {
@@ -69,6 +73,8 @@ public class Services {
 
     static List<EntityManager> getEntityManagers() {
 
+        initialize();
+        
         List<EntityManager> managers = new ArrayList<>();
 
         Collections.sort(providers);
@@ -81,7 +87,9 @@ public class Services {
     }
 
     public static <E extends BasicEntityServiceImpl> E getService(Class<E> clazz) {
-
+        
+        initialize();
+        
         if (clazz == null) {
             return null;
         }
@@ -97,6 +105,10 @@ public class Services {
             throw new RuntimeException(ex);
         }
 
+    }
+    
+    public static BasicEntityService getEntityService(){
+        return getService(BasicEntityServiceImpl.class);
     }
 
     private static void checkPostConstruction(Class clazz, BasicEntityServiceImpl instance) {

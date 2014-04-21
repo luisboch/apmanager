@@ -32,27 +32,33 @@ public class AppManager {
     private static final Map<Window, Class<?>> windows
             = new HashMap<>();
 
-    public static void loadMenu() {
+    private static boolean _initialized = false;
 
-        Reflections reflections = new Reflections(
-                new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forJavaClassPath())
-        );
+    public static void initialize() {
+        if (!_initialized) {
+            Reflections reflections = new Reflections(
+                    new ConfigurationBuilder()
+                    .setUrls(ClasspathHelper.forJavaClassPath())
+            );
 
-        Set<Class<?>> types
-                = reflections.getTypesAnnotatedWith(Window.class);
+            Set<Class<?>> types
+                    = reflections.getTypesAnnotatedWith(Window.class);
 
-        try {
-            for (Class<?> clazz : types) {
-                windows.put(clazz.getAnnotation(Window.class), clazz);
+            try {
+                for (Class<?> clazz : types) {
+                    windows.put(clazz.getAnnotation(Window.class), clazz);
+                }
+            } catch (Exception ex) {
+                log.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new RuntimeException(ex);
             }
-        } catch (Exception ex) {
-            log.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new RuntimeException(ex);
+            _initialized = true;
         }
     }
 
     public static void setMenu(MenuBar menuBar) {
+
+        initialize();
 
         final Set<MenuWrapper> rootMenus = new HashSet<>();
 
@@ -65,8 +71,8 @@ public class AppManager {
             final Class<?> clazz = entry.getValue();
 
             String[] tree = w.menu();
-            
-            if(tree.length == 1){
+
+            if (tree.length == 1) {
                 final String menu = tree[0];
                 tree = new String[]{I18N.Menu.get("options.menu"), menu};
             }
@@ -132,7 +138,7 @@ public class AppManager {
             log.log(Level.INFO, "Creating Menu: {0}", wrapper.getName());
 
         } else {
-            
+
             log.log(Level.INFO, "Creating MenuItem: {0}", wrapper.getName());
             menu = new MenuItem(wrapper.getName());
             menu.setUserData(wrapper);
@@ -165,6 +171,7 @@ public class AppManager {
 
                         if (object instanceof AnchorPane) {
                             platform.set((AnchorPane) object, targetClass);
+                            platform.setTitle(wrapper.getName());
                         } else {
                             log.log(Level.SEVERE, "[AppManager] Can't initialize class "
                                     + "{0} that must extend AnchorPane", targetClass.getSimpleName());
