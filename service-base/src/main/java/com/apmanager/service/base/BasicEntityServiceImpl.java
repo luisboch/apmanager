@@ -9,6 +9,7 @@ import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.domain.base.BasicManagerDAO;
 import com.apmanager.domain.base.BasicManagerDAOImpl;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> implements BasicEntityService {
 
-    private BasicManagerDAO dao = new BasicManagerDAOImpl();
+    private final BasicManagerDAO dao = new BasicManagerDAOImpl();
 
     private static final Logger log = Logger.getLogger(BasicEntityServiceImpl.class.getName());
 
@@ -52,8 +53,13 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
 
     @Override
     public <E extends BasicEntity> void update(E entity) {
+        update(entity, "ALL");
+    }
 
-        validate(entity, ActionType.UPDATE);
+    @Override
+    public <E extends BasicEntity> void update(E entity, String context) {
+
+        validate(entity, ActionType.UPDATE, context);
 
         BasicManagerDAO localDAO = getDAO();
 
@@ -70,8 +76,13 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
 
     @Override
     public <E extends BasicEntity> void delete(E entity) {
+        delete(entity, "ALL");
+    }
 
-        validate(entity, ActionType.DELETE);
+    @Override
+    public <E extends BasicEntity> void delete(E entity, String context) {
+
+        validate(entity, ActionType.DELETE, context);
 
         BasicManagerDAO localDAO = getDAO();
 
@@ -88,9 +99,14 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
 
     @Override
     public <E extends BasicEntity> void save(List<E> entities) {
+        save(entities, "ALL");
+    }
+
+    @Override
+    public <E extends BasicEntity> void save(List<E> entities, String context) {
 
         entities.stream().forEach((E e) -> {
-            validate(e, ActionType.SAVE);
+            validate(e, ActionType.SAVE, context);
         });
 
         BasicManagerDAO localDAO = getDAO();
@@ -108,9 +124,14 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
 
     @Override
     public <E extends BasicEntity> void update(List<E> entities) {
+        update(entities, "ALL");
+    }
+
+    @Override
+    public <E extends BasicEntity> void update(List<E> entities, String context) {
 
         entities.stream().forEach((E e) -> {
-            validate(e, ActionType.UPDATE);
+            validate(e, ActionType.UPDATE, context);
         });
 
         BasicManagerDAO localDAO = getDAO();
@@ -128,9 +149,14 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
 
     @Override
     public <E extends BasicEntity> void delete(List<E> entities) {
+        delete(entities, "ALL");
+    }
+
+    @Override
+    public <E extends BasicEntity> void delete(List<E> entities, String context) {
 
         entities.stream().forEach((E e) -> {
-            validate(e, ActionType.DELETE);
+            validate(e, ActionType.DELETE, context);
         });
 
         BasicManagerDAO localDAO = getDAO();
@@ -149,16 +175,20 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
     private <E extends BasicEntity> void validate(E entity, ActionType type, String context) {
 
         checkInitialization();
-
-        final EntityValidator<E> validator
-                = Validators.getValidator(entity.getClass(), context);
+        final Class<BasicEntity> targetClass = (Class<BasicEntity>) entity.getClass();
+        final Set<EntityValidator> validators
+                = Validators.getValidators(targetClass, context);
 
         if (type.equals(ActionType.SAVE)) {
-            validator.validate(entity, null, type);
+            for (EntityValidator validator : validators) {
+                validator.validate(entity, null, type);
+            }
         } else {
             final E oldEntity
                     = (E) provider.getEntityManager().find(entity.getClass(), entity);
-            validator.validate(entity, oldEntity, type);
+            for (EntityValidator validator : validators) {
+                validator.validate(entity, oldEntity, type);
+            }
         }
     }
 

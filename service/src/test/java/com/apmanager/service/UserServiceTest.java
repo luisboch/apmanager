@@ -4,7 +4,8 @@ import com.apmanager.domain.entity.User;
 import com.apmanager.service.base.BasicEntityService;
 import com.apmanager.service.base.BasicEntityServiceImpl;
 import com.apmanager.service.base.Services;
-import com.apmanager.service.base.ValidationException;
+import com.apmanager.service.base.exception.ValidationException;
+import java.util.Date;
 import java.util.logging.Logger;
 import org.junit.Test;
 

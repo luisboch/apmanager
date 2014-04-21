@@ -1,6 +1,7 @@
 package com.apmanager.domain.entity;
 
 import com.apmanager.domain.base.BasicEntity;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -15,21 +17,29 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "users")
-public class User implements BasicEntity<Integer>{
-    
+public class User implements BasicEntity<Integer> {
+
     @SequenceGenerator(name = "users-seq", sequenceName = "users_id_seq", allocationSize = 1)
     @GeneratedValue(generator = "users-seq")
     @Id
     private Integer id;
-    
+
     @Column(nullable = false)
     private String name;
-    
+
     @Column(nullable = false)
     private String username;
-    
+
     @Column(nullable = false)
     private String passwd;
+
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Column(name = "creation_date", nullable = false)
+    private Date creationDate;
+
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Column(name = "last_update", nullable = false)
+    private Date lastUpdate;
 
     @Override
     public Integer getId() {
@@ -48,7 +58,7 @@ public class User implements BasicEntity<Integer>{
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -65,6 +75,24 @@ public class User implements BasicEntity<Integer>{
         this.passwd = passwd;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    @Override
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    @Override
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;

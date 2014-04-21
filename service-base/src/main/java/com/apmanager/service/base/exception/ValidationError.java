@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.apmanager.service.base;
+package com.apmanager.service.base.exception;
 
 /**
  *

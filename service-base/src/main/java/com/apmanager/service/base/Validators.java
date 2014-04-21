@@ -2,8 +2,10 @@ package com.apmanager.service.base;
 
 import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.service.annotations.Validator;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.reflections.Reflections;
@@ -22,12 +24,12 @@ public class Validators {
     private static boolean initialized = false;
 
     public static Set<EntityValidator>
-            getValidators(Class<? extends BasicEntity> clazz) {
-        return getDefaultValidator(clazz, "DEFAULT");
+            getDefaultValidators(Class<BasicEntity> clazz) {
+        return getValidators(clazz, "DEFAULT");
     }
 
     public static Set<EntityValidator>
-            getDefaultValidator(Class<? extends BasicEntity> clazz, String context) {
+            getValidators(Class<BasicEntity> clazz, String context) {
 
         if (!initialized) {
             initialize();
@@ -57,6 +59,8 @@ public class Validators {
             Set<Class<?>> types
                     = reflections.getTypesAnnotatedWith(Validator.class);
 
+            Set<Class<BasicEntity>> entities = new HashSet<>();
+
             for (Class<?> clazz : types) {
 
                 Class<EntityValidator> validatorClass = null;
@@ -83,6 +87,8 @@ public class Validators {
 
                 Class<? extends BasicEntity> target = clazz.getAnnotation(Validator.class).target();
 
+                entities.add((Class<BasicEntity>) target);
+
                 if (entityValidators.get(target) == null) {
                     contexts = new HashMap<>();
                     entityValidators.put(target, contexts);
@@ -96,7 +102,7 @@ public class Validators {
 
             }
 
-            configureValidators(types, entityValidators);
+            configureValidators(entities, entityValidators);
 
             initialized = true;
         }
@@ -110,15 +116,18 @@ public class Validators {
 
         if (annotation.extendContext() != null && annotation.extendContext().length > 0) {
             for (String context : annotation.extendContext()) {
+
                 final EntityValidator parent = contexts.get(context);
-                validators.add(parent);
-                searchParents(parent, validators, contexts);
+                if (!parent.equals(validator)) {
+                    validators.add(parent);
+                    searchParents(parent, validators, contexts);
+                }
             }
         }
 
     }
 
-    private static void configureValidators(Set<Class<?>> types,
+    private static void configureValidators(Set<Class<BasicEntity>> types,
             Map<Class<?>, Map<String, EntityValidator>> entityValidators) {
 
         for (Class<?> clazz : types) {
@@ -135,33 +144,30 @@ public class Validators {
             }
 
             for (String context : contexts.keySet()) {
-                
-                
+
                 Set<EntityValidator> currentValidators = new HashSet<>();
                 currentValidators.addAll(validatorsList);
-                
+
                 EntityValidator currentValidator = contexts.get(context);
 
                 if (currentValidator == null) {
                     currentValidator = contexts.get("DEFAULT");
                 }
-                
 
                 if (currentValidator != null) {
                     validatorsList.add(currentValidator);
                     searchParents(currentValidator, validatorsList, contexts);
                 }
-                
-                
-                Set<EntityValidator> loaded 
+
+                Set<EntityValidator> loaded
                         = validators.get(clazz);
-                
-                if(loaded == null){
+
+                if (loaded == null) {
                     loaded = new HashSet<>();
                     validators.put((Class<? extends BasicEntity>) clazz, loaded);
                 }
                 loaded.addAll(currentValidators);
-                
+
             }
         }
 

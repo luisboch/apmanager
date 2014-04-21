@@ -1,4 +1,4 @@
-package com.apmanager.service.base;
+package com.apmanager.service.base.exception;
 
 import java.util.ArrayList;
 import java.util.List;

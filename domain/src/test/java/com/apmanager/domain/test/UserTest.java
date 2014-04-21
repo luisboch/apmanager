@@ -8,6 +8,7 @@ package com.apmanager.domain.test;
 import com.apmanager.domain.base.test.BasicEntityTest;
 import com.apmanager.domain.entity.User;
 import com.apmanager.domain.entity.dao.UserDAO;
+import java.util.Date;
 import java.util.logging.Logger;
 import org.junit.Test;
 
@@ -30,6 +31,8 @@ public class UserTest extends BasicEntityTest<User> {
         instance.setName("Test #");
         instance.setPasswd("teste-1");
         instance.setUsername("teste-1");
+        instance.setCreationDate(new Date());
+        instance.setLastUpdate(new Date());
         
         managerDAO.beginTransaction();
         managerDAO.save(instance);
