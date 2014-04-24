@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 
@@ -20,7 +21,9 @@ public class Platform implements Initializable {
     private AnchorPane actionPane;
     @FXML
     private MenuBar menuBar;
-
+    @FXML
+    private Label currentPane;
+    
     private Class<AnchorPane> currentClass;
 
     @Override
@@ -34,6 +37,7 @@ public class Platform implements Initializable {
     public void setTitle(String title) {
         if (MainApp.stage != null) {
             MainApp.stage.setTitle("APManager - " + title);
+            currentPane.setText(title);
         }
     }
 

@@ -2,13 +2,76 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<fx:root minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@/styles/style.css" />
     </stylesheets>
-<children><TextField layoutX="13.0" layoutY="28.0" /><Label layoutX="13.0" layoutY="13.0" text="Nome" /><TextField layoutX="12.0" layoutY="85.0" /><Label layoutX="11.0" layoutY="68.0" text="Login" /><PasswordField layoutX="11.0" layoutY="136.0" /><Label layoutX="11.0" layoutY="121.0" text="Senha" />
-</children>
+    <children>
+        <ToolBar layoutY="46.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="37.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <Button fx:id="btnNew" mnemonicParsing="false" onAction="#newInstance" text="%new.label" />
+                <Button fx:id="btnEdit" mnemonicParsing="false" text="%edit.label" />
+                <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
+                <ToggleButton fx:id="btnShowAdvancedSearch" mnemonicParsing="false" onAction="#showAdvancedSearch">
+                    <graphic>
+                        <ImageView fitHeight="14.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/DownPoint.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </ToggleButton>
+                <Button fx:id="btnSearch" defaultButton="true" mnemonicParsing="false" onAction="#simpleSearch" text="%search.label" />
+                <TextField fx:id="txtSearch" prefHeight="25.0" prefWidth="300.0" />
+            </items>
+        </ToolBar>
+        <AnchorPane fx:id="ediPane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0">
+            <children>
+                <Label text="Editando" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="advancedSearchPane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0">
+            <children>
+                <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <padding>
+                        <Insets left="30.0" right="30.0" />
+                    </padding>
+                    <children>
+                        <VBox prefHeight="60.0" prefWidth="540.0" spacing="10.0">
+                            <children>
+                                <Label text="Label" />
+                                <ComboBox prefWidth="150.0" />
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="50.0" prefWidth="100.0" spacing="10.0">
+                            <children>
+                                <Label />
+                                <CheckBox mnemonicParsing="false" text="CheckBox" />
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="60.0" prefWidth="540.0" spacing="10.0">
+                            <children>
+                                <Label text="Label" />
+                                <TextField prefHeight="25.0" prefWidth="421.0" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="resultsPane" prefHeight="163.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0">
+            <children>
+                <TableView fx:id="tbResult" layoutY="-8.0" prefHeight="221.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                        <TableColumn prefWidth="75.0" text="- " />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+    </children>
 </fx:root>
