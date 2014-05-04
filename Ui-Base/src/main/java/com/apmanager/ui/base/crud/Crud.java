@@ -1,4 +1,4 @@
-package com.apmanager.ui.base;
+package com.apmanager.ui.base.crud;
 
 import java.util.List;
 import java.util.Map;
@@ -12,12 +12,6 @@ import javafx.scene.control.TableColumn;
 public interface Crud<E> {
 
     void addResultColumn(TableColumn column);
-
-    void addEditField(String label, Node input);
-
-    void addSearchField(String label, Node input);
-
-    List<E> search(Map<String, Object> params);
     
     void setMode(CrudMode mode);
     

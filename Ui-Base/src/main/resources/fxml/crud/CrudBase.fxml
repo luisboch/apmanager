@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/styles/style.css" />
+    </stylesheets>
+    <children>
+        <ToolBar layoutY="46.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="37.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <Button fx:id="btnNew" mnemonicParsing="false" onAction="#newInstance" text="%new.label" />
+                <Button fx:id="btnEdit" mnemonicParsing="false" text="%edit.label" />
+                <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
+                <ToggleButton fx:id="btnShowAdvancedSearch" mnemonicParsing="false" onAction="#showAdvancedSearch">
+                    <graphic>
+                        <ImageView fitHeight="14.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../image/DownPoint.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </ToggleButton>
+                <Button fx:id="btnSearch" defaultButton="true" mnemonicParsing="false" onAction="#simpleSearch" text="%search.label" />
+                <TextField fx:id="txtSearch" prefHeight="25.0" prefWidth="300.0" />
+            </items>
+        </ToolBar>
+        <AnchorPane fx:id="resultsPane" prefHeight="163.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0">
+            <children>
+                <TableView fx:id="tbResult" layoutY="-8.0" prefHeight="221.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                        <TableColumn prefWidth="75.0" text="- " />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="editPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0">
+<children><HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<children><Button mnemonicParsing="false" onAction="#cancelEdit" text="Cancelar" /><Button mnemonicParsing="false" onAction="#save" text="Salvar" />
+</children>
+<opaqueInsets>
+<Insets />
+</opaqueInsets>
+<padding>
+<Insets left="10.0" right="10.0" />
+</padding></HBox>
+</children></AnchorPane>
+        <AnchorPane fx:id="advancedSearchPane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
+    </children>
+</fx:root>

@@ -12,8 +12,6 @@ import java.util.List;
 /**
  *
  * @author luis
- * @param <E>
- * @param <S>
  */
 public interface BasicEntityService extends BasicService<BasicManagerDAO> {
 

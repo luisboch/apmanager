@@ -8,22 +8,35 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class Platform implements Initializable {
 
     @FXML
     private AnchorPane actionPane;
+
     @FXML
     private MenuBar menuBar;
+
     @FXML
     private Label currentPane;
-    
+
     private Class<AnchorPane> currentClass;
 
     @Override
@@ -104,4 +117,43 @@ public class Platform implements Initializable {
         }
     }
 
+    public static void showMessage(final String message) {
+        
+        Button btn = new Button();
+
+        final Stage stage = new Stage();
+        //Initialize the Stage with type of modal
+        stage.initModality(Modality.APPLICATION_MODAL);
+        //Set the owner of the Stage 
+        stage.initOwner(MainApp.stage);
+        stage.setTitle("Atençao");
+        Group root = new Group();
+        Scene scene = new Scene(root, 300, 250, Color.LIGHTGREEN);
+
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.hide();
+            }
+        });
+
+        btn.setLayoutX(100);
+        btn.setLayoutY(80);
+        btn.setText("OK");
+        
+        VBox vBox = new VBox();
+        
+        Text text = new Text(message);
+        
+        VBox.setMargin(text, new Insets(20, 15, 20, 15));
+        VBox.setMargin(btn, new Insets(-1d, 15, 20, -1d));
+        
+        vBox.getChildren().add(text);
+        
+        vBox.getChildren().add(btn);
+        
+        root.getChildren().add(vBox);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

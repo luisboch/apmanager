@@ -61,7 +61,7 @@ public class Services {
     }
 
     protected static EntityManager getEntityManager() {
-        
+
         List<EntityManager> ems = getEntityManagers();
 
         if (ems.isEmpty()) {
@@ -74,7 +74,7 @@ public class Services {
     static List<EntityManager> getEntityManagers() {
 
         initialize();
-        
+
         List<EntityManager> managers = new ArrayList<>();
 
         Collections.sort(providers);
@@ -86,32 +86,32 @@ public class Services {
         return managers;
     }
 
-    public static <E extends BasicEntityServiceImpl> E getService(Class<E> clazz) {
-        
+    public static <E extends BasicService> E getService(Class<E> clazz) {
+
         initialize();
-        
+
         if (clazz == null) {
             return null;
         }
 
         try {
-            E service = clazz.newInstance();
+            BasicService service = clazz.newInstance();
 
             service.setProvider(provider);
             checkPostConstruction(clazz, service);
-            return service;
+            return (E) service;
         } catch (Exception ex) {
             Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex);
         }
 
     }
-    
-    public static BasicEntityService getEntityService(){
+
+    public static BasicEntityService getEntityService() {
         return getService(BasicEntityServiceImpl.class);
     }
 
-    private static void checkPostConstruction(Class clazz, BasicEntityServiceImpl instance) {
+    private static void checkPostConstruction(Class clazz, BasicService instance) {
 
         Method postConstruct = null;
 

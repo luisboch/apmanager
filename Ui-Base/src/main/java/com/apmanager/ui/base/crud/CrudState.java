@@ -1,4 +1,4 @@
-package com.apmanager.ui.base;
+package com.apmanager.ui.base.crud;
 
 /**
  *

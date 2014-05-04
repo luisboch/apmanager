@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root prefHeight="181.0" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/styles/useredit.css" />
+    </stylesheets>
+    <children>
+        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            </padding>
+            <children>
+                <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" layoutX="20.0" layoutY="18.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-alignment: LEFT;" text="Nome" />
+                <TextField fx:id="txtName" layoutX="19.0" layoutY="38.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
+                <Label layoutX="20.0" layoutY="79.0" text="Usuário">
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <TextField fx:id="txtUserName" layoutX="19.0" layoutY="94.0" maxWidth="-Infinity" prefWidth="200.0" />
+                <HBox prefHeight="60.0">
+                    <children>
+                        <VBox>
+                            <children>
+                                <Label layoutX="297.0" layoutY="143.0" text="Senha">
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </Label>
+                                <PasswordField fx:id="txtPasswd1" layoutX="296.0" layoutY="161.0" maxWidth="-Infinity" prefWidth="200.0" />
+                            </children>
+                            <HBox.margin>
+                                <Insets right="20.0" />
+                            </HBox.margin>
+                        </VBox>
+                        <VBox>
+                            <children>
+                                <Label layoutX="20.0" layoutY="145.0" text="Senha">
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </Label>
+                                <PasswordField fx:id="txtPasswd2" layoutX="19.3759765625" layoutY="163.0" maxWidth="-Infinity" prefWidth="200.0" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</fx:root>

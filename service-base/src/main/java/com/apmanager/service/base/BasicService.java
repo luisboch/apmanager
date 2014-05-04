@@ -11,8 +11,9 @@ import com.apmanager.domain.base.BasicDAO;
 /**
  *
  * @author luis
+ * @param <E>
  */
-interface BasicService<E extends BasicDAO>{
+public interface BasicService<E extends BasicDAO>{
     
     E getDAO();
     

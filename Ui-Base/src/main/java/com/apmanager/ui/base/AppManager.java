@@ -43,7 +43,7 @@ public class AppManager {
 
             Set<Class<?>> types
                     = reflections.getTypesAnnotatedWith(Window.class);
-
+            
             try {
                 for (Class<?> clazz : types) {
                     windows.put(clazz.getAnnotation(Window.class), clazz);
@@ -166,7 +166,7 @@ public class AppManager {
                     Class targetClass = wrapper.getTargetClass();
 
                     if (targetClass != null) {
-
+                        
                         Object object = targetClass.newInstance();
 
                         if (object instanceof AnchorPane) {
@@ -179,6 +179,7 @@ public class AppManager {
                     }
                 }
             } catch (Exception ex) {
+                Platform.showMessage("Ops, encontramos um problema, contate suporte!");
                 log.log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
