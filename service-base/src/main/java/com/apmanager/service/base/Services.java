@@ -56,6 +56,11 @@ public class Services {
                 log.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new RuntimeException(ex);
             }
+
+            if (providers.isEmpty()) {
+                throw new IllegalStateException("Not found EntityManagerFactoryProvider");
+            }
+
             _initialized = true;
         }
     }
@@ -135,6 +140,14 @@ public class Services {
                 Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
                 throw new RuntimeException(ex);
             }
+        }
+    }
+
+    public static void connect() {
+        try {
+            getEntityManager();
+        } catch (Exception ex) {
+            log.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 }

@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
@@ -18,7 +20,12 @@ import org.reflections.util.ConfigurationBuilder;
  */
 public class Validators {
 
+    private static final Logger log = Logger.getLogger(Validators.class.getName());
+
     private static final Map<Class<? extends BasicEntity>, Set<EntityValidator>> validators
+            = new HashMap<>();
+
+    private static final Map< Class<? extends BasicEntity>, Map<String, Set<EntityValidator>>> data
             = new HashMap<>();
 
     private static boolean initialized = false;
@@ -34,11 +41,20 @@ public class Validators {
         if (!initialized) {
             initialize();
         }
+
         Set<EntityValidator> entityValidators
                 = validators.get(clazz);
 
+        log.log(Level.FINE, "Authenticators found:");
+        for (Class<? extends BasicEntity> k : validators.keySet()) {
+            for (EntityValidator e : validators.get(k)) {
+                log.log(Level.FINE, "class: {0}, context: {1}", k.getSimpleName(), e.get);
+            }
+
+        }
+
         if (entityValidators == null || entityValidators.isEmpty()) {
-            throw new IllegalStateException("Not found validor for class " + clazz.getCanonicalName());
+            throw new IllegalStateException("Not found valitor for class " + clazz.getCanonicalName());
         }
 
         return entityValidators;
@@ -166,9 +182,20 @@ public class Validators {
                     loaded = new HashSet<>();
                     validators.put((Class<? extends BasicEntity>) clazz, loaded);
                 }
+
                 loaded.addAll(currentValidators);
+                
+                if(!data.containsKey(clazz)){
+                    data.put((Class<? extends BasicEntity>) clazz, new HashMap<>());
+                }
+                
+                Map<String, Set<EntityValidator>> map = data.get(clazz);
+                
+                
 
             }
+            
+            
         }
 
     }

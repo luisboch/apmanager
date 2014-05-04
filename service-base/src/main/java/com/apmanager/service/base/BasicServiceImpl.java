@@ -9,26 +9,30 @@ import com.apmanager.domain.base.BasicDAO;
 
 public abstract class BasicServiceImpl<E extends BasicDAO> implements BasicService<E> {
 
-    EntityManagerProvider provider;
+    protected EntityManagerProvider provider;
 
     /**
      * @param provider
      */
     @Override
     public void setProvider(EntityManagerProvider provider) {
-        
+
         if (provider == null) {
             throw new IllegalArgumentException("provider can't be null");
         }
-        
+
         this.provider = provider;
     }
-    
-    
+
     protected void checkInitialization() {
-        if (provider == null) {
+        if (this.provider == null) {
             throw new IllegalStateException("This class does not have initialized correctly,"
                     + "please use ServiceFactory to get an instance");
         }
+    }
+
+    protected EntityManagerProvider getProvider() {
+        checkInitialization();
+        return this.provider;
     }
 }

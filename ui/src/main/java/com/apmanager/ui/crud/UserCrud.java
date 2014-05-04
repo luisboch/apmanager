@@ -8,10 +8,13 @@ import com.apmanager.ui.base.crud.CrudBase;
 import com.apmanager.ui.base.annotation.Window;
 import com.apmanager.ui.base.crud.CrudEdit;
 import java.util.List;
-import java.util.Map;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -27,15 +30,13 @@ public class UserCrud extends CrudBase<User, UserSearchService> {
 
     public UserCrud() {
         super(User.class, UserSearchService.class);
+        
+        setupResult();
 
     }
 
     @Override
     protected AnchorPane getCustomSearchPane() {
-        return null;
-    }
-
-    public AnchorPane getAdvancedSearchPane() {
         return null;
     }
 
@@ -53,6 +54,33 @@ public class UserCrud extends CrudBase<User, UserSearchService> {
     protected CrudEdit<User> getCustomEditPane() {
         return new UserEdit();
     }
+
+    private void setupResult() {
     
+        TableColumn<User,String> tbName = new TableColumn<>();
+        tbName.setText("Nome");
+        
+        
+        tbName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
+             @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> param) {
+                return new SimpleStringProperty(param.getValue().getName());
+            }
+        });
+        
+        TableColumn<User,String> tbUserName = new TableColumn<>();
+        tbUserName.setText("Login");
+        
+        tbUserName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
+             @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> param) {
+                return new SimpleStringProperty(param.getValue().getUsername());
+            }
+        });
+        
+        
+        addResultColumn(tbName);
+        addResultColumn(tbUserName);
+    }
     
 }

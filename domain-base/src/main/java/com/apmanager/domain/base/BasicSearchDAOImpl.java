@@ -126,4 +126,8 @@ public class BasicSearchDAOImpl extends BasicDAOImpl implements BasicSearchDAO {
         }
     }
 
+    @Override
+    public <T extends BasicEntity> List<T> genericSearch(Class<T> clazz, String search) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

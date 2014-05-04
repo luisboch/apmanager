@@ -43,6 +43,10 @@ public class MainApp extends Application {
             loader.setPercent(20);
             AppManager.initialize();
 
+            loader.setMessage("Starting Connection...");
+            loader.setPercent(20);
+            Services.connect();
+
             loader.setMessage("Validating...");
             loader.setPercent(90);
 

@@ -73,7 +73,6 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
     private AnchorPane customSearchPane;
     private CrudEdit<E> customEditPane;
 
-    private final BasicSearchService searchService;
     private BasicEntityService entityService;
     private final S customSearchService;
 
@@ -83,10 +82,10 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
         this.clazz = clazz;
 
         this.entityService = Services.getEntityService();
-        this.searchService = Services.getService(BasicSearchServiceImpl.class);
 
         if (searchService != null) {
             this.customSearchService = Services.getService(searchService);
+            log.log(Level.INFO, "[CrudBase] Using {0} for search purposes..", searchService.getSimpleName());
         } else {
             this.customSearchService = null;
         }
@@ -110,6 +109,7 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
 
     private void loadPanes() {
         customEditPane = getCustomEditPane();
+
         AnchorPane.setBottomAnchor(customEditPane, 38d);
         AnchorPane.setLeftAnchor(customEditPane, 0d);
         AnchorPane.setTopAnchor(customEditPane, 0d);
@@ -141,10 +141,6 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
         tbResult.getColumns().add(column);
     }
 
-    public BasicSearchService getSearchService() {
-        return searchService;
-    }
-
     protected abstract CrudEdit<E> getCustomEditPane();
 
     protected abstract AnchorPane getCustomSearchPane();
@@ -153,7 +149,6 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
     public void setMode(CrudMode mode) {
         switch (mode) {
             case FULL_MODE:
-
                 break;
             case EDIT_MODE:
 
@@ -218,16 +213,29 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
 
     @FXML
     public void simpleSearch(ActionEvent e) {
-        setState(CrudState.RESULT);
-        final SearchFilter<E> filter = getSearchFilter();
-        filter.getParams().clear();
-        filter.getParams().put("search", txtSearch.getText());
-        tbResult.getItems().addAll(searchService.find(clazz, filter));
+        try {
+            if (customSearchService == null) {
+                Platform.showMessage("Não encontramos um serviço para pesquisa, contate suporte!");
+                return;
+            }
+
+            tbResult.getItems().addAll(
+                    customSearchService.genericSearch(clazz,
+                            txtSearch.getText()));
+
+            setState(CrudState.RESULT);
+        } catch (Exception ex) {
+            Platform.showMessage("Ops, encontramos um problema, por favor, contate suporte!");
+            log.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
     }
 
     @FXML
     public void cancelEdit(ActionEvent e) {
         setState(CrudState.SEARCH);
+        newInstance = false;
+        instance = null;
     }
 
     @FXML

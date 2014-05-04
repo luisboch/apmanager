@@ -9,10 +9,14 @@ import java.util.List;
  *
  * @author luis
  */
-public interface BasicSearchService extends BasicService<BasicSearchDAO>{
+public interface BasicSearchService extends BasicService<BasicSearchDAO> {
 
     <T extends BasicEntity> List<T> getAll(Class<T> clazz);
 
     <T extends BasicEntity> List<T> find(
             Class<T> clazz, SearchFilter<? extends T> filter);
+
+    <T extends BasicEntity> List<T> genericSearch(
+            Class<T> clazz, String search);
+
 }

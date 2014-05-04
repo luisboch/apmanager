@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.apmanager.service.base;
 
-import com.apmanager.domain.base.BasicDAO;
 import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.domain.base.BasicSearchDAO;
 import com.apmanager.domain.base.BasicSearchDAOImpl;
@@ -28,14 +22,19 @@ public class BasicSearchServiceImpl
      */
     private final BasicSearchDAO dao;
 
-    EntityManagerProvider provider;
-
     public BasicSearchServiceImpl() {
         try {
             this.dao = new BasicSearchDAOImpl();
         } catch (Exception ex) {
             Logger.getLogger(BasicSearchServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex);
+        }
+    }
+
+    public BasicSearchServiceImpl(BasicSearchDAO dao) {
+        this.dao = dao;
+        if (this.dao == null) {
+            throw new IllegalArgumentException("[BasicSearchService] dao can't be null!");
         }
     }
 
@@ -54,9 +53,15 @@ public class BasicSearchServiceImpl
 
         checkInitialization();
 
-        dao.setEntityManager(provider.getEntityManager());
+        dao.setEntityManager(getProvider().getEntityManager());
 
         return dao;
+    }
+
+    @Override
+    public <T extends BasicEntity> List<T> genericSearch(Class<T> clazz, String search) {
+        checkInitialization();
+        return getDAO().genericSearch(clazz, search);
     }
 
 }
