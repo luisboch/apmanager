@@ -176,7 +176,7 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
 
         checkInitialization();
         final Class<BasicEntity> targetClass = (Class<BasicEntity>) entity.getClass();
-        final Set<EntityValidator> validators
+        final List<EntityValidator> validators
                 = Validators.getValidators(targetClass, context);
 
         if (type.equals(ActionType.SAVE)) {

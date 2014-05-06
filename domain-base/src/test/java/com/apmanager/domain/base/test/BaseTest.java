@@ -2,6 +2,7 @@ package com.apmanager.domain.base.test;
 
 import com.apmanager.domain.base.BasicDAO;
 import com.apmanager.domain.base.EntityManagerFactoryProvider;
+import com.apmanager.utils.ReflectionUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,13 +27,8 @@ public class BaseTest {
 
     static {
 
-        Reflections reflections = new Reflections(
-                new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forJavaClassPath())
-        );
-
         Set<Class<? extends EntityManagerFactoryProvider>> types
-                = reflections.getSubTypesOf(EntityManagerFactoryProvider.class);
+                = ReflectionUtils.getSubTypesOf(EntityManagerFactoryProvider.class);
 
         try {
 

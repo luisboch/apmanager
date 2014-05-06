@@ -20,6 +20,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Validator {
     Class<? extends BasicEntity> target();
-    String[] context() default "ALL"; 
-    String[] extendContext() default "ALL";
+    String context() default "ALL";
 }

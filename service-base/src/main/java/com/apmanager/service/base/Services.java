@@ -7,6 +7,7 @@ package com.apmanager.service.base;
 
 import com.apmanager.domain.base.EntityManagerFactoryProvider;
 import com.apmanager.service.annotations.PostConstruct;
+import com.apmanager.utils.ReflectionUtils;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,13 +41,9 @@ public class Services {
 
     public synchronized static void initialize() {
         if (!_initialized) {
-            Reflections reflections = new Reflections(
-                    new ConfigurationBuilder()
-                    .setUrls(ClasspathHelper.forJavaClassPath())
-            );
-
+            
             Set<Class<? extends EntityManagerFactoryProvider>> types
-                    = reflections.getSubTypesOf(EntityManagerFactoryProvider.class);
+                    = ReflectionUtils.getSubTypesOf(EntityManagerFactoryProvider.class);
 
             try {
                 for (Class<? extends EntityManagerFactoryProvider> clazz : types) {
