@@ -15,7 +15,7 @@
         <ToolBar layoutY="46.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="37.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <Button fx:id="btnNew" mnemonicParsing="false" onAction="#newInstance" text="%new.label" />
-                <Button fx:id="btnEdit" mnemonicParsing="false" text="%edit.label" />
+                <Button fx:id="btnEdit" mnemonicParsing="false" text="%edit.label" onAction="#edit"  />
                 <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="6.0" />
                 <ToggleButton fx:id="btnShowAdvancedSearch" mnemonicParsing="false" onAction="#showAdvancedSearch">
                     <graphic>
@@ -40,16 +40,21 @@
             </children>
         </AnchorPane>
         <AnchorPane fx:id="editPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0">
-<children><HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-<children><Button mnemonicParsing="false" onAction="#cancelEdit" text="Cancelar" /><Button mnemonicParsing="false" onAction="#save" text="Salvar" />
-</children>
-<opaqueInsets>
-<Insets />
-</opaqueInsets>
-<padding>
-<Insets left="10.0" right="10.0" />
-</padding></HBox>
-</children></AnchorPane>
+            <children>
+                <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#cancelEdit" text="Cancelar" />
+                        <Button mnemonicParsing="false" onAction="#save" text="Salvar" />
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </AnchorPane>
         <AnchorPane fx:id="advancedSearchPane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
     </children>
 </fx:root>

@@ -66,6 +66,7 @@ public class UserEdit extends CrudEdit<User> {
                 return false;
             }
         } else if (!txtPasswd1.getText().isEmpty() && !txtPasswd2.getText().equals(txtPasswd1.getText())) {
+            Platform.showMessage("Confira a senha!");
             return false;
         }
 
@@ -74,10 +75,10 @@ public class UserEdit extends CrudEdit<User> {
 
     @Override
     public void load(User obj) {
-        
+
         txtPasswd1.setText("");
         txtPasswd2.setText("");
-        
+
         if (obj == null) {
             txtName.setText("");
             txtUserName.setText("");

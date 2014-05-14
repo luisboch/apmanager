@@ -185,7 +185,7 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
             }
         } else {
             final E oldEntity
-                    = (E) provider.getEntityManager().find(entity.getClass(), entity);
+                    = (E) provider.getEntityManager().find(entity.getClass(), entity.getId());
             for (EntityValidator validator : validators) {
                 validator.validate(entity, oldEntity, type);
             }

@@ -59,7 +59,7 @@ public class UserCrud extends CrudBase<User, UserSearchService> {
     
         TableColumn<User,String> tbName = new TableColumn<>();
         tbName.setText("Nome");
-        
+        tbName.setMinWidth(200d);
         
         tbName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
              @Override
@@ -70,6 +70,7 @@ public class UserCrud extends CrudBase<User, UserSearchService> {
         
         TableColumn<User,String> tbUserName = new TableColumn<>();
         tbUserName.setText("Login");
+        tbUserName.setMinWidth(100d);
         
         tbUserName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
              @Override

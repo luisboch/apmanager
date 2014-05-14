@@ -178,6 +178,20 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
         }
     }
 
+    @FXML
+    public void edit(ActionEvent e) {
+        try {
+            setState(CrudState.EDIT);
+            newInstance = false;
+
+            instance = tbResult.getSelectionModel().getSelectedItem();
+            customEditPane.load(instance);
+
+        } catch (Exception ex) {
+            log.log(Level.SEVERE, ex.getMessage(), ex);
+        }
+    }
+
     public List<E> getSelecteds() {
         return tbResult.getSelectionModel().getSelectedItems();
     }
@@ -219,6 +233,7 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
                 return;
             }
 
+            tbResult.getItems().clear();
             tbResult.getItems().addAll(
                     customSearchService.genericSearch(clazz,
                             txtSearch.getText()));
@@ -233,18 +248,37 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
 
     @FXML
     public void cancelEdit(ActionEvent e) {
-        setState(CrudState.SEARCH);
+        setState(CrudState.RESULT);
         newInstance = false;
         instance = null;
     }
 
     @FXML
     public void save(ActionEvent ev) {
+
+        log.log(Level.INFO, "Saving instance {0}", instance);
+
         try {
+
             if (customEditPane.isValid(instance, newInstance)) {
+
                 instance = customEditPane.buildObject(instance, newInstance);
-                entityService.save(instance);
-                setState(CrudState.SEARCH);
+
+                if (newInstance) {
+                    entityService.save(instance);
+                    Platform.showMessage("Registro salvo com sucesso!");
+                    newInstance = false;
+                } else {
+                    entityService.update(instance);
+                    Platform.showMessage("Registro atualizado com sucesso!");
+                }
+
+                tbResult.getItems().clear();
+                log.log(Level.INFO, "Results qtd: {0}", tbResult.getItems().size());
+                tbResult.getItems().add(instance);
+                log.log(Level.INFO, "Results qtd: {0}", tbResult.getItems().size());
+
+                setState(CrudState.RESULT);
             }
         } catch (ValidationException ex) {
             for (ValidationError er : ex.getErrors()) {
@@ -271,6 +305,7 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
             newInstance = true;
             instance = clazz.newInstance();
             setState(CrudState.EDIT);
+            customEditPane.load(instance);
         } catch (Exception ex) {
             log.log(Level.SEVERE, null, ex);
         }
