@@ -61,12 +61,12 @@ public class UserEdit extends CrudEdit<User> {
 
         if (newInstance) {
             if (txtPasswd1.getText().isEmpty() || !txtPasswd2.getText().equals(txtPasswd1.getText())) {
-                Platform.showMessage("Confira a senha!");
+                Platform.showInfo("Confira a senha!");
                 txtPasswd1.requestFocus();
                 return false;
             }
         } else if (!txtPasswd1.getText().isEmpty() && !txtPasswd2.getText().equals(txtPasswd1.getText())) {
-            Platform.showMessage("Confira a senha!");
+            Platform.showWarn("Infoonfira a senha!");
             return false;
         }
 

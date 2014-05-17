@@ -106,5 +106,10 @@
             <version>2.5.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.luis</groupId>
+            <artifactId>fx-components</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

@@ -25,6 +25,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.luis.fx.components.Messages;
+import org.luis.fx.components.message.Type;
 
 public class Platform implements Initializable {
 
@@ -37,11 +39,17 @@ public class Platform implements Initializable {
     @FXML
     private Label currentPane;
 
+    @FXML
+    private Messages messages;
+
+    private static Messages messagesInstance;
+
     private Class<AnchorPane> currentClass;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        messagesInstance = messages;
         AppManager.setMenu(menuBar);
         AppManager.setPlatform(this);
 
@@ -117,8 +125,24 @@ public class Platform implements Initializable {
         }
     }
 
+    public static void showInfo(final String message) {
+        messagesInstance.showMessage(message, Type.INFO);
+    }
+
+    public static void showWarn(final String message) {
+        messagesInstance.showMessage(message, Type.WARNING);
+    }
+
+    public static void showError(final String message) {
+        messagesInstance.showMessage(message, Type.ERROR);
+    }
+
+    public static void showSuccess(final String message) {
+        messagesInstance.showMessage(message, Type.SUCCESS);
+    }
+
     public static void showMessage(final String message) {
-        
+
         Button btn = new Button();
 
         final Stage stage = new Stage();
@@ -140,18 +164,18 @@ public class Platform implements Initializable {
         btn.setLayoutX(100);
         btn.setLayoutY(80);
         btn.setText("OK");
-        
+
         VBox vBox = new VBox();
-        
+
         Text text = new Text(message);
-        
+
         VBox.setMargin(text, new Insets(20, 15, 20, 15));
         VBox.setMargin(btn, new Insets(-1d, 15, 20, -1d));
-        
+
         vBox.getChildren().add(text);
-        
+
         vBox.getChildren().add(btn);
-        
+
         root.getChildren().add(vBox);
         stage.setScene(scene);
         stage.show();

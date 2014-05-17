@@ -179,7 +179,7 @@ public class AppManager {
                     }
                 }
             } catch (Exception ex) {
-                Platform.showMessage("Ops, encontramos um problema, contate suporte!");
+                Platform.showInfo("Ops, encontramos um problema, contate suporte!");
                 log.log(Level.SEVERE, ex.getMessage(), ex);
             }
         }

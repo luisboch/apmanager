@@ -229,7 +229,7 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
     public void simpleSearch(ActionEvent e) {
         try {
             if (customSearchService == null) {
-                Platform.showMessage("Não encontramos um serviço para pesquisa, contate suporte!");
+                Platform.showInfo("Não encontramos um serviço para pesquisa, contate suporte!");
                 return;
             }
 
@@ -240,7 +240,7 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
 
             setState(CrudState.RESULT);
         } catch (Exception ex) {
-            Platform.showMessage("Ops, encontramos um problema, por favor, contate suporte!");
+            Platform.showInfo("Ops, encontramos um problema, por favor, contate suporte!");
             log.log(Level.SEVERE, ex.getMessage(), ex);
         }
 
@@ -266,11 +266,11 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
 
                 if (newInstance) {
                     entityService.save(instance);
-                    Platform.showMessage("Registro salvo com sucesso!");
+                    Platform.showInfo("Registro salvo com sucesso!");
                     newInstance = false;
                 } else {
                     entityService.update(instance);
-                    Platform.showMessage("Registro atualizado com sucesso!");
+                    Platform.showInfo("Registro atualizado com sucesso!");
                 }
 
                 tbResult.getItems().clear();
@@ -282,10 +282,10 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
             }
         } catch (ValidationException ex) {
             for (ValidationError er : ex.getErrors()) {
-                Platform.showMessage(er.getError());
+                Platform.showInfo(er.getError());
             }
         } catch (Exception ex) {
-            Platform.showMessage("Ops, encontramos um erro, contate suporte!");
+            Platform.showInfo("Ops, encontramos um erro, contate suporte!");
             log.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
