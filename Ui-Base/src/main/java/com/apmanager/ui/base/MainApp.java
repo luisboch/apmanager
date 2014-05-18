@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,78 +16,74 @@ import javax.swing.ImageIcon;
 
 public class MainApp extends Application {
 
+    final static URL iconURL = MainApp.class.getResource("/icon/hammer-icon-128.png");
+
+    final static URL rootResource = MainApp.class.getResource("/fxml/Scene.fxml");
+
+    final static ImageIcon icon = new ImageIcon(iconURL);
+
+    final static SwingLoader loader = new SwingLoader();
+
     public static Stage stage;
 
     @Override
     public void start(final Stage stage) throws Exception {
-        SwingLoader loader = new SwingLoader();
-        final URL iconURL = getClass().getResource("/icon/hammer-icon-128.png");
-        final ImageIcon icon = new ImageIcon(iconURL);
 
-        loader.setIconImage(icon.getImage());
+        loader.setMessage("Loading Validators...");
+        loader.setPercent(0);
+        Validators.initialize();
 
-        loader.setVisible(true);
+        loader.setMessage("Loading Services...");
+        loader.setPercent(10);
+        Services.initialize();
 
-        Thread t = new Thread(() -> {
+        loader.setMessage("Loading UI...");
+        loader.setPercent(20);
+        AppManager.initialize();
 
-            loader.setMessage("Loading Validators...");
-            loader.setPercent(0);
-            Validators.initialize();
+        loader.setMessage("Starting Connection...");
+        loader.setPercent(20);
+        Services.connect();
 
-            loader.setMessage("Loading Services...");
-            loader.setPercent(10);
-            Services.initialize();
+        loader.setMessage("Validating...");
+        loader.setPercent(90);
 
-            loader.setMessage("Loading UI...");
-            loader.setPercent(20);
-            AppManager.initialize();
+        loader.setVisible(false);
 
-            loader.setMessage("Starting Connection...");
-            loader.setPercent(20);
-            Services.connect();
+        javafx.application.Platform.runLater(() -> {
+            try {
 
-            loader.setMessage("Validating...");
-            loader.setPercent(90);
+                Parent root = FXMLLoader.load(rootResource);
 
-            final URL rootResource = getClass().getResource("/fxml/Scene.fxml");
+                final Scene applicationScene = new Scene(root);
 
-            loader.setVisible(false);
+                applicationScene.getStylesheets().add("/styles/Styles.css");
 
-            javafx.application.Platform.runLater(() -> {
-                try {
+                root.setVisible(true);
 
-                    Parent root = FXMLLoader.load(rootResource);
+                stage.getIcons().clear();
 
-                    final Scene applicationScene = new Scene(root);
-                    
-                    applicationScene.getStylesheets().add("/styles/Styles.css");
+                stage.getIcons().add(new Image(iconURL.getPath()));
 
-                    root.setVisible(true);
+                stage.centerOnScreen();
 
-                    stage.getIcons().clear();
+                stage.setScene(applicationScene);
 
-                    stage.getIcons().add(new Image(iconURL.getPath()));
-
-                    stage.centerOnScreen();
-
-                    stage.setScene(applicationScene);
-
-                    stage.setResizable(true);
-                    stage.setOnHiding((e) -> {
-                        System.exit(0);
-                    });
-
-                    stage.show();
-                    
-                    MainApp.stage = stage;
-                } catch (Exception ex) {
-                    Logger.getLogger(MainApp.class.getSimpleName()).log(Level.SEVERE, ex.getMessage(), ex);
+                stage.setResizable(true);
+                
+                stage.setOnHiding((e) -> {
                     System.exit(0);
-                }
-            });
-        });
+                });
 
-        t.start();
+                stage.show();
+                stage.requestFocus();
+
+                MainApp.stage = stage;
+            } catch (Exception ex) {
+                Logger.getLogger(MainApp.class.getSimpleName()).log(Level.SEVERE, ex.getMessage(), ex);
+                System.exit(0);
+            }
+        });
 
     }
 
@@ -96,7 +91,12 @@ public class MainApp extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
+        loader.setIconImage(icon.getImage());
+
+        loader.setVisible(true);
         launch(args);
+
     }
 
 }
