@@ -25,8 +25,6 @@ import javafx.util.Callback;
 public class UserCrud extends CrudBase<User, UserSearchService> {
 
 
-    @FXML
-    protected VBox vboxSearchPane;
 
     public UserCrud() {
         super(User.class, UserSearchService.class);
