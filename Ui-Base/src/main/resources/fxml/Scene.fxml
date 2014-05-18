@@ -6,12 +6,11 @@
 
 <AnchorPane id="AnchorPane" cache="true" cacheHint="SPEED" prefHeight="416.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.apmanager.ui.base.Platform">
     <children>
-        <MenuBar fx:id="menuBar" layoutY="-0.5" prefHeight="28.0" prefWidth="632.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            
-        </MenuBar>
+        
+        <MenuBar fx:id="menuBar" layoutY="-0.5" prefHeight="28.0" prefWidth="632.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <AnchorPane fx:id="actionPane" layoutY="28.0" prefHeight="345.0" prefWidth="632.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0" />
         <Separator layoutY="26.5" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
         <Label fx:id="currentPane" layoutX="18.0" layoutY="35.0" AnchorPane.rightAnchor="10.0" />
-        <org.luis.fx.components.Messages AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.bottomAnchor="0" prefWidth="200.0" fx:id="messages"/>
+        <org.luis.fx.components.Messages AnchorPane.topAnchor="15.0" AnchorPane.rightAnchor="15" prefWidth="300.0" fx:id="messages"/>
     </children>
 </AnchorPane>
