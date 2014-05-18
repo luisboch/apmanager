@@ -304,7 +304,7 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
     public void newInstance(ActionEvent e) {
         try {
             newInstance = true;
-            instance = clazz.newInstance();
+            instance = customEditPane.createNewInstance();
             setState(CrudState.EDIT);
             customEditPane.load(instance);
         } catch (Exception ex) {

@@ -1,7 +1,11 @@
 package com.apmanager.ui.base;
 
+import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.ui.base.annotation.Close;
 import com.apmanager.ui.base.annotation.Open;
+import com.apmanager.ui.base.crud.CrudEdit;
+import com.apmanager.ui.base.crud.DialogEdit;
+import com.apmanager.ui.base.handler.BasicHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -179,5 +183,40 @@ public class Platform implements Initializable {
         root.getChildren().add(vBox);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static <E extends BasicEntity> void createNewInstance(
+            CrudEdit<E> editor, BasicHandler<E> handler) {
+
+        if (editor != null) {
+
+            final Stage stage = new Stage();
+
+            // Initialize the Stage with type of modal
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Set the owner of the Stage 
+            stage.initOwner(MainApp.stage);
+            stage.setTitle("Atençao");
+
+            final DialogEdit dialogEdit = new DialogEdit(editor, new BasicHandler<E>() {
+                
+                @Override
+                public void handle(E obj) {
+                    
+                    stage.hide();
+                    
+                    if (handler != null) {
+                        handler.handle(obj);
+                    }
+                }
+            });
+
+            final Scene scene = new Scene(dialogEdit);
+
+            stage.setScene(scene);
+            stage.show();
+
+        }
     }
 }

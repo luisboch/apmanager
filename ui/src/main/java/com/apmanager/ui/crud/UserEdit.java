@@ -87,4 +87,9 @@ public class UserEdit extends CrudEdit<User> {
             txtUserName.setText(obj.getUsername());
         }
     }
+
+    @Override
+    public User createNewInstance() {
+        return new User();
+    }
 }

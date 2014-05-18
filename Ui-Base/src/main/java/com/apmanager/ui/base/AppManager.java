@@ -43,7 +43,7 @@ public class AppManager {
 
             Set<Class<?>> types
                     = reflections.getTypesAnnotatedWith(Window.class);
-            
+
             try {
                 for (Class<?> clazz : types) {
                     windows.put(clazz.getAnnotation(Window.class), clazz);
@@ -83,11 +83,15 @@ public class AppManager {
 
                 final boolean root = i == 0;
 
-                final MenuWrapper wrapper = new MenuWrapper();
-
-                wrapper.setName(I18N.Menu.get(key));
-
-                allMenus.put(key, wrapper);
+                MenuWrapper wrapper;
+                
+                if (allMenus.get(key) == null) {
+                    wrapper = new MenuWrapper();
+                    wrapper.setName(I18N.Menu.get(key));
+                    allMenus.put(key, wrapper);
+                } else {
+                    wrapper = allMenus.get(key);
+                }
 
                 if (root) {
 
@@ -166,7 +170,7 @@ public class AppManager {
                     Class targetClass = wrapper.getTargetClass();
 
                     if (targetClass != null) {
-                        
+
                         Object object = targetClass.newInstance();
 
                         if (object instanceof AnchorPane) {
