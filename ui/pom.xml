@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>com.apmanager.ui.base.MainApp</mainClass>
+        <preloaderClass>com.apmanager.preloader.Preloader</preloaderClass>
     </properties>
 
     <organization>
@@ -60,6 +61,12 @@
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>${mainClass}</mainClass>
                         </manifest>
+                        <manifestEntries>
+                            <JavaFX-Version>2.2</JavaFX-Version>
+                            <JavaFX-Preloader-Class>${preloaderClass}</JavaFX-Preloader-Class>
+                            <JavaFX-Application-Class>${mainClass}</JavaFX-Application-Class>
+                            <Created-By>Maven</Created-By>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>

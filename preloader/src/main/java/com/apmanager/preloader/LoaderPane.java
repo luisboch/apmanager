@@ -1,13 +1,14 @@
 package com.apmanager.preloader;
 
 import java.net.URL;
+import javafx.application.Preloader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 
-public class Loader extends AnchorPane {
+public class LoaderPane extends AnchorPane {
 
     @FXML
     private Label lblText;
@@ -15,7 +16,7 @@ public class Loader extends AnchorPane {
     @FXML
     private ProgressBar progressBar;
 
-    public Loader() {
+    public LoaderPane() {
 
         URL resource = getClass().getResource("/fxml/Loader.fxml");
         FXMLLoader loader = new FXMLLoader(resource);

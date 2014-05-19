@@ -2,7 +2,6 @@ package com.apmanager.ui.crud;
 
 import com.apmanager.domain.entity.User;
 import com.apmanager.ui.base.Platform;
-import com.apmanager.ui.base.annotation.Window;
 import com.apmanager.ui.base.crud.CrudEdit;
 import com.apmanager.ui.base.handler.BasicHandler;
 import java.net.URL;
