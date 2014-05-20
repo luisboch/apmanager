@@ -84,7 +84,7 @@ public class AppManager {
                 final boolean root = i == 0;
 
                 MenuWrapper wrapper;
-                
+
                 if (allMenus.get(key) == null) {
                     wrapper = new MenuWrapper();
                     wrapper.setName(I18N.Menu.get(key));
@@ -115,7 +115,12 @@ public class AppManager {
 
         for (MenuWrapper w : rootMenus) {
             final Menu m = (Menu) buildMenu(w, null);
-            menuBar.getMenus().add(m);
+            javafx.application.Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    menuBar.getMenus().add(m);
+                }
+            });
         }
 
     }

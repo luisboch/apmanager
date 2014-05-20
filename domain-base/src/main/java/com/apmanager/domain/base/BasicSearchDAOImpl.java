@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.persistence.Query;
 
 /**
- *
  * @author luis
  */
 public class BasicSearchDAOImpl extends BasicDAOImpl implements BasicSearchDAO {

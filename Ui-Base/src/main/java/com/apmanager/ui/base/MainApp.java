@@ -1,9 +1,13 @@
 package com.apmanager.ui.base;
 
+import com.apmanager.service.base.Services;
+import com.apmanager.service.base.Validators;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -47,8 +51,17 @@ public class MainApp extends Application {
                     System.exit(0);
                 });
 
+                root.visibleProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                        if (newValue != null && newValue) {
+                           
+                        }
+                    }
+                });
                 stage.show();
                 stage.requestFocus();
+                
 
                 MainApp.stage = stage;
             } catch (Exception ex) {

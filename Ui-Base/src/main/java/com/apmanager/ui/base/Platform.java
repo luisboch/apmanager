@@ -1,6 +1,8 @@
 package com.apmanager.ui.base;
 
 import com.apmanager.domain.base.BasicEntity;
+import com.apmanager.service.base.Services;
+import com.apmanager.service.base.Validators;
 import com.apmanager.ui.base.annotation.Close;
 import com.apmanager.ui.base.annotation.Open;
 import com.apmanager.ui.base.crud.CrudEdit;
@@ -12,6 +14,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,11 +29,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.luis.fx.components.Messages;
 import org.luis.fx.components.message.Type;
 
@@ -46,6 +54,12 @@ public class Platform implements Initializable {
     @FXML
     private Messages messages;
 
+    @FXML
+    private FlowPane loaderPane;
+
+    @FXML
+    private Pane bgPane;
+
     private static Messages messagesInstance;
 
     private Class<AnchorPane> currentClass;
@@ -54,8 +68,32 @@ public class Platform implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         messagesInstance = messages;
-        AppManager.setMenu(menuBar);
-        AppManager.setPlatform(this);
+        showLoader();
+
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), loaderPane);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+
+        fadeIn.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Validators.initialize();
+                        Services.initialize();
+                        Services.connect();
+                        AppManager.setMenu(menuBar);
+                        AppManager.setPlatform(Platform.this);
+                        hideLoader();
+                    }
+                }, "Platform-initializer");
+
+                t.start();
+            }
+        });
+
+        fadeIn.play();
 
     }
 
@@ -200,12 +238,12 @@ public class Platform implements Initializable {
             stage.setTitle("Atençao");
 
             final DialogEdit dialogEdit = new DialogEdit(editor, new BasicHandler<E>() {
-                
+
                 @Override
                 public void handle(E obj) {
-                    
+
                     stage.hide();
-                    
+
                     if (handler != null) {
                         handler.handle(obj);
                     }
@@ -218,5 +256,27 @@ public class Platform implements Initializable {
             stage.show();
 
         }
+    }
+
+    public void showLoader() {
+        loaderPane.setVisible(true);
+        bgPane.setVisible(true);
+    }
+
+    public void hideLoader() {
+
+        final FadeTransition f = new FadeTransition(Duration.millis(500), loaderPane);
+        f.setOnFinished(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                loaderPane.setVisible(false);
+                bgPane.setVisible(false);
+            }
+        });
+        f.setFromValue(1);
+        f.setToValue(0);
+        f.play();
+
     }
 }

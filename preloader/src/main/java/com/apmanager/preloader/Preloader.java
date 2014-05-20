@@ -37,7 +37,7 @@ public class Preloader extends javafx.application.Preloader {
             loader.setMessage("Loading Validators...");
             loader.setPercent(90);
             Validators.initialize();
-
+            
             loader.setMessage("Loading Services...");
             loader.setPercent(92);
             Services.initialize();
