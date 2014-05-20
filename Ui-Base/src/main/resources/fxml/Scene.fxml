@@ -8,7 +8,6 @@
 
 <AnchorPane id="AnchorPane" cache="true" cacheHint="SPEED" prefHeight="416.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.apmanager.ui.base.Platform">
     <children>
-        
         <MenuBar fx:id="menuBar" layoutY="-0.5" prefHeight="28.0" prefWidth="632.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <AnchorPane fx:id="actionPane" layoutY="28.0" prefHeight="345.0" prefWidth="632.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0" />
         <Separator layoutY="26.5" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
@@ -20,15 +19,15 @@
                 <Pane prefHeight="68.0" prefWidth="200.0" style="-fx-background-color: #FFF; -fx-background-radius: 5;">
                     <children>
                         <Label layoutX="17.0" layoutY="28.0" text="Aguarde..." />
-                  <ImageView fitHeight="38.0" fitWidth="46.0" layoutX="147.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/ajax-loader.gif" />
-                     </image>
-                  </ImageView>
+                        <ImageView fitHeight="38.0" fitWidth="46.0" layoutX="147.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/ajax-loader.gif" />
+                            </image>
+                        </ImageView>
                     </children>
-               <effect>
-                  <DropShadow />
-               </effect>
+                    <effect>
+                        <DropShadow />
+                    </effect>
                 </Pane>
             </children>
         </FlowPane>

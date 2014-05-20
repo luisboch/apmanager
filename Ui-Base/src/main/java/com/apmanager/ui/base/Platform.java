@@ -42,6 +42,8 @@ import org.luis.fx.components.message.Type;
 
 public class Platform implements Initializable {
 
+    private static final Logger log = Logger.getLogger(Platform.class.getName());
+
     @FXML
     private AnchorPane actionPane;
 
@@ -64,37 +66,22 @@ public class Platform implements Initializable {
 
     private Class<AnchorPane> currentClass;
 
+    private static Platform instance;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         messagesInstance = messages;
-        showLoader();
-
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), loaderPane);
-        fadeIn.setFromValue(0);
-        fadeIn.setToValue(1);
-
-        fadeIn.setOnFinished(new EventHandler<ActionEvent>() {
+        load(new Runnable() {
             @Override
-            public void handle(ActionEvent event) {
-                Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Validators.initialize();
-                        Services.initialize();
-                        Services.connect();
-                        AppManager.setMenu(menuBar);
-                        AppManager.setPlatform(Platform.this);
-                        hideLoader();
-                    }
-                }, "Platform-initializer");
-
-                t.start();
+            public void run() {
+                Validators.initialize();
+                Services.initialize();
+                Services.connect();
+                AppManager.setMenu(menuBar);
+                AppManager.setPlatform(Platform.this);
             }
         });
-
-        fadeIn.play();
-
     }
 
     public void setTitle(String title) {
@@ -232,7 +219,8 @@ public class Platform implements Initializable {
 
             // Initialize the Stage with type of modal
             stage.initModality(Modality.APPLICATION_MODAL);
-
+            stage.setResizable(true);
+            
             // Set the owner of the Stage 
             stage.initOwner(MainApp.stage);
             stage.setTitle("Atençao");
@@ -258,7 +246,43 @@ public class Platform implements Initializable {
         }
     }
 
-    public void showLoader() {
+    public void load(Runnable r) {
+        javafx.application.Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                showLoader();
+                final FadeTransition fadeIn = new FadeTransition(Duration.millis(500), loaderPane);
+                fadeIn.setFromValue(0);
+                fadeIn.setToValue(1);
+
+                fadeIn.setOnFinished(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Thread t = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                try {
+                                    r.run();
+                                } catch (Exception ex) {
+                                    log.log(Level.SEVERE, ex.getMessage(), ex);
+                                }
+
+                                hideLoader();
+                            }
+                        }, "Platform-loader");
+
+                        t.start();
+
+                    }
+                });
+
+                fadeIn.play();
+            }
+        });
+    }
+
+    private void showLoader() {
         loaderPane.setVisible(true);
         bgPane.setVisible(true);
     }
@@ -279,4 +303,9 @@ public class Platform implements Initializable {
         f.play();
 
     }
+
+    public static Platform getInstance() {
+        return instance;
+    }
+
 }

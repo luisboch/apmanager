@@ -3,6 +3,8 @@ package com.apmanager.ui.base;
 import com.apmanager.ui.base.annotation.Window;
 import com.apmanager.ui.base.menu.helper.MenuWrapper;
 import com.apmanager.ui.base.resource.i18n.I18N;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -139,8 +141,21 @@ public class AppManager {
 
             wrapper.setNode(menu);
             menu.setUserData(wrapper);
-            wrapper.getChildren().stream().forEach(
-                    (MenuWrapper m) -> {
+
+            Collections.sort(wrapper.getChildren(), new Comparator<MenuWrapper>() {
+                @Override
+                public int compare(MenuWrapper o1, MenuWrapper o2) {
+                    if (o1 != null && o2 != null) {
+                        if (o1.getName() != null && o2.getName() != null) {
+                            return o1.getName().compareTo(o2.getName());
+                        }
+
+                    }
+                    return o2 == null && o1 == null ? 0 : o1 != null ? 1 : -1;
+                }
+            });
+
+            wrapper.getChildren().stream().forEach((m) -> {
                         buildMenu(m, wrapper);
                     });
 

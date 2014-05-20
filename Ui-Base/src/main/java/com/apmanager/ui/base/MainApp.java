@@ -30,7 +30,9 @@ public class MainApp extends Application {
 
         javafx.application.Platform.runLater(() -> {
             try {
-
+                
+                javafx.application.Platform.setImplicitExit(true);
+                
                 Parent root = FXMLLoader.load(rootResource);
 
                 final Scene applicationScene = new Scene(root);
@@ -46,19 +48,8 @@ public class MainApp extends Application {
                 stage.setScene(applicationScene);
 
                 stage.setResizable(true);
-
-                stage.setOnHiding((e) -> {
-                    System.exit(0);
-                });
-
-                root.visibleProperty().addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                        if (newValue != null && newValue) {
-                           
-                        }
-                    }
-                });
+                stage.setMaximized(true);
+                
                 stage.show();
                 stage.requestFocus();
                 
