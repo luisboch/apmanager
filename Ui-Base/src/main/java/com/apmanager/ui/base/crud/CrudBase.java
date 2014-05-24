@@ -133,7 +133,7 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
         }
 
         if (customSearchPane == null) {
-            btnShowAdvancedSearch.setVisible(false);
+            btnShowAdvancedSearch.setDisable(true);
         }
     }
 

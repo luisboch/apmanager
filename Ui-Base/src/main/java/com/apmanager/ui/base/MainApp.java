@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javax.swing.ImageIcon;
 
@@ -33,7 +34,7 @@ public class MainApp extends Application {
                 
                 javafx.application.Platform.setImplicitExit(true);
                 
-                Parent root = FXMLLoader.load(rootResource);
+                AnchorPane root = FXMLLoader.load(rootResource);
 
                 final Scene applicationScene = new Scene(root);
 
@@ -46,10 +47,9 @@ public class MainApp extends Application {
                 stage.centerOnScreen();
 
                 stage.setScene(applicationScene);
-
+                stage.setMinWidth(root.getMinWidth());
                 stage.setResizable(true);
                 stage.setMaximized(true);
-                
                 stage.show();
                 stage.requestFocus();
                 
