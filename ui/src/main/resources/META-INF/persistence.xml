@@ -4,6 +4,12 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.apmanager.domain.entity.Computer</class>
     <class>com.apmanager.domain.entity.User</class>
+    <class>com.apmanager.domain.entity.Product</class>
+    <class>com.apmanager.domain.entity.ProductBrand</class>
+    <class>com.apmanager.domain.entity.ProductKeyWord</class>
+    <class>com.apmanager.domain.entity.Sale</class>
+    <class>com.apmanager.domain.entity.SaleProduct</class>
+    <class>com.apmanager.domain.entity.Shelf</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/apmanager"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
