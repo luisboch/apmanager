@@ -5,7 +5,6 @@ import com.apmanager.service.annotations.Validator;
 import com.apmanager.service.base.ActionType;
 import com.apmanager.service.base.EntityValidator;
 import com.apmanager.service.base.exception.ValidationException;
-import java.util.Date;
 
 /**
  *
@@ -15,12 +14,6 @@ import java.util.Date;
 public class UserValidator implements EntityValidator<User> {
 
     public void validate(User newEntity, User oldEntity, ActionType type) {
-
-        if (type.equals(ActionType.SAVE)) {
-            newEntity.setCreationDate(new Date());
-        }
-        
-        newEntity.setLastUpdate(new Date());
 
         ValidationException ex = new ValidationException(User.class);
 

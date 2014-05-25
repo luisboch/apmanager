@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * BasicEntityServiceImpl.java
  */
 package com.apmanager.service.base;
 
 import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.domain.base.BasicManagerDAO;
 import com.apmanager.domain.base.BasicManagerDAOImpl;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,6 +38,9 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
 
         BasicManagerDAO localDAO = getDAO();
 
+        entity.setLastUpdate(new Date());
+        entity.setCreationDate(new Date());
+
         try {
             localDAO.beginTransaction();
             localDAO.save(entity);
@@ -62,6 +63,8 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
         validate(entity, ActionType.UPDATE, context);
 
         BasicManagerDAO localDAO = getDAO();
+
+        entity.setLastUpdate(new Date());
 
         try {
             localDAO.beginTransaction();
@@ -107,6 +110,10 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
 
         entities.stream().forEach((E e) -> {
             validate(e, ActionType.SAVE, context);
+
+            e.setLastUpdate(new Date());
+            e.setCreationDate(new Date());
+            
         });
 
         BasicManagerDAO localDAO = getDAO();
@@ -132,6 +139,7 @@ public class BasicEntityServiceImpl extends BasicServiceImpl<BasicManagerDAO> im
 
         entities.stream().forEach((E e) -> {
             validate(e, ActionType.UPDATE, context);
+            e.setLastUpdate(new Date());
         });
 
         BasicManagerDAO localDAO = getDAO();

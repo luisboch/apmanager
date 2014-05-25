@@ -18,4 +18,5 @@ public interface BasicEntity<E extends Number> {
     
     void setLastUpdate(Date date);
     void setCreationDate(Date date);
+    String getDisplayName();
 }

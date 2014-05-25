@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.apmanager.domain.entity;
 
 import com.apmanager.domain.base.BasicEntity;
@@ -10,52 +14,65 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author luis
  */
 @Entity
-@Table(name = "users")
-public class User implements BasicEntity<Integer> {
+@Table(name = "computer")
+public class Computer implements BasicEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    private String ipv4;
+
+    private String ipv6;
+
+    @Column(name="nome")
     private String name;
 
-    @Column(nullable = false)
-    private String username;
-
-    @Column(nullable = false)
-    private String passwd;
-
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private boolean status = true;
+    
     @Column(name = "creation_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
-
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    
     @Column(name = "last_update", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
+    public Computer() {
+    }
+    
     @Override
     public Integer getId() {
         return id;
     }
 
+    
     @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getIpv4() {
+        return ipv4;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setIpv4(String ipv4) {
+        this.ipv4 = ipv4;
+    }
+
+    public String getIpv6() {
+        return ipv6;
+    }
+
+    public void setIpv6(String ipv6) {
+        this.ipv6 = ipv6;
     }
 
     public String getName() {
@@ -66,12 +83,21 @@ public class User implements BasicEntity<Integer> {
         this.name = name;
     }
 
-    public String getPasswd() {
-        return passwd;
+    @Override
+    public String getDisplayName() {
+        return this.name + "[ " + (ipv4 != null ? ipv4 : ipv6) + " ]";
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
+    public void setStatus(boolean newStatus) {
+        this.status = newStatus;
+    }
+
+    public boolean isActive() {
+        return this.status;
+    }
+
+    public boolean isStatus() {
+        return status;
     }
 
     public Date getCreationDate() {
@@ -91,18 +117,13 @@ public class User implements BasicEntity<Integer> {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-
-    @Override
-    public String getDisplayName() {
-        return name;
-    }
     
     
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -114,7 +135,7 @@ public class User implements BasicEntity<Integer> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final User other = (User) obj;
+        final Computer other = (Computer) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -123,6 +144,10 @@ public class User implements BasicEntity<Integer> {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + '}';
+        return "Computer{ id=" + id + ", ipv4=" + ipv4 + ", ipv6=" + ipv6 + ", name=" + name + ", status=" + status + '}';
     }
+    
+    
+    
 }
+

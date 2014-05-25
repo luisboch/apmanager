@@ -3,25 +3,28 @@ package com.apmanager.ui.base;
 import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.service.base.Services;
 import com.apmanager.service.base.Validators;
+import com.apmanager.ui.base.annotation.AppListener;
 import com.apmanager.ui.base.annotation.Close;
 import com.apmanager.ui.base.annotation.Open;
 import com.apmanager.ui.base.crud.CrudEdit;
 import com.apmanager.ui.base.crud.DialogEdit;
 import com.apmanager.ui.base.handler.BasicHandler;
+import com.apmanager.ui.base.utils.FileUtils;
+import com.apmanager.utils.ReflectionUtils;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -41,10 +44,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.luis.fx.components.Messages;
 import org.luis.fx.components.message.Type;
+import org.reflections.vfs.CommonsVfs2UrlType.File;
 
 public class Platform implements Initializable {
 
@@ -87,6 +90,7 @@ public class Platform implements Initializable {
                 Services.connect();
                 AppManager.setMenu(menuBar);
                 AppManager.setPlatform(Platform.this);
+                loadListeners();
                 MainApp.setCloseable(true);
             }
         });
@@ -311,6 +315,26 @@ public class Platform implements Initializable {
         f.setToValue(0);
         f.play();
 
+    }
+
+    public void loadListeners() {
+        Set<Class<?>> listeners = ReflectionUtils.getTypesAnnotatedWith(AppListener.class);
+        for (Class<?> c : listeners) {
+            try {
+                final Object instance = c.newInstance();
+                final Method[] methods = c.getMethods();
+                for (Method m : methods) {
+                    if (m.isAnnotationPresent(Open.class)) {
+                        m.invoke(instance);
+                    }
+                }
+            } catch (IllegalAccessException |
+                    IllegalArgumentException |
+                    InvocationTargetException |
+                    InstantiationException ex) {
+                Logger.getLogger(Platform.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public static Platform getInstance() {

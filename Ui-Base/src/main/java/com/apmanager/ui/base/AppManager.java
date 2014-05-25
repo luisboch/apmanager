@@ -25,7 +25,7 @@ import org.reflections.util.ConfigurationBuilder;
  * @author luis
  */
 public class AppManager {
-
+    
     private static Platform platform;
 
     private static final Logger log

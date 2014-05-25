@@ -3,6 +3,7 @@
   <persistence-unit name="dao-test-pu" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.apmanager.domain.entity.User</class>
+    <class>com.apmanager.domain.entity.Computer</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/apmanager_test"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>

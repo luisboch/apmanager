@@ -90,7 +90,7 @@ public class BasicManagerDAOImpl
     public void rollbackTransaction() {
         if (em != null && em.getTransaction().isActive()) {
             em.getTransaction().rollback();
-        } else {
+        } else if (em == null) {
             throw new RuntimeException("Entity manager not found");
         }
     }

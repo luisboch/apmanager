@@ -12,7 +12,7 @@ public class BasicSearchDAOImpl extends BasicDAOImpl implements BasicSearchDAO {
 
     public BasicSearchDAOImpl() {
     }
-
+    
     @Override
     public <T extends BasicEntity> List<T> getAll(Class<T> clazz) {
         return em.createNamedQuery("selec x from " + clazz.getCanonicalName() + " x ").getResultList();
@@ -22,7 +22,7 @@ public class BasicSearchDAOImpl extends BasicDAOImpl implements BasicSearchDAO {
     public <T extends BasicEntity> List<T> find(
             Class<T> clazz, SearchFilter<? extends T> filter) {
 
-        final StringBuilder jpql = new StringBuilder("select x " + clazz.getSimpleName() + " x ");
+        final StringBuilder jpql = new StringBuilder("select x from " + clazz.getSimpleName() + " x ");
 
         final WhereBuilder where = getWhere(filter.getParams());
 
@@ -50,11 +50,11 @@ public class BasicSearchDAOImpl extends BasicDAOImpl implements BasicSearchDAO {
         }
 
         if (filter.getFirstResult() != null) {
-            q.setFirstResult(filter.getFirstResult().intValue());
+            q.setFirstResult(filter.getFirstResult());
         }
 
         if (filter.getMaxResults() != null) {
-            q.setMaxResults(filter.getMaxResults().intValue());
+            q.setMaxResults(filter.getMaxResults());
         }
 
         return q.getResultList();
@@ -110,9 +110,9 @@ public class BasicSearchDAOImpl extends BasicDAOImpl implements BasicSearchDAO {
                         where.append("and ");
                     }
 
-                    final String paramName = ":param" + i;
+                    final String paramName = "param" + i;
 
-                    where.append("x.").append(k).append(paramName).append("\n");
+                    where.append("x.").append(k).append("=:").append(paramName).append("\n");
 
                     resultParams.put(paramName, queryParams.get(k));
 
