@@ -22,10 +22,10 @@
         <Pane fx:id="bgPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #888; -fx-opacity: 0.5;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <FlowPane fx:id="loaderPane" alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Pane prefHeight="68.0" prefWidth="200.0" style="-fx-background-color: #FFF; -fx-background-radius: 5;">
+                <Pane prefHeight="44.0" prefWidth="129.0" styleClass="loader-pane">
                     <children>
-                        <Label layoutX="17.0" layoutY="28.0" text="Aguarde..." />
-                        <ImageView fitHeight="38.0" fitWidth="46.0" layoutX="147.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                        <Label layoutX="11.0" layoutY="15.0" text="Aguarde..." />
+                        <ImageView fitHeight="15.0" fitWidth="34.0" layoutX="100.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../image/ajax-loader.gif" />
                             </image>

@@ -4,7 +4,6 @@ import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.domain.base.SearchFilter;
 import com.apmanager.service.base.BasicEntityService;
 import com.apmanager.service.base.BasicSearchService;
-import com.apmanager.service.base.BasicSearchServiceImpl;
 import com.apmanager.service.base.Services;
 import com.apmanager.service.base.exception.ValidationError;
 import com.apmanager.service.base.exception.ValidationException;
@@ -24,7 +23,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 /**
  *
@@ -64,7 +62,7 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
 
     @FXML
     protected AnchorPane editPane;
-    
+
     private final Class<E> clazz;
 
     protected E instance;
@@ -106,6 +104,7 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
         }
 
         loadPanes();
+        simpleSearch(null);
     }
 
     private void loadPanes() {
@@ -182,11 +181,15 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
     @FXML
     public void edit(ActionEvent e) {
         try {
-            setState(CrudState.EDIT);
             newInstance = false;
 
             instance = tbResult.getSelectionModel().getSelectedItem();
+            if (instance == null) {
+                Platform.showWarn("Selecione um item para editar!");
+                return;
+            }
             customEditPane.load(instance);
+            setState(CrudState.EDIT);
 
         } catch (Exception ex) {
             log.log(Level.SEVERE, ex.getMessage(), ex);
@@ -228,22 +231,33 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
 
     @FXML
     public void simpleSearch(ActionEvent e) {
-        try {
-            if (customSearchService == null) {
-                Platform.showInfo("Não encontramos um serviço para pesquisa, contate suporte!");
-                return;
+        Platform.getInstance().load(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    if (customSearchService == null) {
+                        Platform.showInfo("Não encontramos um serviço para pesquisa, contate suporte!");
+                        return;
+                    }
+                    List<E> results = customSearchService.genericSearch(clazz,
+                            txtSearch.getText());
+
+                    javafx.application.Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            tbResult.getItems().clear();
+                            tbResult.getItems().addAll(results);
+                            setState(CrudState.RESULT);
+                        }
+                    });
+
+                } catch (Exception ex) {
+                    Platform.showInfo("Ops, encontramos um problema, por favor, contate suporte!");
+                    log.log(Level.SEVERE, ex.getMessage(), ex);
+                }
             }
-
-            tbResult.getItems().clear();
-            tbResult.getItems().addAll(
-                    customSearchService.genericSearch(clazz,
-                            txtSearch.getText()));
-
-            setState(CrudState.RESULT);
-        } catch (Exception ex) {
-            Platform.showInfo("Ops, encontramos um problema, por favor, contate suporte!");
-            log.log(Level.SEVERE, ex.getMessage(), ex);
-        }
+        });
 
     }
 
@@ -273,13 +287,16 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
                     entityService.update(instance);
                     Platform.showInfo("Registro atualizado com sucesso!");
                 }
+                javafx.application.Platform.runLater(new Runnable() {
 
-                tbResult.getItems().clear();
-                log.log(Level.INFO, "Results qtd: {0}", tbResult.getItems().size());
-                tbResult.getItems().add(instance);
-                log.log(Level.INFO, "Results qtd: {0}", tbResult.getItems().size());
+                    @Override
+                    public void run() {
+                        tbResult.getItems().clear();
+                        tbResult.getItems().add(instance);
 
-                setState(CrudState.RESULT);
+                        setState(CrudState.RESULT);
+                    }
+                });
             }
         } catch (ValidationException ex) {
             for (ValidationError er : ex.getErrors()) {
@@ -289,6 +306,7 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
             Platform.showInfo("Ops, encontramos um erro, contate suporte!");
             log.log(Level.SEVERE, ex.getMessage(), ex);
         }
+
     }
 
     @FXML

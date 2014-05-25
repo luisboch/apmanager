@@ -62,7 +62,13 @@ public class UserEdit extends CrudEdit<User> {
         if (newInstance) {
             if (txtPasswd1.getText().isEmpty() || !txtPasswd2.getText().equals(txtPasswd1.getText())) {
                 Platform.showInfo("Confira a senha!");
-                txtPasswd1.requestFocus();
+                javafx.application.Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        txtPasswd1.requestFocus();
+                    }
+                });
                 return false;
             }
         } else if (!txtPasswd1.getText().isEmpty() && !txtPasswd2.getText().equals(txtPasswd1.getText())) {

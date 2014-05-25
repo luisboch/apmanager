@@ -17,6 +17,11 @@ import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,6 +41,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.luis.fx.components.Messages;
 import org.luis.fx.components.message.Type;
@@ -75,13 +81,16 @@ public class Platform implements Initializable {
         load(new Runnable() {
             @Override
             public void run() {
+                MainApp.setCloseable(false);
                 Validators.initialize();
                 Services.initialize();
                 Services.connect();
                 AppManager.setMenu(menuBar);
                 AppManager.setPlatform(Platform.this);
+                MainApp.setCloseable(true);
             }
         });
+        instance = this;
     }
 
     public void setTitle(String title) {
@@ -220,7 +229,7 @@ public class Platform implements Initializable {
             // Initialize the Stage with type of modal
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setResizable(true);
-            
+
             // Set the owner of the Stage 
             stage.initOwner(MainApp.stage);
             stage.setTitle("Atençao");
