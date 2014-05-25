@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * VehicleMark.java
  */
 package com.apmanager.domain.entity;
 
@@ -8,7 +7,6 @@ import com.apmanager.domain.base.BasicEntity;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,21 +18,21 @@ import javax.persistence.TemporalType;
  *
  * @author luis
  */
-@Entity
-@Table(name = "computer")
-public class Computer implements BasicEntity<Integer> {
+@javax.persistence.Entity
+@Table(name="product_brand")
+public class ProductBrand implements BasicEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="nome", nullable = false)
+    @Column(name="name", nullable = false)
     private String name;
 
-    private String ipv4;
+    @Column(name="description")
+    private String description;
 
-    private String ipv6;
-
+    @Column(name="status", nullable=false)
     private boolean status = true;
     
     @Column(name = "creation_date", nullable = false)
@@ -44,35 +42,23 @@ public class Computer implements BasicEntity<Integer> {
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-
-    public Computer() {
-    }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Integer getId() {
         return id;
     }
 
-    
+    /**
+     *
+     * @param id
+     */
     @Override
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getIpv4() {
-        return ipv4;
-    }
-
-    public void setIpv4(String ipv4) {
-        this.ipv4 = ipv4;
-    }
-
-    public String getIpv6() {
-        return ipv6;
-    }
-
-    public void setIpv6(String ipv6) {
-        this.ipv6 = ipv6;
     }
 
     public String getName() {
@@ -83,21 +69,25 @@ public class Computer implements BasicEntity<Integer> {
         this.name = name;
     }
 
-    @Override
-    public String getDisplayName() {
-        return this.name + "[ " + (ipv4 != null ? ipv4 : ipv6) + " ]";
+    public String getDescription() {
+        return description;
     }
 
-    public void setStatus(boolean newStatus) {
-        this.status = newStatus;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public boolean isActive() {
-        return this.status;
+        return status;
     }
 
-    public boolean isStatus() {
-        return status;
+    @Override
+    public String getDisplayName() {
+        return name;
     }
 
     public Date getCreationDate() {
@@ -118,12 +108,10 @@ public class Computer implements BasicEntity<Integer> {
         this.lastUpdate = lastUpdate;
     }
     
-    
-
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -135,7 +123,7 @@ public class Computer implements BasicEntity<Integer> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Computer other = (Computer) obj;
+        final ProductBrand other = (ProductBrand) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -144,10 +132,7 @@ public class Computer implements BasicEntity<Integer> {
 
     @Override
     public String toString() {
-        return "Computer{ id=" + id + ", ipv4=" + ipv4 + ", ipv6=" + ipv6 + ", name=" + name + ", status=" + status + '}';
+        return "ProductBrand{" + "id=" + id + ", name=" + name + ", description=" + description + '}';
     }
     
-    
-    
 }
-

@@ -1,10 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * VehicleMark.java
  */
 package com.apmanager.domain.entity;
 
 import com.apmanager.domain.base.BasicEntity;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,21 +22,21 @@ import javax.persistence.TemporalType;
  * @author luis
  */
 @Entity
-@Table(name = "computer")
-public class Computer implements BasicEntity<Integer> {
+@Table(name = "shelf")
+public class Shelf implements BasicEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="nome", nullable = false)
-    private String name;
+    @Column(name = "code", nullable = false)
+    private String code;
 
-    private String ipv4;
-
-    private String ipv6;
+    @Column(name = "description", nullable = false)
+    private String description;
 
     private boolean status = true;
+
     
     @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -45,59 +46,46 @@ public class Computer implements BasicEntity<Integer> {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
-    public Computer() {
-    }
-    
+
+    /**
+     *
+     * @return
+     */
     @Override
     public Integer getId() {
         return id;
     }
 
-    
-    @Override
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getIpv4() {
-        return ipv4;
+    
+    public String getCode() {
+        return code;
     }
 
-    public void setIpv4(String ipv4) {
-        this.ipv4 = ipv4;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getIpv6() {
-        return ipv6;
+    public String getDescription() {
+        return description;
     }
 
-    public void setIpv6(String ipv6) {
-        this.ipv6 = ipv6;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getDisplayName() {
-        return this.name + "[ " + (ipv4 != null ? ipv4 : ipv6) + " ]";
+    
+    public boolean isActive() {
+        return status;
     }
 
     public void setStatus(boolean newStatus) {
-        this.status = newStatus;
-    }
-
-    public boolean isActive() {
-        return this.status;
-    }
-
-    public boolean isStatus() {
-        return status;
+        status = newStatus;
     }
 
     public Date getCreationDate() {
@@ -117,12 +105,15 @@ public class Computer implements BasicEntity<Integer> {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-    
-    
 
     @Override
+    public String getDisplayName() {
+        return this.code;
+    }
+    
+    @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
@@ -135,19 +126,12 @@ public class Computer implements BasicEntity<Integer> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Computer other = (Computer) obj;
+        final Shelf other = (Shelf) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Computer{ id=" + id + ", ipv4=" + ipv4 + ", ipv6=" + ipv6 + ", name=" + name + ", status=" + status + '}';
-    }
-    
-    
-    
-}
 
+}
