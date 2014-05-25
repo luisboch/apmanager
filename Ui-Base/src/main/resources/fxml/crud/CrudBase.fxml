@@ -7,10 +7,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root minHeight="400.0" minWidth="700.0" prefHeight="431.0" prefWidth="700.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <stylesheets>
-        <URL value="@/styles/style.css" />
-    </stylesheets>
+<fx:root minHeight="400.0" minWidth="700.0" prefHeight="431.0" prefWidth="700.0" stylesheets="@../../styles/Styles.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ToolBar layoutY="46.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="37.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>

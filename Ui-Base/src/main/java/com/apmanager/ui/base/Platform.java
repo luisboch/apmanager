@@ -47,7 +47,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.luis.fx.components.Messages;
 import org.luis.fx.components.message.Type;
-import org.reflections.vfs.CommonsVfs2UrlType.File;
 
 public class Platform implements Initializable {
 
@@ -264,7 +263,7 @@ public class Platform implements Initializable {
             @Override
             public void run() {
                 showLoader();
-                final FadeTransition fadeIn = new FadeTransition(Duration.millis(500), loaderPane);
+                final FadeTransition fadeIn = new FadeTransition(Duration.millis(200), loaderPane);
                 fadeIn.setFromValue(0);
                 fadeIn.setToValue(1);
 
@@ -302,7 +301,7 @@ public class Platform implements Initializable {
 
     public void hideLoader() {
 
-        final FadeTransition f = new FadeTransition(Duration.millis(500), loaderPane);
+        final FadeTransition f = new FadeTransition(Duration.millis(200), loaderPane);
         f.setOnFinished(new EventHandler<ActionEvent>() {
 
             @Override
@@ -340,5 +339,4 @@ public class Platform implements Initializable {
     public static Platform getInstance() {
         return instance;
     }
-
 }
