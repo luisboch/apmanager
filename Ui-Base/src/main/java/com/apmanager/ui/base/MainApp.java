@@ -11,15 +11,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javax.swing.ImageIcon;
 
 public class MainApp extends Application {
 
-    final static URL iconURL = MainApp.class.getResource("/icon/hammer-icon-128.png");
-
     final static URL rootResource = MainApp.class.getResource("/fxml/Scene.fxml");
-
-    final static ImageIcon icon = new ImageIcon(iconURL);
 
     public static Stage stage;
 
@@ -28,9 +23,7 @@ public class MainApp extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
 
-        stage.getIcons().clear();
-
-        stage.getIcons().add(new Image(iconURL.getPath()));
+        stage.getIcons().add(new Image("file:resources/icon/hammer-icon-128.png"));
         
         MainApp.stage = stage;
         
