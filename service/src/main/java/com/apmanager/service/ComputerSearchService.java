@@ -18,8 +18,4 @@ public class ComputerSearchService extends BasicSearchServiceImpl{
         super(new ComputerDAO());
     }
     
-    
-    
-    private static final Logger log = Logger.getLogger(ComputerSearchService.class.getName());
-    
 }

@@ -5,6 +5,7 @@
  */
 package com.apmanager.domain.base;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  * @author luis
  * @param <E>
  */
-public interface BasicEntity<E extends Number> {
+public interface BasicEntity<E extends Number> extends Serializable {
     E getId();
     void setId(E id);
     

@@ -253,8 +253,8 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
                     });
 
                 } catch (Exception ex) {
-                    Platform.showInfo("Ops, encontramos um problema, por favor, contate suporte!");
                     log.log(Level.SEVERE, ex.getMessage(), ex);
+                    Platform.showInfo("Ops, encontramos um problema, por favor, contate suporte!");
                 }
             }
         });
