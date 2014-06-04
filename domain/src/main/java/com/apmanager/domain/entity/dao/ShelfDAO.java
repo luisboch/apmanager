@@ -8,7 +8,6 @@ package com.apmanager.domain.entity.dao;
 
 import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.domain.base.BasicSearchDAOImpl;
-import com.apmanager.domain.entity.Computer;
 import com.apmanager.domain.entity.Shelf;
 import java.util.List;
 import javax.persistence.Query;

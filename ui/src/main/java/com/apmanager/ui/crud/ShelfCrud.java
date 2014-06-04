@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.apmanager.ui.crud;
 
 import com.apmanager.domain.base.SearchFilter;
 import com.apmanager.domain.entity.Shelf;
-import com.apmanager.domain.entity.User;
 import com.apmanager.domain.entity.dao.filter.ShelfFilter;
 import com.apmanager.service.ShelfSearchService;
 import com.apmanager.ui.base.annotation.Window;
@@ -29,6 +23,7 @@ public class ShelfCrud extends CrudBase<Shelf, ShelfSearchService> {
 
     public ShelfCrud() {
         super(Shelf.class, ShelfSearchService.class);
+
         TableColumn<Shelf, String> tbName = new TableColumn<>();
         tbName.setText("Descrição");
         tbName.setMinWidth(200d);
@@ -39,6 +34,8 @@ public class ShelfCrud extends CrudBase<Shelf, ShelfSearchService> {
                 return new SimpleStringProperty(param.getValue().getDescription());
             }
         });
+        
+        addResultColumn(tbName);
     }
 
     @Override

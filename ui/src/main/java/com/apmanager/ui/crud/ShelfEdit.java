@@ -35,10 +35,9 @@ public class ShelfEdit extends CrudEdit<Shelf> {
         loader.setResources(ResourceBundle.getBundle("i18n/label"));
         loader.setController(this);
         loader.setRoot(this);
+        
         try {
-
             loader.load();
-
         } catch (Exception ex) {
             log.log(Level.SEVERE, ex.getMessage(), ex);
             throw new RuntimeException(ex);

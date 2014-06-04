@@ -240,17 +240,14 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
                         Platform.showInfo("Não encontramos um serviço para pesquisa, contate suporte!");
                         return;
                     }
-                    List<E> results = customSearchService.genericSearch(clazz,
+
+                    final List<E> results = customSearchService.genericSearch(clazz,
                             txtSearch.getText());
 
-                    javafx.application.Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            tbResult.getItems().clear();
-                            tbResult.getItems().addAll(results);
-                            setState(CrudState.RESULT);
-                        }
-                    });
+                    tbResult.getItems().clear();
+                    tbResult.getItems().addAll(results);
+                    setState(CrudState.RESULT);
+                    log.log(Level.INFO, "[CrudBase] Found {0} results", results.size());
 
                 } catch (Exception ex) {
                     log.log(Level.SEVERE, ex.getMessage(), ex);

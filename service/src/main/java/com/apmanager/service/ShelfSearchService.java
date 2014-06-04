@@ -1,6 +1,5 @@
 package com.apmanager.service;
 
-import com.apmanager.domain.base.BasicSearchDAOImpl;
 import com.apmanager.domain.entity.dao.ShelfDAO;
 import com.apmanager.service.base.BasicSearchServiceImpl;
 
