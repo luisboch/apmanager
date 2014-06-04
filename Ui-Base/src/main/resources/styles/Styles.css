@@ -22,7 +22,6 @@
 .button:pressed {
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1)  , 10, 0.1 , 6 , 8);
 }
-
 .menu-bar{
     -fx-background-color:
         linear-gradient( #d5faff 0%, #88c6fb 50%, #d5faff 90%, #3e4afd 100%  );
