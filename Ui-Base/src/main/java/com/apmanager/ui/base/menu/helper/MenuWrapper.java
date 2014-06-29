@@ -98,12 +98,10 @@ public class MenuWrapper {
     public void setDefault(boolean isDefault) {
         this.isDefault = isDefault;
     }
-    
-    
 
     @Override
     public String toString() {
-        return "MenuWrapper{" + "name=" + name + '}';
+        return "MenuWrapper{" + "name=" + name + ", priority=" + priority + ", isDefault=" + isDefault + '}';
     }
 
     private static class MenuArrayList extends ArrayList<MenuWrapper> {

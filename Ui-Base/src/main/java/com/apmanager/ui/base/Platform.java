@@ -68,6 +68,8 @@ public class Platform implements Initializable {
     private Class<AnchorPane> currentClass;
 
     private static Platform instance;
+    
+    private static String applicationName;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -80,10 +82,12 @@ public class Platform implements Initializable {
                 Validators.initialize();
                 Services.initialize();
                 Services.connect();
-                AppManager.setMenu(menuBar);
                 AppManager.setPlatform(Platform.this);
+                AppManager.setMenu(menuBar);
                 loadListeners();
+                AppManager.initDefault();
                 MainApp.setCloseable(true);
+                
             }
         });
         instance = this;
@@ -327,9 +331,19 @@ public class Platform implements Initializable {
                 Logger.getLogger(Platform.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        // Load Properties.
+        AppBaseListener.initialize();
     }
 
     public static Platform getInstance() {
         return instance;
+    }
+
+    public static String getApplicationName() {
+        return applicationName;
+    }
+
+    public static void setApplicationName(String applicationName) {
+        Platform.applicationName = applicationName;
     }
 }

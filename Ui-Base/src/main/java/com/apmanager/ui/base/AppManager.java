@@ -35,6 +35,8 @@ public class AppManager {
             = new HashMap<>();
 
     private static boolean _initialized = false;
+    
+    private static MenuWrapper defaultMenu;
 
     public static void initialize() {
         if (!_initialized) {
@@ -91,6 +93,7 @@ public class AppManager {
                     wrapper = new MenuWrapper();
                     wrapper.setName(I18N.Menu.get(key));
                     wrapper.setPriority(w.priority());
+                    wrapper.setDefault(w.isDefault());
                     allMenus.put(key, wrapper);
                 } else {
                     wrapper = allMenus.get(key);
@@ -183,8 +186,6 @@ public class AppManager {
             wrapper.setNode(menu);
         }
 
-        menu.setStyle("-fx-min-with:200px;");
-
         if (parent != null) {
             Menu m = (Menu) parent.getNode();
             m.getItems().add(menu);
@@ -193,11 +194,7 @@ public class AppManager {
         menu.setOnAction(new MenuHandler());
 
         if (wrapper.isDefault()) {
-            try {
-                selectMenu(wrapper);
-            } catch (Exception ex) {
-                log.log(Level.SEVERE, null, ex);
-            }
+           defaultMenu = wrapper;
         }
 
         return menu;
@@ -219,6 +216,14 @@ public class AppManager {
             }
         }
 
+    }
+    
+    public static void initDefault(){
+         try {
+                selectMenu(defaultMenu);
+            } catch (Exception ex) {
+                log.log(Level.SEVERE, null, ex);
+            }
     }
 
     private static void selectMenu(MenuWrapper wrapper) throws Exception {
