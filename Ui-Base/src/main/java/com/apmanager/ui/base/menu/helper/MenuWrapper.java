@@ -161,7 +161,7 @@ public class MenuWrapper {
     public void setPriority(Integer priority) {
 
         if (priority == null) {
-            priority = 999;
+            priority = 0;
         }
 
         this.priority = priority;

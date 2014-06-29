@@ -243,11 +243,17 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
 
                     final List<E> results = customSearchService.genericSearch(clazz,
                             txtSearch.getText());
+                    javafx.application.Platform.runLater(new Runnable() {
 
-                    tbResult.getItems().clear();
-                    tbResult.getItems().addAll(results);
-                    setState(CrudState.RESULT);
-                    log.log(Level.INFO, "[CrudBase] Found {0} results", results.size());
+                        @Override
+                        public void run() {
+                            tbResult.getItems().clear();
+                            tbResult.getItems().addAll(results);
+                            setState(CrudState.RESULT);
+                            log.log(Level.INFO, "[CrudBase] Found {0} results", results.size());
+                        }
+                    });
+                    
 
                 } catch (Exception ex) {
                     log.log(Level.SEVERE, ex.getMessage(), ex);

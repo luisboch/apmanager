@@ -19,7 +19,7 @@ import javafx.util.Callback;
  *
  * @author luis
  */
-@Window(menu = {"records.menu", "users.menu"}, priority = 800, isDefault = true)
+@Window(menu = {"records.menu", "users.menu"}, priority = 800)
 public class UserCrud extends CrudBase<User, UserSearchService> {
 
 

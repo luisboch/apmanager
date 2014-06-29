@@ -83,8 +83,8 @@ public class Platform implements Initializable {
                 Services.initialize();
                 Services.connect();
                 AppManager.setPlatform(Platform.this);
-                AppManager.setMenu(menuBar);
                 loadListeners();
+                AppManager.setMenu(menuBar);
                 AppManager.initDefault();
                 MainApp.setCloseable(true);
                 

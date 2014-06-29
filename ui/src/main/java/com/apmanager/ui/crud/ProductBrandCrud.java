@@ -41,7 +41,7 @@ public class ProductBrandCrud extends CrudBase<ProductBrand, ProductBrandSearchS
         
         TableColumn<ProductBrand, String> tbDescription  = new TableColumn<>();
         
-        tbDescription.setText("Nome");
+        tbDescription.setText("Descrição");
         
         tbDescription.setMinWidth(200d);
 

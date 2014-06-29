@@ -3,10 +3,12 @@ package com.apmanager.ui.base;
 import com.apmanager.ui.base.annotation.Window;
 import com.apmanager.ui.base.menu.helper.MenuWrapper;
 import com.apmanager.ui.base.resource.i18n.I18N;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -35,7 +37,7 @@ public class AppManager {
             = new HashMap<>();
 
     private static boolean _initialized = false;
-    
+
     private static MenuWrapper defaultMenu;
 
     public static void initialize() {
@@ -64,7 +66,7 @@ public class AppManager {
 
         initialize();
 
-        final Set<MenuWrapper> rootMenus = new HashSet<>();
+        final List<MenuWrapper> rootMenus = new ArrayList<>();
 
         final Map<String, MenuWrapper> allMenus = new HashMap<>();
 
@@ -78,7 +80,7 @@ public class AppManager {
 
             if (tree.length == 1) {
                 final String menu = tree[0];
-                tree = new String[]{I18N.Menu.get("options.menu"), menu};
+                tree = new String[]{"options.menu", menu};
             }
 
             for (int i = 0; i < tree.length; i++) {
@@ -100,9 +102,9 @@ public class AppManager {
                 }
 
                 if (root) {
-
-                    rootMenus.add(wrapper);
-
+                    if (!rootMenus.contains(wrapper)) {
+                        rootMenus.add(wrapper);
+                    }
                 } else {
                     final String parent = tree[i - 1];
 
@@ -118,6 +120,19 @@ public class AppManager {
 
             }
         }
+
+        Collections.sort(rootMenus, new Comparator<MenuWrapper>() {
+
+            @Override
+            public int compare(MenuWrapper o1, MenuWrapper o2) {
+                if (o1 != null && o2 != null) {
+                    if (o1.getPriority() != null && o2.getPriority() != null) {
+                        return o2.getPriority().compareTo(o1.getPriority());
+                    }
+                }
+                return 0;
+            }
+        });
 
         for (MenuWrapper w : rootMenus) {
             final Menu m = (Menu) buildMenu(w, null);
@@ -150,11 +165,10 @@ public class AppManager {
 
                     if (o1 != null && o2 != null) {
                         if (o1.getName() != null && o2.getName() != null) {
-                            return o1.getName().compareTo(o2.getName());
+                            return o2.getName().compareTo(o1.getName());
                         }
                     }
-
-                    return o2 == null && o1 == null ? 0 : o1 != null ? 1 : -1;
+                    return 0;
                 }
             });
 
@@ -167,8 +181,7 @@ public class AppManager {
                             return o2.getPriority().compareTo(o1.getPriority());
                         }
                     }
-
-                    return o2 == null && o1 == null ? 0 : o1 != null ? 1 : -1;
+                    return 0;
                 }
             });
 
@@ -193,8 +206,8 @@ public class AppManager {
 
         menu.setOnAction(new MenuHandler());
 
-        if (wrapper.isDefault()) {
-           defaultMenu = wrapper;
+        if (wrapper.isDefault() && wrapper.getTargetClass() != null) {
+            defaultMenu = wrapper;
         }
 
         return menu;
@@ -217,13 +230,19 @@ public class AppManager {
         }
 
     }
-    
-    public static void initDefault(){
-         try {
-                selectMenu(defaultMenu);
-            } catch (Exception ex) {
-                log.log(Level.SEVERE, null, ex);
+
+    public static void initDefault() {
+        javafx.application.Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    selectMenu(defaultMenu);
+                } catch (Exception ex) {
+                    log.log(Level.SEVERE, null, ex);
+                }
             }
+        });
     }
 
     private static void selectMenu(MenuWrapper wrapper) throws Exception {

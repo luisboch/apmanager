@@ -18,7 +18,7 @@ import javafx.util.Callback;
  *
  * @author Luis
  */
-@Window(menu = {"records.menu", "test.menu"})
+@Window(menu = {"records.menu", "test.menu"}, priority = 0)
 public class Test extends CrudBase<User, UserSearchService> {
 
     public Test() {

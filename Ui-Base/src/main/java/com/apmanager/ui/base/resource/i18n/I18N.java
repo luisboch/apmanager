@@ -5,6 +5,7 @@
  */
 package com.apmanager.ui.base.resource.i18n;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,8 @@ public class I18N {
 
         static {
             try {
-                menus = ResourceBundle.getBundle("i18n/menu");
+                menus = ResourceBundle.getBundle("i18n/menu", Locale.getDefault());
+                log.info("Loaded i8n menu");
             } catch (Exception ex) {
                 log.log(Level.SEVERE, ex.getMessage(), ex);
             }

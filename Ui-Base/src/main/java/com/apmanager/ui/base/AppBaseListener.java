@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,19 +25,18 @@ public class AppBaseListener {
     private static final Logger log = Logger.getLogger(AppBaseListener.class.getName());
 
     public static void initialize() {
+        loadComputerParameter();
+        loadLocale();
+        log.info("System started...");
+    }
+
+    private static void loadComputerParameter() {
         try {
             Integer cpId = null;
 
-            try {
-                final Properties p = FileUtils.loadProperties(
-                        System.getProperty("user.home")
-                        + System.getProperty("file.separator")
-                        + "." + Platform.getApplicationName() + ".properties");
-                if (p.getProperty("computer.id") != null) {
-                    cpId = Integer.valueOf(p.getProperty("computer.id"));
-                }
-            } catch (IOException ex) {
-                // Do Nothing;
+            final Properties p = AppConfig.getProperties();
+            if (p.getProperty("computer.id") != null) {
+                cpId = Integer.valueOf(p.getProperty("computer.id"));
             }
 
             if (cpId != null) {
@@ -59,15 +59,24 @@ public class AppBaseListener {
                     log.severe(ex.getMessage());
                 }
 
-                String aux = "computer.id = " + AppData.getComputer().getId();
-                FileUtils.writeToFile(new File(System.getProperty("user.home")
-                        + System.getProperty("file.separator") + ".apmanager.properties"), aux);
-            }
+                AppConfig.set("computer.id", AppData.getComputer().getId().toString());
 
-            log.info("System started...");
+            }
         } catch (Exception ex) {
             log.log(Level.SEVERE, ex.getMessage(), ex);
             throw new RuntimeException(ex);
+        }
+    }
+
+    private static void loadLocale() {
+        String config = (String) AppConfig.getProperties().get("locale");
+
+        if (config == null) {
+            log.warning("Ignoring locale config, using system locale...");
+        } else {
+            Locale.setDefault(new Locale(config));
+            log.log(Level.INFO, "Using locale: {0}", config);
+            log.log(Level.INFO, "Using locale: {0}", Locale.getDefault());
         }
     }
 }
