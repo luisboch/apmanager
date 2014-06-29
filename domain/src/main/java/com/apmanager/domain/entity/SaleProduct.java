@@ -46,11 +46,11 @@ public class SaleProduct implements BasicEntity<Long> {
 
     @Column(name = "sell_price", nullable = false)
     private Float sellPrice;
-    
+
     @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
-    
+
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
@@ -150,7 +150,7 @@ public class SaleProduct implements BasicEntity<Long> {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-    
+
     @Override
     public String toString() {
         return "SaleProduct{" + "product=" + product + ", sale=" + sale + ", quantity=" + quantity + '}';
@@ -181,7 +181,6 @@ public class SaleProduct implements BasicEntity<Long> {
         }
         return true;
     }
-    
 
     public Float getTotal() {
         return total;

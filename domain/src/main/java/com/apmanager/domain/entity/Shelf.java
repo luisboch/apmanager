@@ -37,15 +37,13 @@ public class Shelf implements BasicEntity<Integer> {
 
     private boolean status = true;
 
-    
     @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
-    
+
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-
 
     /**
      *
@@ -63,7 +61,7 @@ public class Shelf implements BasicEntity<Integer> {
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     public String getCode() {
         return code;
     }
@@ -79,7 +77,7 @@ public class Shelf implements BasicEntity<Integer> {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public boolean isActive() {
         return status;
     }
@@ -110,7 +108,7 @@ public class Shelf implements BasicEntity<Integer> {
     public String getDisplayName() {
         return this.code;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -132,6 +130,5 @@ public class Shelf implements BasicEntity<Integer> {
         }
         return true;
     }
-
 
 }

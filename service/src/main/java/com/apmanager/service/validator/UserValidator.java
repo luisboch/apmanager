@@ -1,4 +1,4 @@
-package com.apmanager.service;
+package com.apmanager.service.validator;
 
 import com.apmanager.domain.entity.User;
 import com.apmanager.service.annotations.Validator;

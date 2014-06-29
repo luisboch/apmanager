@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package com.apmanager.domain.entity.dao;
+package com.apmanager.domain.base.dao;
 
 import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.domain.base.BasicSearchDAOImpl;
-import com.apmanager.domain.entity.Computer;
+import com.apmanager.domain.base.Computer;
 import java.util.List;
 import javax.persistence.Query;
 
@@ -16,12 +15,11 @@ import javax.persistence.Query;
  *
  * @author luis
  */
-public class ComputerDAO extends BasicSearchDAOImpl{
+public class ComputerDAO extends BasicSearchDAOImpl {
 
     public ComputerDAO() {
     }
-    
-    
+
     public List<Computer> search(String search) {
         search = search == null ? "" : search;
         String jpql = "select c from Computer c where c.status = true "
@@ -31,15 +29,14 @@ public class ComputerDAO extends BasicSearchDAOImpl{
         q.setParameter("search", "%".concat(search).concat("%"));
         return q.getResultList();
     }
-    
-    
+
     @Override
     public <T extends BasicEntity> List<T> genericSearch(Class<T> clazz, String search) {
-        
-        if(clazz.equals(Computer.class)){
+
+        if (clazz.equals(Computer.class)) {
             return (List<T>) search(search);
         }
-        
+
         return super.genericSearch(clazz, search);
     }
 }

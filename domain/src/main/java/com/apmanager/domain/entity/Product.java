@@ -39,20 +39,20 @@ public class Product implements BasicEntity<Long> {
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
     private ProductBrand brand;
-    
+
     @Column(name = "description")
     private String description;
-    
+
     @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
-    
+
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL, orphanRemoval = true)
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductKeyWord> keyworkds;
 
     @Column(name = "code")
@@ -84,11 +84,11 @@ public class Product implements BasicEntity<Long> {
     private Integer minQuantity;
 
     private boolean status = true;
-    
+
     public Product() {
-        keyworkds = new ArrayList<>() ;
+        keyworkds = new ArrayList<>();
     }
-    
+
     @Override
     public Long getId() {
         return id;
@@ -102,7 +102,7 @@ public class Product implements BasicEntity<Long> {
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
@@ -114,7 +114,7 @@ public class Product implements BasicEntity<Long> {
     public void setBrand(ProductBrand brand) {
         this.brand = brand;
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -232,7 +232,7 @@ public class Product implements BasicEntity<Long> {
     public void setKeyworkds(List<ProductKeyWord> keyworkds) {
         this.keyworkds = keyworkds;
     }
-    
+
     @Override
     public String getDisplayName() {
         return this.name + " " + this.code + " " + this.additionalCode;
@@ -247,17 +247,17 @@ public class Product implements BasicEntity<Long> {
 
     @Override
     public boolean equals(Object obj) {
-        
+
         if (obj == null) {
             return false;
         }
-        
+
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         final Product other = (Product) obj;
-        
+
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.apmanager.domain.base.test;
 
 import com.apmanager.domain.base.EntityManagerFactoryProvider;
@@ -22,7 +21,7 @@ import javax.persistence.metamodel.Metamodel;
  *
  * @author luis
  */
-public class FactoryProvider implements EntityManagerFactoryProvider{
+public class FactoryProvider implements EntityManagerFactoryProvider {
 
     @Override
     public EntityManagerFactory getFactory() {
@@ -40,7 +39,7 @@ public class FactoryProvider implements EntityManagerFactoryProvider{
 
             @Override
             public EntityManager createEntityManager(SynchronizationType st) {
-                                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override

@@ -25,7 +25,7 @@ import org.reflections.util.ConfigurationBuilder;
  * @author luis
  */
 public class AppManager {
-    
+
     private static Platform platform;
 
     private static final Logger log
@@ -90,6 +90,7 @@ public class AppManager {
                 if (allMenus.get(key) == null) {
                     wrapper = new MenuWrapper();
                     wrapper.setName(I18N.Menu.get(key));
+                    wrapper.setPriority(w.priority());
                     allMenus.put(key, wrapper);
                 } else {
                     wrapper = allMenus.get(key);
@@ -136,28 +137,41 @@ public class AppManager {
         MenuItem menu;
 
         if (!wrapper.getChildren().isEmpty() || parent == null) {
-
             menu = new Menu(wrapper.getName());
-
             wrapper.setNode(menu);
             menu.setUserData(wrapper);
 
             Collections.sort(wrapper.getChildren(), new Comparator<MenuWrapper>() {
                 @Override
                 public int compare(MenuWrapper o1, MenuWrapper o2) {
+
                     if (o1 != null && o2 != null) {
                         if (o1.getName() != null && o2.getName() != null) {
                             return o1.getName().compareTo(o2.getName());
                         }
-
                     }
+
+                    return o2 == null && o1 == null ? 0 : o1 != null ? 1 : -1;
+                }
+            });
+
+            Collections.sort(wrapper.getChildren(), new Comparator<MenuWrapper>() {
+                @Override
+                public int compare(MenuWrapper o1, MenuWrapper o2) {
+
+                    if (o1 != null && o2 != null) {
+                        if (o1.getPriority() != null && o2.getPriority() != null) {
+                            return o2.getPriority().compareTo(o1.getPriority());
+                        }
+                    }
+
                     return o2 == null && o1 == null ? 0 : o1 != null ? 1 : -1;
                 }
             });
 
             wrapper.getChildren().stream().forEach((m) -> {
-                        buildMenu(m, wrapper);
-                    });
+                buildMenu(m, wrapper);
+            });
 
             log.log(Level.INFO, "Creating Menu: {0}", wrapper.getName());
 
@@ -169,12 +183,22 @@ public class AppManager {
             wrapper.setNode(menu);
         }
 
+        menu.setStyle("-fx-min-with:200px;");
+
         if (parent != null) {
             Menu m = (Menu) parent.getNode();
             m.getItems().add(menu);
         }
 
         menu.setOnAction(new MenuHandler());
+
+        if (wrapper.isDefault()) {
+            try {
+                selectMenu(wrapper);
+            } catch (Exception ex) {
+                log.log(Level.SEVERE, null, ex);
+            }
+        }
 
         return menu;
     }
@@ -187,20 +211,7 @@ public class AppManager {
                 if (event.getSource() instanceof MenuItem) {
                     final MenuItem menu = (MenuItem) event.getSource();
                     MenuWrapper wrapper = (MenuWrapper) menu.getUserData();
-                    Class targetClass = wrapper.getTargetClass();
-
-                    if (targetClass != null) {
-
-                        Object object = targetClass.newInstance();
-
-                        if (object instanceof AnchorPane) {
-                            platform.set((AnchorPane) object, targetClass);
-                            platform.setTitle(wrapper.getName());
-                        } else {
-                            log.log(Level.SEVERE, "[AppManager] Can't initialize class "
-                                    + "{0} that must extend AnchorPane", targetClass.getSimpleName());
-                        }
-                    }
+                    selectMenu(wrapper);
                 }
             } catch (Exception ex) {
                 Platform.showInfo("Ops, encontramos um problema, contate suporte!");
@@ -210,4 +221,20 @@ public class AppManager {
 
     }
 
+    private static void selectMenu(MenuWrapper wrapper) throws Exception {
+        Class targetClass = wrapper.getTargetClass();
+
+        if (targetClass != null) {
+
+            Object object = targetClass.newInstance();
+
+            if (object instanceof AnchorPane) {
+                platform.set((AnchorPane) object, targetClass);
+                platform.setTitle(wrapper.getName());
+            } else {
+                log.log(Level.SEVERE, "[AppManager] Can't initialize class "
+                        + "{0} that must extend AnchorPane", targetClass.getSimpleName());
+            }
+        }
+    }
 }

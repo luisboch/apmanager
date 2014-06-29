@@ -39,7 +39,7 @@ public class ProductKeyWord implements Serializable {
         this.product = product;
         this.keyWord = keyWord;
     }
-    
+
     public Product getProduct() {
         return product;
     }

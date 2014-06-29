@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.apmanager.domain.base.test;
 
 import org.junit.Test;
@@ -14,7 +13,7 @@ import static org.junit.Assert.*;
  * @author luis
  */
 public class NewEmptyJUnitTest {
-    
+
     public NewEmptyJUnitTest() {
     }
 

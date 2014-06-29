@@ -96,8 +96,6 @@ public class User implements BasicEntity<Integer> {
     public String getDisplayName() {
         return name;
     }
-    
-    
 
     @Override
     public int hashCode() {

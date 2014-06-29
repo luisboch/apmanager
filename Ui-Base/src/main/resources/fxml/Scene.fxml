@@ -11,17 +11,19 @@
 <AnchorPane id="AnchorPane" cache="true" cacheHint="SPEED" minWidth="700.0" prefHeight="416.0" prefWidth="700.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.apmanager.ui.base.Platform">
     <children>
         <MenuBar fx:id="menuBar" layoutY="-0.5" prefHeight="28.0" prefWidth="632.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <menus>
-         </menus>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets></MenuBar>
+            <menus>
+            </menus>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </MenuBar>
         <AnchorPane fx:id="actionPane" layoutY="28.0" prefHeight="345.0" prefWidth="632.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
         <Separator layoutY="26.5" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0" />
-        <Label fx:id="currentPane" alignment="CENTER" layoutX="18.0" layoutY="35.0" prefHeight="21.0" prefWidth="672.0" text="Teste" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
+        <Label fx:id="currentPane" alignment="CENTER" layoutX="18.0" layoutY="35.0" prefHeight="21.0" prefWidth="672.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
         <org.luis.fx.components.Messages fx:id="messages" prefWidth="300.0" AnchorPane.rightAnchor="15" AnchorPane.topAnchor="15.0" />
         <Pane fx:id="bgPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #888; -fx-opacity: 0.5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <FlowPane fx:id="loaderPane" alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

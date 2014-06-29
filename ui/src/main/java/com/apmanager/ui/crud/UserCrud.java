@@ -10,10 +10,8 @@ import com.apmanager.ui.base.crud.CrudEdit;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 /**
@@ -21,7 +19,7 @@ import javafx.util.Callback;
  *
  * @author luis
  */
-@Window(menu = {"records.menu", "users.menu"})
+@Window(menu = {"records.menu", "users.menu"}, priority = 800, isDefault = true)
 public class UserCrud extends CrudBase<User, UserSearchService> {
 
 

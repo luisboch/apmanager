@@ -36,5 +36,4 @@ public class FactoryProvider
     public EntityManagerFactory getFactory() {
         return factory;
     }
-
 }

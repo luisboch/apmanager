@@ -1,6 +1,6 @@
 package com.apmanager.ui.crud;
 
-import com.apmanager.domain.entity.Shelf;
+import com.apmanager.domain.entity.ProductBrand;
 import com.apmanager.ui.base.crud.CrudEdit;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,25 +12,25 @@ import javafx.scene.control.TextField;
 
 /**
  *
- * @author felipe
+ * @author Luis
  */
-public class ShelfEdit extends CrudEdit<Shelf> {
+public class ProductBrandEdit extends CrudEdit<ProductBrand> {
 
-    private static final Logger log = Logger.getLogger(ShelfEdit.class.getName());
+    private static final Logger log = Logger.getLogger(ProductBrandEdit.class.getName());
 
     @FXML
     private TextField textFieldName, textFieldDesc;
 
-    public ShelfEdit() {
-        
-        URL fxmlUrl = getClass().getResource("/fxml/crud/shelf/ShelfEdit.fxml");
+    public ProductBrandEdit() {
+
+        URL fxmlUrl = getClass().getResource("/fxml/crud/productbrand/ProductBrand.fxml");
 
         FXMLLoader loader = new FXMLLoader(fxmlUrl);
 
         loader.setResources(ResourceBundle.getBundle("i18n/label"));
         loader.setController(this);
         loader.setRoot(this);
-        
+
         try {
             loader.load();
         } catch (Exception ex) {
@@ -40,26 +40,27 @@ public class ShelfEdit extends CrudEdit<Shelf> {
     }
 
     @Override
-    public Shelf createNewInstance() {
-        return new Shelf();
+    public ProductBrand createNewInstance() {
+        final ProductBrand pb = new ProductBrand();
+        return pb;
     }
 
     @Override
-    public Shelf buildObject(Shelf obj, boolean newInstance) {
-        obj.setCode(textFieldName.getText());
+    public ProductBrand buildObject(ProductBrand obj, boolean newInstance) {
+        obj.setName(textFieldName.getText());
         obj.setDescription(textFieldDesc.getText());
         return obj;
     }
 
     @Override
-    public boolean isValid(Shelf obj, boolean newInstance) {
+    public boolean isValid(ProductBrand obj, boolean newInstance) {
         return true;
     }
 
     @Override
-    public void load(Shelf obj) {
+    public void load(ProductBrand obj) {
         if (obj != null) {
-            textFieldName.setText(obj.getCode());
+            textFieldName.setText(obj.getName());
             textFieldDesc.setText(obj.getDescription());
         } else {
             textFieldName.setText("");

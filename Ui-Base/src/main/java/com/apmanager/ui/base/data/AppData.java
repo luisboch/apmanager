@@ -2,9 +2,9 @@
  * AppData.java
  */
 
-package com.apmanager.ui.data;
+package com.apmanager.ui.base.data;
 
-import com.apmanager.domain.entity.Computer;
+import com.apmanager.domain.base.Computer;
 
 /**
  * @author luis

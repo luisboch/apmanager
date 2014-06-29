@@ -18,7 +18,7 @@ import javafx.util.Callback;
  *
  * @author felipe
  */
-@Window(menu = {"records.menu", "shelf.menu"})
+@Window(menu = {"records.menu", "shelf.menu"}, priority = 10)
 public class ShelfCrud extends CrudBase<Shelf, ShelfSearchService> {
 
     public ShelfCrud() {
@@ -28,13 +28,24 @@ public class ShelfCrud extends CrudBase<Shelf, ShelfSearchService> {
         tbName.setText("Descrição");
         tbName.setMinWidth(200d);
 
+        TableColumn<Shelf, String> tbCode = new TableColumn<>();
+        tbCode.setText("Código");
+        tbCode.setMinWidth(200d);
+
+        tbCode.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Shelf, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Shelf, String> param) {
+                return new SimpleStringProperty(param.getValue().getCode());
+            }
+        });
+
         tbName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Shelf, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Shelf, String> param) {
                 return new SimpleStringProperty(param.getValue().getDescription());
             }
         });
-        
+
         addResultColumn(tbName);
     }
 

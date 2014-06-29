@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.apmanager.domain.base.test;
 
 import java.util.List;
@@ -27,10 +26,10 @@ import javax.persistence.metamodel.Metamodel;
  *
  * @author luis
  */
-public class EntityManager implements javax.persistence.EntityManager{
+public class EntityManager implements javax.persistence.EntityManager {
+
     private static final Logger log = Logger.getLogger(EntityManager.class.getName());
 
-    
     @Override
     public void persist(Object o) {
         log.info("Persist--- ");
@@ -74,7 +73,7 @@ public class EntityManager implements javax.persistence.EntityManager{
 
     @Override
     public void flush() {
-        
+
     }
 
     @Override
@@ -88,22 +87,22 @@ public class EntityManager implements javax.persistence.EntityManager{
 
     @Override
     public void lock(Object o, LockModeType lmt) {
-        
+
     }
 
     @Override
     public void lock(Object o, LockModeType lmt, Map<String, Object> map) {
-        
+
     }
 
     @Override
     public void refresh(Object o) {
-        
+
     }
 
     @Override
     public void refresh(Object o, Map<String, Object> map) {
-        
+
     }
 
     @Override
@@ -285,5 +284,5 @@ public class EntityManager implements javax.persistence.EntityManager{
     public <T> List<EntityGraph<? super T>> getEntityGraphs(Class<T> type) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

@@ -51,7 +51,7 @@ public class SimpleSearchFilter<A extends Number, E extends BasicEntity<A>> impl
     }
 
     public void setName(String name) {
-        
+
         getParams().put("name", name);
     }
 

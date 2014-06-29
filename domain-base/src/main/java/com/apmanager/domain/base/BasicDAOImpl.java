@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.apmanager.domain.base;
 
 import javax.persistence.EntityManager;
@@ -12,8 +11,8 @@ import javax.persistence.EntityManager;
  *
  * @author luis
  */
-public class BasicDAOImpl implements BasicDAO{
-    
+public class BasicDAOImpl implements BasicDAO {
+
     protected EntityManager em;
 
     @Override

@@ -2,9 +2,9 @@
  * ComputerValidator.java
  */
 
-package com.apmanager.service.system;
+package com.apmanager.service.base.validator;
 
-import com.apmanager.domain.entity.Computer;
+import com.apmanager.domain.base.Computer;
 import com.apmanager.service.annotations.Validator;
 import com.apmanager.service.base.ActionType;
 import com.apmanager.service.base.EntityValidator;

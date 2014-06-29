@@ -1,11 +1,11 @@
 /**
  * ComputerFilter.java
  */
-package com.apmanager.domain.entity.dao.filter;
+package com.apmanager.domain.base.filter;
 
 import com.apmanager.domain.base.SearchFilter;
 import com.apmanager.domain.base.SimpleSearchFilter;
-import com.apmanager.domain.entity.Computer;
+import com.apmanager.domain.base.Computer;
 
 /**
  * @author luis

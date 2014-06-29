@@ -12,5 +12,6 @@ import javax.persistence.EntityManager;
  * @author luis
  */
 public interface BasicDAO {
+
     public void setEntityManager(EntityManager em);
 }

@@ -1,7 +1,7 @@
 package com.apmanager.domain.entity;
 
+import com.apmanager.domain.base.Computer;
 import com.apmanager.domain.base.BasicEntity;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -49,18 +48,17 @@ public class Sale implements BasicEntity<Long> {
     private boolean closed = false;
 
     @OneToMany(mappedBy = "sale",
-    cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+            cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<SaleProduct> products;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "computer_id")
     private Computer computer;
-    
-    
+
     @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
-    
+
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
@@ -130,7 +128,7 @@ public class Sale implements BasicEntity<Long> {
     public void setComputer(Computer computer) {
         this.computer = computer;
     }
-    
+
     public boolean isActive() {
         return true;
     }
@@ -152,12 +150,12 @@ public class Sale implements BasicEntity<Long> {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-    
+
     @Override
     public String getDisplayName() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     public int getProductQuantity() {
         if (products == null) {
             return 0;
@@ -170,11 +168,11 @@ public class Sale implements BasicEntity<Long> {
         }
         return localTotal;
     }
-    
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return getProductQuantity() == 0;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;

@@ -14,10 +14,14 @@ import java.util.Date;
  * @param <E>
  */
 public interface BasicEntity<E extends Number> extends Serializable {
+
     E getId();
+
     void setId(E id);
-    
+
     void setLastUpdate(Date date);
+
     void setCreationDate(Date date);
+
     String getDisplayName();
 }

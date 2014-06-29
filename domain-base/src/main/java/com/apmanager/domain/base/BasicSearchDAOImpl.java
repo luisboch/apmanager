@@ -12,7 +12,7 @@ public class BasicSearchDAOImpl extends BasicDAOImpl implements BasicSearchDAO {
 
     public BasicSearchDAOImpl() {
     }
-    
+
     @Override
     public <T extends BasicEntity> List<T> getAll(Class<T> clazz) {
         return em.createNamedQuery("selec x from " + clazz.getCanonicalName() + " x ").getResultList();

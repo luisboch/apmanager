@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.apmanager.domain.entity;
+package com.apmanager.domain.base;
 
 import com.apmanager.domain.base.BasicEntity;
 import java.util.Date;
@@ -28,7 +28,7 @@ public class Computer implements BasicEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="nome", nullable = false)
+    @Column(name = "nome", nullable = false)
     private String name;
 
     private String ipv4;
@@ -36,24 +36,23 @@ public class Computer implements BasicEntity<Integer> {
     private String ipv6;
 
     private boolean status = true;
-    
+
     @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
-    
+
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
     public Computer() {
     }
-    
+
     @Override
     public Integer getId() {
         return id;
     }
 
-    
     @Override
     public void setId(Integer id) {
         this.id = id;
@@ -117,8 +116,6 @@ public class Computer implements BasicEntity<Integer> {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -146,8 +143,5 @@ public class Computer implements BasicEntity<Integer> {
     public String toString() {
         return "Computer{ id=" + id + ", ipv4=" + ipv4 + ", ipv6=" + ipv6 + ", name=" + name + ", status=" + status + '}';
     }
-    
-    
-    
-}
 
+}

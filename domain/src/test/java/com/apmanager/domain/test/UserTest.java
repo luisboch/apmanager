@@ -33,11 +33,11 @@ public class UserTest extends BasicEntityTest<User> {
         instance.setUsername("teste-1");
         instance.setCreationDate(new Date());
         instance.setLastUpdate(new Date());
-        
+
         managerDAO.beginTransaction();
         managerDAO.save(instance);
         managerDAO.commitTransaction();
-        
+
         return instance;
     }
 

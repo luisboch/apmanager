@@ -13,6 +13,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Window {
-    String[] menu() default {"edit.menu"};
+    String[] menu() default {"records.menu"};
     String title() default "";
+    int priority() default 0;
+    boolean isDefault() default false;
 }

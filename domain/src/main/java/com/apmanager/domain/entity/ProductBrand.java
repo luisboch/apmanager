@@ -19,30 +19,30 @@ import javax.persistence.TemporalType;
  * @author luis
  */
 @javax.persistence.Entity
-@Table(name="product_brand")
+@Table(name = "product_brand")
 public class ProductBrand implements BasicEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="status", nullable=false)
-    private boolean status = true;
-    
+    @Column(name = "status", nullable = false)
+    private boolean active = true;
+
     @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
-    
+
     @Column(name = "last_update", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    
+
     /**
      *
      * @return
@@ -77,12 +77,16 @@ public class ProductBrand implements BasicEntity<Integer> {
         this.description = description;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public boolean isActive() {
-        return status;
+        return active;
+    }
+
+    public boolean isStatus() {
+        return active;
     }
 
     @Override
@@ -107,7 +111,7 @@ public class ProductBrand implements BasicEntity<Integer> {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -134,5 +138,5 @@ public class ProductBrand implements BasicEntity<Integer> {
     public String toString() {
         return "ProductBrand{" + "id=" + id + ", name=" + name + ", description=" + description + '}';
     }
-    
+
 }

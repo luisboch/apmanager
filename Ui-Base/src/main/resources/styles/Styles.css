@@ -60,21 +60,7 @@
 }
 
 .loader-pane{
-    -fx-background-color: linear-gradient(#e4fbff 0%, #98D6fb 90%, #e4fbff 100%);
+    -fx-background-color: linear-gradient(#fff 0%,  #fff 90%, #98D6fb 100%);
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 15, 0.0 , 0 , 1 );
     -fx-background-radius: 2;
 }
-/*
-.table-view .column-header,.table-view .filler{
-    -fx-background-color: linear-gradient(#FFF 0%, #FFF 30%,#eff  50%, #FFF 100%);
-    -fx-border-widht: 0px;
-}
-
-
-.table-view .column-header .label{
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header:active{
-    -fx-background-color: linear-gradient(#e4fbff 0%,#cee6fb 10%, #a5d3fb 50%, #88c6fb 51%, #d5faff 100%);
- }*/

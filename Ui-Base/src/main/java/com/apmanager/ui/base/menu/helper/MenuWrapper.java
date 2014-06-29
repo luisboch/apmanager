@@ -23,7 +23,9 @@ public class MenuWrapper {
     private final List<MenuWrapper> children = new MenuArrayList(this);
 
     private Class targetClass;
-
+    private Integer priority;
+    private boolean isDefault;
+    
     public MenuWrapper() {
     }
 
@@ -53,9 +55,6 @@ public class MenuWrapper {
 
     public void setParent(MenuWrapper parent) {
         this.parent = parent;
-//        if (!parent.getChildren().contains(this)) {
-//            parent.getChildren().add(this);
-//        }
     }
 
     public MenuItem getNode() {
@@ -91,6 +90,16 @@ public class MenuWrapper {
         }
         return true;
     }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+    
+    
 
     @Override
     public String toString() {
@@ -145,5 +154,18 @@ public class MenuWrapper {
 
         }
 
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+
+        if (priority == null) {
+            priority = 999;
+        }
+
+        this.priority = priority;
     }
 }

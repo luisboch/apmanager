@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.apmanager.domain.base.test;
 
 import com.apmanager.domain.base.SearchFilter;
@@ -13,7 +12,7 @@ import java.util.Map;
  *
  * @author luis
  */
-public class BasicDAOFilter implements SearchFilter<Entity>{
+public class BasicDAOFilter implements SearchFilter<Entity> {
 
     @Override
     public Integer getFirstResult() {
@@ -39,7 +38,5 @@ public class BasicDAOFilter implements SearchFilter<Entity>{
     public Boolean getActive() {
         return true;
     }
-    
-    
-    
+
 }

@@ -7,8 +7,8 @@ import com.apmanager.domain.entity.User;
 /**
  * @author luis
  */
-public final class UserFilter extends SimpleSearchFilter<Integer, User> implements SearchFilter<User>{
-    
+public final class UserFilter extends SimpleSearchFilter<Integer, User> implements SearchFilter<User> {
+
     public UserFilter() {
     }
 
@@ -30,13 +30,10 @@ public final class UserFilter extends SimpleSearchFilter<Integer, User> implemen
         setOrder(order);
         setFirstResult(firstResult);
     }
-    
+
     @Override
     public String toString() {
         return "UserFilter{" + "name=" + getName() + '}';
     }
 
-    
-    
-    
 }
