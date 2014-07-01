@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Luis
  */
-@Window(isDefault = true, menu = {"home.menu"}, priority = 0)
+@Window( menu = {"home.menu"}, priority = 0)
 public class InitiPane extends AnchorPane{
 
     public InitiPane() {
