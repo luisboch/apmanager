@@ -20,11 +20,11 @@ public class I18N {
 
     public static class Menu {
 
-        private static ResourceBundle menus;
+        private static ResourceBundle menu;
 
         static {
             try {
-                menus = ResourceBundle.getBundle("i18n/menu", Locale.getDefault());
+                menu = ResourceBundle.getBundle("i18n/menu", Locale.getDefault());
                 log.info("Loaded i8n menu");
             } catch (Exception ex) {
                 log.log(Level.SEVERE, ex.getMessage(), ex);
@@ -33,7 +33,7 @@ public class I18N {
 
         public static String get(String key) {
             
-            if(menus == null){
+            if(menu == null){
                 log.log(Level.SEVERE, "Can't find menus.properties in i18n path");
                 return "";
             }
@@ -42,7 +42,40 @@ public class I18N {
                 return "";
             }
             try {
-                return menus.getString(key);
+                return menu.getString(key);
+            } catch (Exception ex) {
+                log.severe(ex.getLocalizedMessage());
+                return "???" + key + "???";
+            }
+        }
+    }
+    
+    
+    public static class Label {
+
+        private static ResourceBundle label;
+
+        static {
+            try {
+                label = ResourceBundle.getBundle("i18n/label", Locale.getDefault());
+                log.info("Loaded i8n menu");
+            } catch (Exception ex) {
+                log.log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+
+        public static String get(String key) {
+            
+            if(label == null){
+                log.log(Level.SEVERE, "Can't find menus.properties in i18n path");
+                return "";
+            }
+            
+            if (key == null || key.isEmpty()) {
+                return "";
+            }
+            try {
+                return label.getString(key);
             } catch (Exception ex) {
                 log.severe(ex.getLocalizedMessage());
                 return "???" + key + "???";

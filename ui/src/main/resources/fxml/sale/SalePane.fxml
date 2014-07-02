@@ -13,13 +13,13 @@
         <URL value="@/styles/salepane.css" />
     </stylesheets>
     <children>
-        <Pane layoutX="447.0" layoutY="8.0" prefHeight="30.0" prefWidth="139.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+        <Pane layoutX="447.0" layoutY="8.0" minHeight="30.0" minWidth="139.0" prefHeight="30.0" prefWidth="139.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
             <children>
                 <Label layoutX="12.0" layoutY="9.0" prefHeight="15.0" prefWidth="58.0" text="%sale.code" />
                 <Label fx:id="lblCode" alignment="CENTER_RIGHT" layoutX="70.0" layoutY="9.0" prefHeight="15.0" prefWidth="64.0" text="00000" />
             </children>
         </Pane>
-        <TableView layoutX="14.0" layoutY="36.0" prefHeight="313.0" prefWidth="572.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="36.0">
+        <TableView layoutX="14.0" layoutY="36.0" prefHeight="313.0" prefWidth="572.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="36.0">
             <columns>
                 <TableColumn fx:id="tbColumnNumber" prefWidth="75.0" text="%number" />
                 <TableColumn fx:id="tbColumnProductName" prefWidth="75.0" text="%product" />
@@ -27,10 +27,10 @@
                 <TableColumn fx:id="tbColumnQtde" prefWidth="75.0" text="%sale.products.quantity" />
             </columns>
         </TableView>
-        <HBox alignment="CENTER_RIGHT" layoutX="339.0" layoutY="349.0" prefHeight="43.0" prefWidth="251.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0">
+        <HBox alignment="CENTER_RIGHT" layoutX="300.0" layoutY="349.0" prefHeight="43.0" prefWidth="290.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0">
             <children>
-                <Button fx:id="btnCancel" mnemonicParsing="false" text="%sale.cancel" />
-                <Button fx:id="btnFinish" mnemonicParsing="false" text="%sale.finish" />
+                <Button fx:id="btnCancel" mnemonicParsing="false" prefHeight="24.0" prefWidth="146.0" text="%sale.cancel" />
+                <Button fx:id="btnFinish" mnemonicParsing="false" prefHeight="24.0" prefWidth="157.0" text="%sale.finish" />
             </children>
             <padding>
                 <Insets left="10.0" right="10.0" />
@@ -46,5 +46,6 @@
                 <Insets left="10.0" />
             </padding>
         </HBox>
+      <Button fx:id="btnAdd" layoutX="560.0" layoutY="36.0" mnemonicParsing="false" onAction="#showSearchPane" style="-fx-padding: 5 10;" text="+" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="36.0" />
     </children>
 </fx:root>

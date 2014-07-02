@@ -37,6 +37,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import org.luis.fx.components.Messages;
 import org.luis.fx.components.message.Type;
@@ -68,7 +69,7 @@ public class Platform implements Initializable {
     private Class<AnchorPane> currentClass;
 
     private static Platform instance;
-    
+
     private static String applicationName;
 
     @Override
@@ -87,7 +88,7 @@ public class Platform implements Initializable {
                 AppManager.setMenu(menuBar);
                 AppManager.initDefault();
                 MainApp.setCloseable(true);
-                
+
             }
         });
         instance = this;
@@ -238,9 +239,7 @@ public class Platform implements Initializable {
 
                 @Override
                 public void handle(E obj) {
-
                     stage.hide();
-
                     if (handler != null) {
                         handler.handle(obj);
                     }
@@ -248,11 +247,41 @@ public class Platform implements Initializable {
             });
 
             final Scene scene = new Scene(dialogEdit);
-
             stage.setScene(scene);
             stage.show();
-
         }
+    }
+
+    public final void showDialog(AnchorPane pane, String title, BasicHandler handler) {
+        
+         // pane.getStylesheets().add(getClass().getResource("/styles/Styles.css").getPath());
+        pane.getStylesheets().add("/styles/Styles.css");
+        
+        final Stage stage = new Stage();
+
+        // Initialize the Stage with type of modal
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(true);
+
+        // Set the owner of the Stage 
+        stage.initOwner(MainApp.stage);
+
+        // Set title
+        stage.setTitle(title);
+
+        final Scene scene = new Scene(pane);
+
+        stage.setScene(scene);
+        stage.show();
+        
+        stage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                if (handler != null) {
+                    handler.handle(event);
+                }
+            }
+        });
     }
 
     public void load(Runnable r) {
