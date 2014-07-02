@@ -273,7 +273,6 @@ public class Platform implements Initializable {
 
         stage.setScene(scene);
         stage.show();
-        
         stage.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {

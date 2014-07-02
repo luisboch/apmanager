@@ -23,6 +23,8 @@ public class DialogEdit<E extends BasicEntity> extends AnchorPane {
 
     private static final Logger log = Logger.getLogger(DialogEdit.class.getName());
 
+    private static final Integer MIN_HEIGHT = 41;
+
     @FXML
     private AnchorPane editorEditPane;
 
@@ -68,6 +70,9 @@ public class DialogEdit<E extends BasicEntity> extends AnchorPane {
 
         editorEditPane.getChildren().add(editor);
 
+        // Configure size
+        this.setPrefWidth(editor.getPrefWidth());
+        this.setPrefHeight(editor.getPrefHeight() + MIN_HEIGHT);
     }
 
     @FXML
@@ -101,9 +106,9 @@ public class DialogEdit<E extends BasicEntity> extends AnchorPane {
                 Platform.showInfo(er.getError());
             });
         } catch (Exception ex) {
-            
+
             Platform.showInfo("Ops, encontramos um erro, contate suporte!");
-            
+
             log.log(Level.SEVERE, ex.getMessage(), ex);
 
         }
