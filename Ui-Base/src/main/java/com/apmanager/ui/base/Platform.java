@@ -18,6 +18,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -253,10 +255,9 @@ public class Platform implements Initializable {
     }
 
     public final void showDialog(AnchorPane pane, String title, BasicHandler handler) {
-        
-         // pane.getStylesheets().add(getClass().getResource("/styles/Styles.css").getPath());
+
         pane.getStylesheets().add("/styles/Styles.css");
-        
+
         final Stage stage = new Stage();
 
         // Initialize the Stage with type of modal
@@ -271,6 +272,18 @@ public class Platform implements Initializable {
 
         final Scene scene = new Scene(pane);
 
+        pane.visibleProperty().addListener(new ChangeListener<Boolean>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue != null) {
+                    if (!newValue) {
+                        stage.hide();
+                        scene.setRoot(new AnchorPane());
+                    }
+                }
+            }
+        });
         stage.setScene(scene);
         stage.show();
         stage.setOnHidden(new EventHandler<WindowEvent>() {
