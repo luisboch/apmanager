@@ -26,14 +26,20 @@ public class AppConfig {
 
     private static boolean _initialized = false;
 
+    private static String filePath = System.getProperty("user.home")
+            + System.getProperty("file.separator")
+            + "." + Platform.getApplicationName() + ".properties";
+
     public synchronized static void initialize() {
         if (!_initialized) {
             try {
-                properties = FileUtils.loadProperties(
-                        System.getProperty("user.home")
-                        + System.getProperty("file.separator")
-                        + "." + Platform.getApplicationName() + ".properties");
+                if (!FileUtils.fileExists(filePath)) {
+
+                    FileUtils.writeToFile(new File(filePath), "\n");
+                }
+                properties = FileUtils.loadProperties(filePath);
                 _initialized = true;
+                
             } catch (Exception ex) {
                 log.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new RuntimeException(ex);
@@ -47,7 +53,7 @@ public class AppConfig {
     }
 
     public static void set(String key, String value) {
-        
+
         properties.put(key, value);
 
         final Enumeration elements = properties.elements();
@@ -59,7 +65,7 @@ public class AppConfig {
             Object v = properties.get(k);
             textToWrite.append(k).append(" = ").append(v).append("\n");
         }
-        
+
         try {
             FileUtils.writeToFile(new File(System.getProperty("user.home")
                     + System.getProperty("file.separator") + ".apmanager.properties"), textToWrite.toString());

@@ -316,6 +316,7 @@ public class Platform implements Initializable {
                                     r.run();
                                 } catch (Exception ex) {
                                     log.log(Level.SEVERE, ex.getMessage(), ex);
+                                    showError("Ops, encontramos um problema!");
                                 }
 
                                 hideLoader();

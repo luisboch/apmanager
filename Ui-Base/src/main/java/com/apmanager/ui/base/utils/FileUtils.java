@@ -92,4 +92,8 @@ public class FileUtils {
         p.load(new FileReader(path));
         return p;
     }
+    
+    public static boolean fileExists(final String file){
+        return new File(file).exists();
+    }
 }
