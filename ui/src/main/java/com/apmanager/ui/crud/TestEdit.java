@@ -18,7 +18,6 @@ public class TestEdit extends CrudEdit<User> {
 
     public TestEdit() {
 
-
         URL fxmlUrl = getClass().getResource("/fxml/Test.fxml");
 
         FXMLLoader loader = new FXMLLoader(fxmlUrl);
@@ -38,7 +37,7 @@ public class TestEdit extends CrudEdit<User> {
     @FXML
     public void add(ActionEvent e) {
 
-        Platform.createNewInstance(new UserEdit(), new BasicHandler<User>() {
+        Platform.getInstance().createNewInstance(new UserEdit(), new BasicHandler<User>() {
             @Override
             public void handle(User obj) {
                 if (obj == null) {

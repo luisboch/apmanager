@@ -74,6 +74,8 @@ public class Platform implements Initializable {
 
     private static String applicationName;
 
+    private Stage stage = new Stage();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -90,10 +92,14 @@ public class Platform implements Initializable {
                 AppManager.setMenu(menuBar);
                 AppManager.initDefault();
                 MainApp.setCloseable(true);
-
+                initialize();
             }
+
         });
         instance = this;
+    }
+
+    private void initialize() {
     }
 
     public void setTitle(String title) {
@@ -182,118 +188,95 @@ public class Platform implements Initializable {
         messagesInstance.showMessage(message, Type.SUCCESS);
     }
 
-    public static void showMessage(final String message) {
-
-        Button btn = new Button();
-
-        final Stage stage = new Stage();
-        //Initialize the Stage with type of modal
-        stage.initModality(Modality.APPLICATION_MODAL);
-        //Set the owner of the Stage 
-        stage.initOwner(MainApp.stage);
-        stage.setTitle("Atençao");
-        Group root = new Group();
-        Scene scene = new Scene(root, 300, 250, Color.LIGHTGREEN);
-
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                stage.hide();
-            }
-        });
-
-        btn.setLayoutX(100);
-        btn.setLayoutY(80);
-        btn.setText("OK");
-
-        VBox vBox = new VBox();
-
-        Text text = new Text(message);
-
-        VBox.setMargin(text, new Insets(20, 15, 20, 15));
-        VBox.setMargin(btn, new Insets(-1d, 15, 20, -1d));
-
-        vBox.getChildren().add(text);
-
-        vBox.getChildren().add(btn);
-
-        root.getChildren().add(vBox);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public static <E extends BasicEntity> void createNewInstance(
+    public <E extends BasicEntity> void createNewInstance(
             CrudEdit<E> editor, BasicHandler<E> handler) {
 
         if (editor != null) {
+            if (editor.getScene() != null) {
+                stage.setScene(editor.getScene());
+            } else {
+                // Initialize the Stage with type of modal
+                final DialogEdit dialogEdit = new DialogEdit(editor, new BasicHandler<E>() {
 
-            final Stage stage = new Stage();
-
-            // Initialize the Stage with type of modal
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setResizable(true);
-
-            // Set the owner of the Stage 
-            stage.initOwner(MainApp.stage);
-            stage.setTitle("Atençao");
-
-            final DialogEdit dialogEdit = new DialogEdit(editor, new BasicHandler<E>() {
-
-                @Override
-                public void handle(E obj) {
-                    stage.hide();
-                    if (handler != null) {
-                        handler.handle(obj);
+                    @Override
+                    public void handle(E obj) {
+                        stage.hide();
+                        if (handler != null) {
+                            handler.handle(obj);
+                        }
                     }
-                }
-            });
+                });
 
-            final Scene scene = new Scene(dialogEdit);
-            stage.setScene(scene);
+                final Scene scene = new Scene(dialogEdit);
+                stage.setScene(scene);
+            }
+
             stage.show();
         }
     }
 
     public final void showDialog(AnchorPane pane, String title, BasicHandler handler) {
+        showDialog(null, pane, title, handler);
+    }
 
-        pane.getStylesheets().add("/styles/Styles.css");
+    public final void showDialog(Stage parent, AnchorPane pane, String title, BasicHandler handler) {
+        
+        if (pane != null) {
+            
+            stage = new Stage();
+            pane.getStylesheets().add("/styles/Styles.css");
 
-        final Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(true);
 
-        // Initialize the Stage with type of modal
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setResizable(true);
+            // Set the owner of the Stage 
+            if (parent == null) {
+                parent = MainApp.stage;
+            }
+            
+            stage.initOwner(parent);
+            stage.setTitle("Atençao");
 
-        // Set the owner of the Stage 
-        stage.initOwner(MainApp.stage);
+            // Set title
+            if (title != null && !title.isEmpty()) {
+                stage.setTitle(title);
+            }
 
-        // Set title
-        stage.setTitle(title);
+            if (pane.getScene() != null) {
+                stage.setScene(pane.getScene());
+            } else {
 
-        final Scene scene = new Scene(pane);
+                // Scene
+                final Scene scene = new Scene(pane);
 
-        pane.visibleProperty().addListener(new ChangeListener<Boolean>() {
+                pane.visibleProperty().addListener(new ChangeListener<Boolean>() {
 
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue != null) {
-                    if (!newValue) {
-                        stage.hide();
-                        scene.setRoot(new AnchorPane());
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                        if (newValue != null) {
+                            if (!newValue) {
+                                stage.hide();
+                                scene.setRoot(new AnchorPane());
+                            }
+                        }
                     }
-                }
+                });
+
+                stage.setOnHidden(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent event) {
+                        if (handler != null) {
+                            handler.handle(event);
+                        }
+                    }
+                });
+
+                stage.setScene(scene);
             }
-        });
-        stage.setScene(scene);
-        stage.show();
-        stage.setOnHidden(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                if (handler != null) {
-                    handler.handle(event);
-                }
-            }
-        });
+
+            stage.show();
+
+        }
     }
 
     public void load(Runnable r) {
