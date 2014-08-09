@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
  * @author luis
  */
 @javax.persistence.Entity
-@Table(name = "produtos")
+@Table(name = "product")
 public class Product implements BasicEntity<Long> {
 
     @Id
@@ -83,7 +83,7 @@ public class Product implements BasicEntity<Long> {
     @Column(name = "min_quantity", nullable = false)
     private Integer minQuantity;
 
-    private boolean status = true;
+    private boolean active = true;
 
     public Product() {
         keyworkds = new ArrayList<>();
@@ -179,16 +179,12 @@ public class Product implements BasicEntity<Long> {
         this.shelf = shelf;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setActive(boolean status) {
+        this.active = status;
     }
 
     public boolean isActive() {
-        return status;
+        return active;
     }
 
     public Integer getMinQuantity() {

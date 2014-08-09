@@ -11,7 +11,7 @@
     <children>
         <AnchorPane prefHeight="25.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="10.0">
             <children>
-                <TextField prefHeight="25.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <TextField fx:id="txtSearch" prefHeight="25.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>
         <TableView fx:id="tbResults" layoutX="10.0" layoutY="47.0" prefHeight="304.0" prefWidth="580.0" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
@@ -23,10 +23,10 @@
         </TableView>
         <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="349.0" prefHeight="37.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <children>
-                <Button mnemonicParsing="false" text="%cancel" />
-                <Button mnemonicParsing="false" text="%add" />
+                <Button mnemonicParsing="false" onAction="#cancel" text="%cancel" />
+                <Button mnemonicParsing="false" onAction="#confirm" text="%add" />
             </children>
         </HBox>
-        <Button layoutX="528.0" layoutY="10.0" mnemonicParsing="false" text="%search" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+        <Button layoutX="528.0" layoutY="10.0" mnemonicParsing="false" onAction="#search" text="%search" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
     </children>
 </fx:root>

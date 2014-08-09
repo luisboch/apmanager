@@ -44,13 +44,17 @@ public class SalePane extends BasicAnchorPane {
             @Override
             public void handle(Object obj) {
                 log.info("Search finished");
-                final ProductAddPane productAddPane = new ProductAddPane();
-                p.showDialog(productAddPane, I18N.Label.get("add"), new BasicHandler() {
-                    @Override
-                    public void handle(Object obj) {
-                        log.log(Level.INFO, "Is adding product? {0}", productAddPane.getProduct() != null);
-                    }
-                });
+                if (search.getSelected() != null) {
+                    final ProductAddPane productAddPane = new ProductAddPane();
+                    productAddPane.setProduct(search.getSelected());
+
+                    p.showDialog(productAddPane, I18N.Label.get("add"), new BasicHandler() {
+                        @Override
+                        public void handle(Object obj) {
+                            log.log(Level.INFO, "Is adding product? {0}", productAddPane.getProduct() != null);
+                        }
+                    });
+                }
             }
         });
     }
