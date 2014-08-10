@@ -35,7 +35,7 @@ public class Shelf implements BasicEntity<Integer> {
     @Column(name = "description", nullable = false)
     private String description;
 
-    private boolean status = true;
+    private boolean active = true;
 
     @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -79,11 +79,11 @@ public class Shelf implements BasicEntity<Integer> {
     }
 
     public boolean isActive() {
-        return status;
+        return active;
     }
 
-    public void setStatus(boolean newStatus) {
-        status = newStatus;
+    public void setActive(boolean newStatus) {
+        active = newStatus;
     }
 
     public Date getCreationDate() {

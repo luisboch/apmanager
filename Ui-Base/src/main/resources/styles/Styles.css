@@ -24,7 +24,7 @@
 }
 .menu-bar{
     -fx-background-color:
-        linear-gradient( #d5faff 0%, #88c6fb 50%, #d5faff 90%, #3e4afd 100%  );
+        linear-gradient( #fff 0%, #a8e6fb 45%, #88c6fb 50%, #d5faff 99%, #3e4afd 100%  );
     -fx-background-insets: 0 ;
     -fx-text-fill: #242d35;
     -fx-font-size: 14px;
@@ -55,7 +55,8 @@
 .menu-item:focused,
 .table-row-cell:filled:focused:selected,
 .table-row-cell:selected{
-    -fx-background-color:#88c6fb;
+    -fx-background-color:
+        linear-gradient( #386de2 0%, #689df2 50%, #386de2 100%  );;
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1)  , 10, 0.1 , 0 , 0);
 }
 

@@ -52,7 +52,7 @@ public class ProductDAO extends BasicSearchDAOImpl {
 
         final StringBuilder jpql = new StringBuilder();
 
-        jpql.append("select u \n")
+        jpql.append("select distinct u \n")
                 .append("  from Product u \n");
 
         for (int i = 0; i < words.length; i++) {
@@ -96,12 +96,16 @@ public class ProductDAO extends BasicSearchDAOImpl {
                 q.setParameter("p" + i, "%" + words[i] + "%");
             }
         }
+        
         q.setHint(QueryHints.RESULT_COLLECTION_TYPE, java.util.ArrayList.class);
 
         if (active != null) {
             q.setParameter("active", active);
         }
-
+        
+        q.setHint(QueryHints.FETCH, "u.shelf");
+        q.setHint(QueryHints.FETCH, "u.brand");
+        
         return q.getResultList();
     }
 }

@@ -32,7 +32,7 @@ public class ProductBrand implements BasicEntity<Integer> {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "status", nullable = false)
+    @Column(nullable = false)
     private boolean active = true;
 
     @Column(name = "creation_date", nullable = false)

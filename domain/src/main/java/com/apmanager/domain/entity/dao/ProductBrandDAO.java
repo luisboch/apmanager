@@ -55,7 +55,7 @@ public class ProductBrandDAO extends BasicSearchDAOImpl{
                 + "    or lower(u.description) like lower(:search)) \n";
         
         if(active != null){
-            jpql = jpql.concat("and active = :active");
+            jpql = jpql.concat("and u.active = :active");
         }
         
         Query q = em.createQuery(jpql);

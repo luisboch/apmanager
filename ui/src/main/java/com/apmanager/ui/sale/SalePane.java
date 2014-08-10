@@ -27,36 +27,37 @@ public class SalePane extends BasicAnchorPane {
     @FXML
     private Button btnCancel, btnFinish, btnAdd;
 
-    private final ProductSearchPane search;
-
     @FXML
     private TableView results;
 
     public SalePane() {
         super("/fxml/sale/SalePane.fxml");
-        search = new ProductSearchPane();
     }
 
     @FXML
     public void showSearchPane(ActionEvent evt) {
         final Platform p = Platform.getInstance();
-        p.showDialog(search, I18N.Label.get("search"), new BasicHandler<Object>() {
-            @Override
-            public void handle(Object obj) {
-                log.info("Search finished");
-                if (search.getSelected() != null) {
-                    final ProductAddPane productAddPane = new ProductAddPane();
-                    productAddPane.setProduct(search.getSelected());
+        final ProductSearchPane search = new ProductSearchPane();
 
-                    p.showDialog(productAddPane, I18N.Label.get("add"), new BasicHandler() {
-                        @Override
-                        public void handle(Object obj) {
-                            log.log(Level.INFO, "Is adding product? {0}", productAddPane.getProduct() != null);
+        p.showDialog(search, I18N.Label.get("search"),
+                new BasicHandler<Object>() {
+                    @Override
+                    public void handle(Object obj) {
+                        log.info("Search finished");
+                        if (search.getSelected() != null) {
+                            final ProductAddPane productAddPane = new ProductAddPane();
+                            productAddPane.setProduct(search.getSelected());
+
+                            p.showDialog(productAddPane, I18N.Label.get("add"),
+                                    new BasicHandler() {
+                                        @Override
+                                        public void handle(Object obj) {
+                                            log.log(Level.INFO, "Is adding product? {0}", productAddPane.getProduct() != null);
+                                        }
+                                    });
                         }
-                    });
-                }
-            }
-        });
+                    }
+                });
     }
 
 }

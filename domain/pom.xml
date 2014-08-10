@@ -11,6 +11,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <eclipselink.version>2.5.1</eclipselink.version>
     </properties>
     
     <build>
@@ -69,13 +70,13 @@
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
-            <version>2.5.1</version>
+            <version>${eclipselink.version}</version>
         </dependency>
         
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-            <version>2.5.1</version>
+            <version>${eclipselink.version}</version>
             <scope>provided</scope>
         </dependency>
         

@@ -4,7 +4,7 @@
   nome character varying(255) NOT NULL,
   ipv4 character varying(255),
   ipv6 character varying(255),
-  status boolean NOT NULL DEFAULT true,
+  active boolean NOT NULL DEFAULT true,
   last_update timestamp(3) without time zone NOT NULL DEFAULT now(),
   creation_date timestamp(3) without time zone NOT NULL DEFAULT now(),
   CONSTRAINT computer_pkey PRIMARY KEY (id)
@@ -20,13 +20,15 @@ CREATE TABLE users
   creation_date timestamp(3) without time zone NOT NULL DEFAULT now(),
   last_update timestamp(3) without time zone NOT NULL DEFAULT now(),
   CONSTRAINT users_pkey PRIMARY KEY (id)
-);CREATE TABLE product_brand (
+);
+
+CREATE TABLE product_brand (
     id serial primary key,
     "name" character varying(255) NOT NULL,
     creation_date timestamp(3) without time zone NOT NULL default now(),
     description character varying(255),
     last_update timestamp(3) without time zone NOT NULL default now(),
-    status boolean not null default true
+    active boolean not null default true
 );
 
 
@@ -34,7 +36,7 @@ CREATE TABLE shelf (
     id serial primary key,
     description character varying(255) NOT NULL,
     code character varying(255) NOT NULL,
-    status boolean not null default true,
+    active boolean not null default true,
     creation_date timestamp(3) not null default now(),
     last_update timestamp(3) not null default now()
 );
@@ -53,7 +55,7 @@ CREATE TABLE product (
     sell_price double precision NOT NULL,
     brand_id integer not null,
     shelf_id integer NOT NULL,
-    status boolean not null default true,
+    active boolean not null default true,
     creation_date timestamp(3) not null default now(),
     last_update timestamp(3) not null default now(),
     constraint fk_prdt_brand foreign key (brand_id)

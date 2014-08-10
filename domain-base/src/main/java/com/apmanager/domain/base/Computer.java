@@ -4,7 +4,6 @@
  */
 package com.apmanager.domain.base;
 
-import com.apmanager.domain.base.BasicEntity;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -35,7 +34,7 @@ public class Computer implements BasicEntity<Integer> {
 
     private String ipv6;
 
-    private boolean status = true;
+    private boolean active = true;
 
     @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -87,16 +86,12 @@ public class Computer implements BasicEntity<Integer> {
         return this.name + "[ " + (ipv4 != null ? ipv4 : ipv6) + " ]";
     }
 
-    public void setStatus(boolean newStatus) {
-        this.status = newStatus;
-    }
-
     public boolean isActive() {
-        return this.status;
+        return active;
     }
 
-    public boolean isStatus() {
-        return status;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Date getCreationDate() {
@@ -141,7 +136,7 @@ public class Computer implements BasicEntity<Integer> {
 
     @Override
     public String toString() {
-        return "Computer{ id=" + id + ", ipv4=" + ipv4 + ", ipv6=" + ipv6 + ", name=" + name + ", status=" + status + '}';
+        return "Computer{ id=" + id + ", ipv4=" + ipv4 + ", ipv6=" + ipv6 + ", name=" + name + ", active=" + active + '}';
     }
 
 }

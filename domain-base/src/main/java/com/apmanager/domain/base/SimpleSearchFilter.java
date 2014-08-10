@@ -8,11 +8,12 @@ import java.util.Map;
 
 /**
  * @author luis
- * @param <A>
- * @param <E>
+ * @param <A> PK type
+ * @param <E> Target type
  * @since May 25, 2014
  */
-public class SimpleSearchFilter<A extends Number, E extends BasicEntity<A>> implements SearchFilter<E> {
+public class SimpleSearchFilter<A extends Number, E extends BasicEntity<A>>
+        implements SearchFilter<E> {
 
     private Integer maxResults;
     private String[] order;
@@ -45,7 +46,14 @@ public class SimpleSearchFilter<A extends Number, E extends BasicEntity<A>> impl
     public void setOrder(String[] order) {
         this.order = order;
     }
-
+    public String getSearch(){
+        return (String) getParams().get("search");
+    }
+    
+    public void setSearch(String search){
+        getParams().put("search", search);
+    }
+    
     public String getName() {
         return (String) getParams().get("name");
     }

@@ -18,68 +18,85 @@ public class I18N {
 
     private static final Logger log = Logger.getLogger(I18N.class.getName());
 
-    public static class Menu {
+    private static class Resource {
 
-        private static ResourceBundle menu;
+        private final ResourceBundle resource;
+        private final String resourceName;
 
-        static {
+        public Resource(String resource) {
+
+            resourceName = resource;
+
             try {
-                menu = ResourceBundle.getBundle("i18n/menu", Locale.getDefault());
-                log.info("Loaded i8n menu");
+
+                this.resource = ResourceBundle.getBundle("i18n/" + resource,
+                        Locale.getDefault());
+                log.log(Level.INFO, "Loaded i8n {0}", resourceName);
+
             } catch (Exception ex) {
+
+                log.log(Level.SEVERE, "Can't find {0}.properties in i18n path",
+                        resourceName);
                 log.log(Level.SEVERE, ex.getMessage(), ex);
+
+                throw ex;
             }
         }
 
-        public static String get(String key) {
-            
-            if(menu == null){
-                log.log(Level.SEVERE, "Can't find menus.properties in i18n path");
+        public String get(String key) {
+
+            if (resource == null) {
                 return "";
             }
-            
+
             if (key == null || key.isEmpty()) {
                 return "";
             }
             try {
-                return menu.getString(key);
+                return resource.getString(key);
             } catch (Exception ex) {
                 log.severe(ex.getLocalizedMessage());
                 return "???" + key + "???";
             }
         }
     }
-    
-    
-    public static class Label {
 
-        private static ResourceBundle label;
+    public static class Menu {
+
+        private static final Resource menu;
 
         static {
-            try {
-                label = ResourceBundle.getBundle("i18n/label", Locale.getDefault());
-                log.info("Loaded i8n menu");
-            } catch (Exception ex) {
-                log.log(Level.SEVERE, ex.getMessage(), ex);
-            }
+            menu = new Resource("menu");
         }
 
         public static String get(String key) {
-            
-            if(label == null){
-                log.log(Level.SEVERE, "Can't find menus.properties in i18n path");
-                return "";
-            }
-            
-            if (key == null || key.isEmpty()) {
-                return "";
-            }
-            try {
-                return label.getString(key);
-            } catch (Exception ex) {
-                log.severe(ex.getLocalizedMessage());
-                return "???" + key + "???";
-            }
+            return menu.get(key);
+        }
+    }
+
+    public static class Label {
+
+        private static final Resource label;
+
+        static {
+            label = new Resource("label");
+        }
+
+        public static String get(String key) {
+            return label.get(key);
+        }
+    }
+
+    public static class Config {
+
+        private static final Resource config;
+
+        static {
+            config = new Resource("app_config");
+        }
+
+        public static String get(String key) {
+            return config.get(key);
         }
     }
 }
