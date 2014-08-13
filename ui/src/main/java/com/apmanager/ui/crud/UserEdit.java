@@ -23,22 +23,7 @@ public class UserEdit extends CrudEdit<User> {
     private static final Logger log = Logger.getLogger(UserEdit.class.getName());
 
     public UserEdit() {
-
-        URL fxmlUrl = getClass().getResource("/fxml/crud/user/UserEdit.fxml");
-
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-
-        loader.setResources(ResourceBundle.getBundle("i18n/label"));
-        loader.setController(this);
-        loader.setRoot(this);
-        try {
-
-            loader.load();
-        } catch (Exception ex) {
-            log.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new RuntimeException(ex);
-        }
-
+        super("/fxml/crud/user/UserEdit.fxml");
     }
 
     @Override

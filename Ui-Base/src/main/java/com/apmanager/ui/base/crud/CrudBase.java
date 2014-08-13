@@ -8,6 +8,7 @@ import com.apmanager.service.base.Services;
 import com.apmanager.service.base.exception.ValidationError;
 import com.apmanager.service.base.exception.ValidationException;
 import com.apmanager.ui.base.Platform;
+import com.apmanager.ui.base.resource.i18n.I18N;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -303,7 +304,12 @@ public abstract class CrudBase<E extends BasicEntity, S extends BasicSearchServi
             }
         } catch (ValidationException ex) {
             for (ValidationError er : ex.getErrors()) {
-                Platform.showInfo(er.getError());
+                if(er.getI18n() == null || er.getI18n().isEmpty()){
+                    Platform.showInfo(er.getError());
+                } else {
+                    Platform.showInfo(
+                            I18N.Message.get(er.getI18n()));
+                }
             }
         } catch (Exception ex) {
             Platform.showInfo("Ops, encontramos um erro, contate suporte!");

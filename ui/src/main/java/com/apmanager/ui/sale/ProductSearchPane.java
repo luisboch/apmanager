@@ -1,5 +1,6 @@
 package com.apmanager.ui.sale;
 
+import com.apmanager.domain.base.BasicEntity;
 import com.apmanager.utils.NumberUtils;
 import com.apmanager.domain.entity.Product;
 import com.apmanager.service.ProductSearchService;
@@ -7,6 +8,8 @@ import com.apmanager.service.base.Services;
 import com.apmanager.ui.base.Platform;
 import com.apmanager.ui.base.pane.BasicAnchorPane;
 import com.apmanager.ui.base.resource.i18n.I18N;
+import com.apmanager.ui.base.utils.renderer.NameCellFactory;
+import com.apmanager.ui.renderer.ProductPriceCellFactory;
 import java.text.DecimalFormat;
 import java.util.List;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -32,7 +35,8 @@ public class ProductSearchPane extends BasicAnchorPane {
     private TableView<Product> tbResults;
 
     @FXML
-    private TableColumn<Product, String> cnProduct, cnPrice;
+    private TableColumn<Product, String> cnPrice;
+    private TableColumn<BasicEntity, String> cnProduct;
 
     @FXML
     private TableColumn<Product, Number> cnStock;
@@ -56,29 +60,11 @@ public class ProductSearchPane extends BasicAnchorPane {
 
     private void setupTbResult() {
 
-        final ProductSearchPane mySelf = this;
-
         tbResults.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        cnPrice.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures<Product, String>, ObservableValue<String>>() {
+        cnPrice.setCellValueFactory(new ProductPriceCellFactory());
 
-                    @Override
-                    public ObservableValue<String> call(
-                            TableColumn.CellDataFeatures<Product, String> param) {
-                                return new SimpleStringProperty(monetarySymbol + " "
-                                        + NumberUtils.format(param.getValue().getSellPrice(),
-                                                monetaryPattern));
-                            }
-                });
-
-        cnProduct.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures<Product, String>, ObservableValue<String>>() {
-                    @Override
-                    public ObservableValue<String> call(TableColumn.CellDataFeatures<Product, String> param) {
-                        return new SimpleStringProperty(param.getValue().getName());
-                    }
-                });
+        cnProduct.setCellValueFactory(new NameCellFactory());
 
         cnStock.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures<Product, Number>, ObservableValue<Number>>() {

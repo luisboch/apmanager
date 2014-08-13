@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root prefHeight="639.0" prefWidth="598.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ScrollPane prefHeight="381.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="632.0" prefWidth="583.0">
+                    <children>
+                        <TextField fx:id="txtName" layoutX="10.0" layoutY="25.0" prefHeight="25.0" prefWidth="299.0" AnchorPane.leftAnchor="10.0" />
+                        <Label layoutX="10.0" layoutY="17.0" prefHeight="15.0" prefWidth="154.0" text="Nome:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <Label layoutX="10.0" layoutY="61.0" prefHeight="15.0" prefWidth="154.0" text="Descrição:" />
+                        <TextField fx:id="txtDesc" layoutX="11.0" layoutY="76.0" prefHeight="25.0" prefWidth="500.0" />
+                        <Label layoutX="10.0" layoutY="122.0" prefHeight="15.0" prefWidth="154.0" text="Marca:" AnchorPane.leftAnchor="10.0" />
+                        <ComboBox fx:id="cmbBrand" layoutX="10.0" layoutY="137.0" prefHeight="25.0" prefWidth="270.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="287.0" />
+                        <Label layoutX="10.0" layoutY="176.0" prefHeight="15.0" prefWidth="154.0" text="Codigo:" />
+                        <TextField fx:id="txtCode" layoutX="11.0" layoutY="191.0" prefHeight="25.0" prefWidth="188.0" AnchorPane.leftAnchor="10.0" />
+                        <Label layoutX="227.0" layoutY="176.0" prefHeight="15.0" prefWidth="201.0" text="Codigo de barras:" />
+                        <TextField fx:id="txtBarcode" layoutX="227.0" layoutY="191.0" prefHeight="25.0" prefWidth="182.0" />
+                        <Label layoutX="10.0" layoutY="229.0" prefHeight="15.0" prefWidth="154.0" text="Preço de compra:" AnchorPane.leftAnchor="10.0" />
+                        <org.luis.fx.components.input.CurrencyField fx:id="txtPurchuasePrice" layoutX="10.0" layoutY="244.0" prefHeight="25.0" prefWidth="182.0" />
+                        <org.luis.fx.components.input.CurrencyField fx:id="txtSellPrice" layoutX="227.0" layoutY="244.0" prefHeight="25.0" prefWidth="119.0" />
+                        <Label layoutX="227.0" layoutY="229.0" prefHeight="15.0" prefWidth="154.0" text="Preço de venda:" />
+                        <Label layoutX="10.0" layoutY="284.0" prefHeight="15.0" prefWidth="154.0" text="Quantidade:" AnchorPane.leftAnchor="10.0" />
+                        <org.luis.fx.components.input.NumberField fx:id="txtQty" layoutX="10.0" layoutY="299.0" prefHeight="25.0" prefWidth="119.0" AnchorPane.leftAnchor="10.0" />
+                        <Label layoutX="227.0" layoutY="284.0" prefHeight="15.0" prefWidth="154.0" text="Quantidade minima:" />
+                        <org.luis.fx.components.input.NumberField fx:id="txtMinQty" layoutX="227.0" layoutY="299.0" prefHeight="25.0" prefWidth="119.0" />
+                        <Label layoutX="10.0" layoutY="343.0" prefHeight="15.0" prefWidth="154.0" text="Prateleira:" />
+                        <ComboBox fx:id="cmbShelf" layoutX="10.0" layoutY="358.0" prefHeight="25.0" prefWidth="205.0" />
+                        <Label layoutX="10.0" layoutY="400.0" prefHeight="15.0" prefWidth="126.0" text="Palavras-chave:" />
+                        <TextArea fx:id="txtKeyWords" layoutX="13.0" layoutY="415.0" prefHeight="206.0" prefWidth="563.0" promptText="Use palavras separado por espaço ou vírgulas (Ex: Roda, 18, Corsa 2008)" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
+</fx:root>

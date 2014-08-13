@@ -17,21 +17,7 @@ import javafx.fxml.FXMLLoader;
 public class TestEdit extends CrudEdit<User> {
 
     public TestEdit() {
-
-        URL fxmlUrl = getClass().getResource("/fxml/Test.fxml");
-
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-
-        loader.setResources(ResourceBundle.getBundle("i18n/label"));
-        loader.setController(this);
-        loader.setRoot(this);
-        
-        try {
-
-            loader.load();
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
+        super("/fxml/Test.fxml");
     }
 
     @FXML
@@ -67,5 +53,5 @@ public class TestEdit extends CrudEdit<User> {
     public User createNewInstance() {
         return new User();
     }
-    
+
 }

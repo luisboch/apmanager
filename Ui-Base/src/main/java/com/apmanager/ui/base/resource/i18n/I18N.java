@@ -99,4 +99,17 @@ public class I18N {
             return config.get(key);
         }
     }
+    
+    public static class Message {
+
+        private static final Resource message;
+
+        static {
+            message = new Resource("message");
+        }
+
+        public static String get(String key) {
+            return message.get(key);
+        }
+    }
 }

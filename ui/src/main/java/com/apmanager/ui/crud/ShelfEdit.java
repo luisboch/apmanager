@@ -22,21 +22,7 @@ public class ShelfEdit extends CrudEdit<Shelf> {
     private TextField textFieldName, textFieldDesc;
 
     public ShelfEdit() {
-        
-        URL fxmlUrl = getClass().getResource("/fxml/crud/shelf/ShelfEdit.fxml");
-
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-
-        loader.setResources(ResourceBundle.getBundle("i18n/label"));
-        loader.setController(this);
-        loader.setRoot(this);
-        
-        try {
-            loader.load();
-        } catch (Exception ex) {
-            log.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new RuntimeException(ex);
-        }
+        super("/fxml/crud/shelf/ShelfEdit.fxml");
     }
 
     @Override

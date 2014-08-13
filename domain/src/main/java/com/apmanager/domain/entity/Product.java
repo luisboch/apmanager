@@ -53,7 +53,7 @@ public class Product implements BasicEntity<Long> {
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductKeyWord> keyworkds;
+    private List<ProductKeyWord> keywords;
 
     @Column(name = "code")
     private String code;
@@ -84,9 +84,11 @@ public class Product implements BasicEntity<Long> {
     private Integer minQuantity;
 
     private boolean active = true;
-
+    
+    private String userKeyWords;
+    
     public Product() {
-        keyworkds = new ArrayList<>();
+        keywords = new ArrayList<>();
     }
 
     @Override
@@ -221,17 +223,25 @@ public class Product implements BasicEntity<Long> {
         this.lastUpdate = lastUpdate;
     }
 
-    public List<ProductKeyWord> getKeyworkds() {
-        return keyworkds;
+    public List<ProductKeyWord> getKeywords() {
+        return keywords;
     }
 
-    public void setKeyworkds(List<ProductKeyWord> keyworkds) {
-        this.keyworkds = keyworkds;
+    public void setKeywords(List<ProductKeyWord> keywords) {
+        this.keywords = keywords;
     }
 
+    public String getUserKeyWords() {
+        return userKeyWords;
+    }
+
+    public void setUserKeyWords(String userKeyWords) {
+        this.userKeyWords = userKeyWords;
+    }
+    
     @Override
     public String getDisplayName() {
-        return this.name + " " + this.code + " " + this.additionalCode;
+        return this.name + " " + (this.code == null ? "" : this.code) + " " + (this.additionalCode == null ? "" : this.additionalCode);
     }
 
     @Override

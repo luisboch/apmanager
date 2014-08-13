@@ -22,7 +22,7 @@ public class ShelfDAO extends BasicSearchDAOImpl {
 
     public List<Shelf> search(String search) {
         search = search == null ? "" : search;
-        String jpql = "select c from Shelf c where c.status = true "
+        String jpql = "select c from Shelf c where c.active = true "
                 + "and ( lower(c.code) like lower(:search) "
                 + "or lower(c.description) like lower(:search))";
         Query q = em.createQuery(jpql);

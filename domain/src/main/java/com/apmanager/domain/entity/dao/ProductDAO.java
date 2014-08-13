@@ -56,7 +56,7 @@ public class ProductDAO extends BasicSearchDAOImpl {
                 .append("  from Product u \n");
 
         for (int i = 0; i < words.length; i++) {
-            jpql.append("join u.keyworkds k").append(i + 1).append("\n");
+            jpql.append("join u.keywords k").append(i + 1).append("\n");
         }
 
         if (words.length > 0) {
