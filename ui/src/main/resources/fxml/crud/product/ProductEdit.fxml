@@ -32,6 +32,8 @@
                         <ComboBox fx:id="cmbShelf" layoutX="10.0" layoutY="358.0" prefHeight="25.0" prefWidth="205.0" />
                         <Label layoutX="10.0" layoutY="400.0" prefHeight="15.0" prefWidth="126.0" text="Palavras-chave:" />
                         <TextArea fx:id="txtKeyWords" layoutX="13.0" layoutY="415.0" prefHeight="206.0" prefWidth="563.0" promptText="Use palavras separado por espaço ou vírgulas (Ex: Roda, 18, Corsa 2008)" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Button layoutX="304.0" layoutY="137.0" mnemonicParsing="false" onAction="#addBrand" text="+" />
+                  <Button layoutX="227.0" layoutY="358.0" mnemonicParsing="false" onAction="#addShelf" text="+" />
                     </children>
                 </AnchorPane>
             </content>

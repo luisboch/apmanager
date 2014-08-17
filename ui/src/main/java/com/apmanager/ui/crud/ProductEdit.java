@@ -7,8 +7,13 @@ import com.apmanager.domain.entity.Shelf;
 import com.apmanager.service.ProductBrandSearchService;
 import com.apmanager.service.ShelfSearchService;
 import com.apmanager.service.base.Services;
+import com.apmanager.ui.base.Platform;
 import com.apmanager.ui.base.crud.CrudEdit;
+import com.apmanager.ui.base.handler.BasicHandler;
 import com.apmanager.ui.base.utils.renderer.EntityConverter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -127,5 +132,50 @@ public class ProductEdit extends CrudEdit<Product> {
         cmbBrand.getItems().addAll(brandService.genericSearch(ProductBrand.class, ""));
         cmbShelf.getItems().addAll(shelfService.genericSearch(Shelf.class, ""));
     }
+    
+    public void addBrand(){
+        ProductBrandEdit editor = new ProductBrandEdit();
+        Platform.getInstance().createNewInstance(editor, new BasicHandler<ProductBrand>() {
 
+            @Override
+            public void handle(ProductBrand obj) {
+                if(obj != null){
+                    final List<BasicEntity> brands = new ArrayList<>(cmbBrand.getItems());
+                    
+                    brands.add(obj);
+                    
+                    Collections.sort(brands);
+                    
+                    cmbBrand.getItems().clear();
+                    cmbBrand.getItems().addAll(brands);
+                    
+                    cmbBrand.getSelectionModel().clearSelection();
+                    cmbBrand.getSelectionModel().select(obj);
+                }
+            }
+        });
+    }
+    
+    public void addShelf(){
+        ShelfEdit editor = new ShelfEdit();
+        Platform.getInstance().createNewInstance(editor, new BasicHandler<Shelf>() {
+
+            @Override
+            public void handle(Shelf obj) {
+                if(obj != null){
+                    final List<BasicEntity> brands = new ArrayList<>(cmbShelf.getItems());
+                    
+                    brands.add(obj);
+                    
+                    Collections.sort(brands);
+                    
+                    cmbShelf.getItems().clear();
+                    cmbShelf.getItems().addAll(brands);
+                    
+                    cmbShelf.getSelectionModel().clearSelection();
+                    cmbShelf.getSelectionModel().select(obj);
+                }
+            }
+        });
+    }
 }

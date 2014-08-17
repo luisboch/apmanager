@@ -13,7 +13,7 @@ import java.util.Date;
  * @author luis
  * @param <E>
  */
-public interface BasicEntity<E extends Number> extends Serializable {
+public interface BasicEntity<E extends Number> extends Serializable, Comparable<BasicEntity> {
 
     E getId();
 
@@ -24,4 +24,14 @@ public interface BasicEntity<E extends Number> extends Serializable {
     void setCreationDate(Date date);
 
     String getDisplayName();
+
+    @Override
+    public default int compareTo(BasicEntity o) {
+        
+        if(o == null){
+            return 1;
+        }
+        
+        return o.getDisplayName().compareTo(this.getDisplayName());
+    }
 }

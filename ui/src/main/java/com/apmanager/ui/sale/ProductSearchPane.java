@@ -36,6 +36,7 @@ public class ProductSearchPane extends BasicAnchorPane {
 
     @FXML
     private TableColumn<Product, String> cnPrice;
+    @FXML
     private TableColumn<BasicEntity, String> cnProduct;
 
     @FXML
