@@ -45,8 +45,7 @@ public class SalePane extends BasicAnchorPane {
                     public void handle(Object obj) {
                         log.info("Search finished");
                         if (search.getSelected() != null) {
-                            final ProductAddPane productAddPane = new ProductAddPane();
-                            productAddPane.setProduct(search.getSelected());
+                            final ProductAddPane productAddPane = new ProductAddPane(null, search.getSelected());
 
                             p.showDialog(productAddPane, I18N.Label.get("add"),
                                     new BasicHandler() {

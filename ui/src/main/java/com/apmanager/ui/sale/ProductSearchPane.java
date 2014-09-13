@@ -1,19 +1,17 @@
 package com.apmanager.ui.sale;
 
 import com.apmanager.domain.base.BasicEntity;
-import com.apmanager.utils.NumberUtils;
 import com.apmanager.domain.entity.Product;
 import com.apmanager.service.ProductSearchService;
 import com.apmanager.service.base.Services;
 import com.apmanager.ui.base.Platform;
 import com.apmanager.ui.base.pane.BasicAnchorPane;
-import com.apmanager.ui.base.resource.i18n.I18N;
 import com.apmanager.ui.base.utils.renderer.NameCellFactory;
 import com.apmanager.ui.renderer.ProductPriceCellFactory;
-import java.text.DecimalFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,6 +20,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 
@@ -30,6 +29,8 @@ import javafx.util.Callback;
  * @author Luis
  */
 public class ProductSearchPane extends BasicAnchorPane {
+
+    private static final Logger log = Logger.getLogger(ProductSearchPane.class.getName());
 
     @FXML
     private TableView<Product> tbResults;
@@ -42,9 +43,6 @@ public class ProductSearchPane extends BasicAnchorPane {
     @FXML
     private TableColumn<Product, Number> cnStock;
 
-    private static final String monetarySymbol = I18N.Config.get("monetary.symbol");
-    private static final String monetaryPattern = I18N.Config.get("monetary.pattern");
-
     @FXML
     private TextField txtSearch;
 
@@ -56,7 +54,8 @@ public class ProductSearchPane extends BasicAnchorPane {
         super("/fxml/sale/ProductSearch.fxml");
 
         setupTbResult();
-
+        txtSearch.addEventHandler(KeyEvent.KEY_RELEASED, new SearchKeyHandler());
+        
     }
 
     private void setupTbResult() {
@@ -81,21 +80,22 @@ public class ProductSearchPane extends BasicAnchorPane {
         return (Product) tbResults.getSelectionModel().getSelectedItem();
     }
 
-    /**
-     * Called from fxml on user click in search button
-     *
-     * @param e
-     */
-    @FXML
     private void search(KeyEvent e) {
-        if (txtSearch.getText().length() > 2 && !searching) {
-            searching = true;
+        try {
+            if ((txtSearch.getText().length() > 2
+                    || e.getCode() == KeyCode.ENTER) && !searching) {
+                searching = true;
 
-            final List<Product> result = productService.genericSearch(Product.class, txtSearch.getText());
-            tbResults.getItems().clear();
-            tbResults.getItems().addAll(result);
+                final List<Product> result
+                        = productService.genericSearch(
+                                Product.class, txtSearch.getText());
+                tbResults.getItems().clear();
+                tbResults.getItems().addAll(result);
 
-            searching = false;
+                searching = false;
+            }
+        } catch (Exception ex) {
+            log.log(Level.SEVERE, ex.getMessage(), ex);
         }
 
     }
@@ -112,6 +112,15 @@ public class ProductSearchPane extends BasicAnchorPane {
             Platform.showError("Você não selecionou nenhum produto");
         } else {
             setVisible(false);
+        }
+    }
+
+    private class SearchKeyHandler
+            implements javafx.event.EventHandler<KeyEvent> {
+
+        @Override
+        public void handle(KeyEvent event) {
+            search(event);
         }
     }
 }
