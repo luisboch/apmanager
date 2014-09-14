@@ -58,6 +58,7 @@ CREATE TABLE product (
     active boolean not null default true,
     creation_date timestamp(3) not null default now(),
     last_update timestamp(3) not null default now(),
+    userkeywords character varying(4000) not null,
     constraint fk_prdt_brand foreign key (brand_id)
 	references product_brand(id),
     constraint fk_prdt_shelf foreign key(shelf_id)
