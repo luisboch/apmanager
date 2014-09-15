@@ -39,7 +39,7 @@ public class AppConfig {
                 }
                 properties = FileUtils.loadProperties(filePath);
                 _initialized = true;
-                
+
             } catch (Exception ex) {
                 log.log(Level.SEVERE, ex.getMessage(), ex);
                 throw new RuntimeException(ex);
@@ -56,7 +56,7 @@ public class AppConfig {
 
         properties.put(key, value);
 
-        final Enumeration elements = properties.elements();
+        final Enumeration elements = properties.keys();
 
         StringBuilder textToWrite = new StringBuilder();
 
@@ -68,7 +68,8 @@ public class AppConfig {
 
         try {
             FileUtils.writeToFile(new File(System.getProperty("user.home")
-                    + System.getProperty("file.separator") + ".apmanager.properties"), textToWrite.toString());
+                    + System.getProperty("file.separator") + "."
+                    + Platform.getApplicationName() + ".properties"), textToWrite.toString());
         } catch (IOException ex) {
             Logger.getLogger(AppConfig.class.getName()).log(Level.SEVERE, null, ex);
         }
