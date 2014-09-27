@@ -2,6 +2,7 @@ package com.apmanager.domain.entity;
 
 import com.apmanager.domain.base.Computer;
 import com.apmanager.domain.base.BasicEntity;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -37,9 +38,9 @@ public class Sale implements BasicEntity<Long> {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date openDate;
 
-    @Column(name = "close_date", nullable = false)
+    @Column(name = "close_date")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date closedDate;
+    private Date closeDate;
 
     @Column(name = "canceled", nullable = false)
     private boolean canceled = false;
@@ -89,12 +90,12 @@ public class Sale implements BasicEntity<Long> {
         this.openDate = openDate;
     }
 
-    public Date getClosedDate() {
-        return closedDate;
+    public Date getCloseDate() {
+        return closeDate;
     }
 
-    public void setClosedDate(Date closeDate) {
-        this.closedDate = closeDate;
+    public void setCloseDate(Date closeDate) {
+        this.closeDate = closeDate;
     }
 
     public boolean isCanceled() {
@@ -114,7 +115,7 @@ public class Sale implements BasicEntity<Long> {
     }
 
     public List<SaleProduct> getProducts() {
-        return products;
+        return products == null ? products = new ArrayList<>() : products;
     }
 
     public void setProducts(List<SaleProduct> products) {
@@ -198,6 +199,6 @@ public class Sale implements BasicEntity<Long> {
     @Override
     public String toString() {
         return "Sale{" + "id=" + id + ", total=" + total
-                + ", openDate=" + openDate + ", closeDate=" + closedDate + '}';
+                + ", openDate=" + openDate + ", closeDate=" + closeDate + '}';
     }
 }

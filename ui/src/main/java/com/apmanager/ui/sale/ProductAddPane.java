@@ -4,6 +4,7 @@ import com.apmanager.domain.entity.Product;
 import com.apmanager.domain.entity.Sale;
 import com.apmanager.domain.entity.SaleProduct;
 import com.apmanager.ui.base.pane.BasicAnchorPane;
+import java.util.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -33,11 +34,9 @@ public class ProductAddPane extends BasicAnchorPane {
 
     public ProductAddPane(Sale sale, Product product) {
         super("/fxml/sale/ProductAddPane.fxml");
-
         this.sale = sale;
         this.reference = product;
         updateInfo();
-
     }
 
     @FXML
@@ -53,9 +52,11 @@ public class ProductAddPane extends BasicAnchorPane {
         product.setProduct(reference);
         product.setSale(sale);
         product.setSellPrice(unitaryPrice.getValue().floatValue());
-        product.setPurchuasePrice(product.getPurchuasePrice());
+        product.setPurchuasePrice(product.getProduct().getPurchuasePrice());
         product.setSellPrice(unitaryPrice.getValue().floatValue());
-
+        product.setCreationDate(new Date());
+        product.setLastUpdate(new Date());
+        
         setVisible(false);
     }
 
