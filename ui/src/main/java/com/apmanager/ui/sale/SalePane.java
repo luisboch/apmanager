@@ -13,6 +13,7 @@ import com.apmanager.ui.base.handler.BasicHandler;
 import com.apmanager.ui.base.pane.BasicAnchorPane;
 import com.apmanager.ui.base.resource.i18n.I18N;
 import com.apmanager.utils.NumberUtils;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,10 +61,13 @@ public class SalePane extends BasicAnchorPane {
 
     @Open
     public void open() {
+
         log.info("Opening SalePane");
+
         saleService = Services.getService(SaleService.class);
+
         service = Services.getEntityService();
-        
+
         sale = saleService.getActiveSale(AppData.getComputer());
 
         if (sale == null) {
@@ -78,6 +82,38 @@ public class SalePane extends BasicAnchorPane {
     }
 
     @FXML
+    public void cancelSale(ActionEvent evt) {
+        Platform.getInstance().load(new Runnable() {
+            @Override
+            public void run() {
+                if (sale != null) {
+                    sale.setCanceled(true);
+                    sale.setClosed(false);
+                    sale.setCloseDate(new Date());
+                    service.update(sale);
+                }
+                open();
+            }
+        });
+    }
+
+    @FXML
+    public void closeSale(ActionEvent evt) {
+        Platform.getInstance().load(new Runnable() {
+            @Override
+            public void run() {
+                if (sale != null) {
+                    sale.setCanceled(false);
+                    sale.setClosed(true);
+                    sale.setCloseDate(new Date());
+                    service.update(sale);
+                }
+                open();
+            }
+        });
+    }
+
+    @FXML
     public void showSearchPane(ActionEvent evt) {
         final Platform p = Platform.getInstance();
         final ProductSearchPane search = new ProductSearchPane();
@@ -88,6 +124,15 @@ public class SalePane extends BasicAnchorPane {
                     public void handle(Object obj) {
                         log.info("Search finished");
                         if (search.getSelected() != null) {
+
+                            final List<SaleProduct> products = sale.getProducts();
+                            for (SaleProduct s : products) {
+                                if (s.getProduct().equals(search.getSelected())) {
+                                    Platform.showError("Este produto já foi adicionado!");
+                                    return;
+                                }
+                            }
+
                             final ProductAddPane productAddPane = new ProductAddPane(sale, search.getSelected());
 
                             p.showDialog(productAddPane, I18N.Label.get("add"),
@@ -107,12 +152,25 @@ public class SalePane extends BasicAnchorPane {
 
     private void load(Sale sale) {
         updateTb(sale.getProducts());
-        lblCode.setText(sale.getId().toString());
+        
+        javafx.application.Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                lblCode.setText(sale.getId().toString());
+            }
+        });
+
     }
 
     private void updateTb(List<SaleProduct> products) {
-        results.getItems().clear();
-        results.getItems().addAll(products);
+        javafx.application.Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                results.getItems().clear();
+                results.getItems().addAll(products);
+            }
+        });
     }
 
     private void setupTable() {
@@ -124,41 +182,53 @@ public class SalePane extends BasicAnchorPane {
                 = (TableColumn<SaleProduct, String>) results.getColumns().get(2);
         final TableColumn<SaleProduct, Integer> clQtde
                 = (TableColumn<SaleProduct, Integer>) results.getColumns().get(3);
-        
+
         clNum.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SaleProduct, Integer>, ObservableValue<Integer>>() {
 
             @Override
             public ObservableValue<Integer> call(TableColumn.CellDataFeatures<SaleProduct, Integer> param) {
+                if (param == null || param.getValue() == null) {
+                    return new SimpleObjectProperty<>();
+                }
                 return new SimpleObjectProperty<>(sale.getProducts().indexOf(param.getValue()));
             }
         });
-        
+
         clName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SaleProduct, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<SaleProduct, String> param) {
+                if (param == null || param.getValue() == null) {
+                    return new SimpleStringProperty("");
+                }
                 return new SimpleStringProperty(param.getValue().getProduct().getName());
             }
         });
-        
+
         clUnitaryPrice.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SaleProduct, String>, ObservableValue<String>>() {
 
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<SaleProduct, String> param) {
+                if (param == null || param.getValue() == null) {
+                    return new SimpleStringProperty("");
+                }
                 return new SimpleStringProperty(
                         I18N.Config.get("monetary.symbol") + " "
                         + NumberUtils.format(param.getValue().getPurchuasePrice(),
                                 I18N.Config.get("monetary.pattern")));
             }
         });
-        
+
         clQtde.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SaleProduct, Integer>, ObservableValue<Integer>>() {
 
             @Override
             public ObservableValue<Integer> call(TableColumn.CellDataFeatures<SaleProduct, Integer> param) {
+                if (param == null || param.getValue() == null) {
+                    return new SimpleObjectProperty<>();
+                }
                 return new SimpleObjectProperty<>(param.getValue().getQuantity());
             }
         });
-        
+
     }
 
 }
