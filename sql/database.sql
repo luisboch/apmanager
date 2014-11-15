@@ -78,7 +78,7 @@ CREATE TABLE sale (
     id serial primary key,
     canceled boolean NOT NULL default false,
     closed boolean NOT NULL default false,
-    close_date timestamp(3) NOT NULL default now(),
+    close_date timestamp(3),
     open_date timestamp(3) NOT NULL default now(),
     total double precision default 0.0,
     computer_id integer not null,
