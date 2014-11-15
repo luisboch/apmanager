@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -55,7 +54,7 @@ public class ProductSearchPane extends BasicAnchorPane {
 
         setupTbResult();
         txtSearch.addEventHandler(KeyEvent.KEY_RELEASED, new SearchKeyHandler());
-        
+
     }
 
     private void setupTbResult() {
@@ -96,6 +95,7 @@ public class ProductSearchPane extends BasicAnchorPane {
             }
         } catch (Exception ex) {
             log.log(Level.SEVERE, ex.getMessage(), ex);
+            searching = false;
         }
 
     }

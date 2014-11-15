@@ -22,7 +22,7 @@
 .button:pressed {
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1)  , 10, 0.1 , 6 , 8);
 }
-.menu-bar{
+/*.menu-bar{
     -fx-background-color:
         linear-gradient( #fff 0%, #a8e6fb 45%, #88c6fb 50%, #d5faff 99%, #3e4afd 100%  );
     -fx-background-insets: 0 ;
@@ -44,7 +44,7 @@
     -fx-background-insets: 0 ;
 }
 
-/** Selected itens */
+* Selected itens 
 .menu:selected,
 .menu:hover,
 .menu:focused,
@@ -58,7 +58,7 @@
     -fx-background-color:
         linear-gradient( #386de2 0%, #689df2 50%, #386de2 100%  );;
     -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.1)  , 10, 0.1 , 0 , 0);
-}
+}*/
 
 .loader-pane{
     -fx-background-color: linear-gradient(#fff 0%,  #fff 90%, #98D6fb 100%);

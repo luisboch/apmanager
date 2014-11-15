@@ -58,9 +58,11 @@ public class ProductDAO extends BasicSearchDAOImpl {
         for (int i = 0; i < words.length; i++) {
             jpql.append("join u.keywords k").append(i + 1).append("\n");
         }
-
+        boolean hasWhere = false;
         if (words.length > 0) {
             jpql.append(" where \n");
+
+            hasWhere = true;
             for (int i = 0; i < words.length; i++) {
                 if (i != 0) {
                     jpql.append("and ");
@@ -73,6 +75,11 @@ public class ProductDAO extends BasicSearchDAOImpl {
         }
 
         if (active != null) {
+            
+            if (!hasWhere) {
+                jpql.append(" where \n");
+            }
+            
             if (words.length > 0) {
                 jpql.append("and ");
             }
@@ -96,16 +103,16 @@ public class ProductDAO extends BasicSearchDAOImpl {
                 q.setParameter("p" + i, "%" + words[i] + "%");
             }
         }
-        
+
         q.setHint(QueryHints.RESULT_COLLECTION_TYPE, java.util.ArrayList.class);
 
         if (active != null) {
             q.setParameter("active", active);
         }
-        
+
         q.setHint(QueryHints.FETCH, "u.shelf");
         q.setHint(QueryHints.FETCH, "u.brand");
-        
+
         return q.getResultList();
     }
 }
